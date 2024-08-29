@@ -33,24 +33,20 @@
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-                                @if($userprofile && $userprofile->profile_img)
-                                    <img src="{{ asset('public/' . $userprofile->profile_img) }}" class="profile-user-img img-fluid img-circle" alt="User profile picture">
-                                @else
                                     <img src="{{ asset('public/userprofile/21.jpg') }}" class="profile-user-img img-fluid img-circle">
-                                @endif
                             </div>
-                            <h3 class="profile-username text-center">{{ $user->name }}</h3>
-                            <p class="text-muted text-center">{{ $user->designation }}</p>
+                            <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
+                            {{-- <p class="text-muted text-center">{{ $user->designation }}</p> --}}
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                <b>Email</b> <a class="float-right">{{ $user->email }}</a>
+                                <b>Email</b> <a class="float-right">{{ Auth::user()->email }}</a>
                                 </li>
-                                <li class="list-group-item">
+                                {{-- <li class="list-group-item">
                                 <b>Phone Number</b> <a class="float-right">{{ $user->phone_number }}</a>
-                                </li>
-                                <li class="list-group-item">
+                                </li> --}}
+                                {{-- <li class="list-group-item">
                                 <b>Address</b> <a class="float-right">{{ $user->address }}</a>
-                                </li>
+                                </li> --}}
                             </ul>
                             <div class="row">
                                 <div class="col-5"></div>

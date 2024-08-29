@@ -13,28 +13,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->integer('employee_id')->nullable()->default(0);
-            $table->integer('employee_old_id')->nullable()->default(0);
-            $table->string('name')->nullable();
-            $table->string('strategic_unit')->nullable();
-            $table->string('designation')->nullable();
-            $table->string('phone_number')->nullable();
-            $table->string('email')->nullable();
-            $table->string('gender')->nullable();
-            $table->string('su_head')->nullable();
-            $table->integer('functionally_reports_to')->nullable()->default(0);
-            $table->string('functional_head_name')->nullable();
-            $table->integer('administratively_reports_to')->nullable()->default(0);
-            $table->string('admin_head_name')->nullable();
+            $table->string('name');
+            $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->nullable();
-            $table->integer('status')->nullable()->default(1);
-            $table->integer('role_id')->nullable();
-            $table->string('address')->nullable();
-            $table->string('unique_id')->nullable();
-            $table->string('org_o')->nullable();
-            $table->string('profile_img')->nullable();
-            $table->integer('created_by')->nullable();
+            $table->string('password');
+            $table->string('role');
             $table->rememberToken();
             $table->timestamps();
         });

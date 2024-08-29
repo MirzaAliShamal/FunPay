@@ -40,7 +40,7 @@ class HomeController extends Controller
             // Check if user is authenticated
             if (Auth::check()) {
                 $user = Auth::user();
-                return redirect()->route('dashboard')->with('success', 'Welcome, ' . $user->name . '! You have logged in successfully!');
+                return redirect()->route('admin.dashboard')->with('success', 'Welcome, ' . $user->name . '! You have logged in successfully!');
             } else {
                 // Redirect to logout if user is not authenticated (should not reach here in most cases)
                 return redirect()->route('logoutuser')->with('error', 'User authentication failed.');

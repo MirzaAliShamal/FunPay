@@ -19,16 +19,7 @@
       <a class="nav-link" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <div class="user-panel d-flex">
           <div class="image">
-            <?php
-            use App\Models\User;
-            $user = auth()->user();
-            $userProfile = User::where('employee_id', $user->employee_id)->first();
-            ?>
-            @if ($userProfile && $userProfile->profile_img)
-                <img src="{{ asset('public/' . $userProfile->profile_img) }}" class="img-circle elevation-2" alt="User Image">
-            @else
                 <img src="{{ asset('public/userprofile/21.jpg') }}" class="img-circle elevation-2" alt="User Image">
-            @endif  
           </div>
         </div>
       </a>

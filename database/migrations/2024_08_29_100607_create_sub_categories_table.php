@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('studentsheets', function (Blueprint $table) {
+        Schema::create('sub_categories', function (Blueprint $table) {
             $table->id();
-            $table->integer('student_id')->nullable();
-            $table->integer('roll number')->nullable();
-            $table->string('answers')->nullable();
-            $table->integer('answer_sheet_id')->nullable();
-            $table->integer('created_by')->nullable();
+            $table->foreignId('category_id')->constrained('categories');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('studentsheets');
+        Schema::dropIfExists('sub_categories');
     }
 };

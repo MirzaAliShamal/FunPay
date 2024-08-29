@@ -8,25 +8,23 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('organizationlogos', function (Blueprint $table) {
+        Schema::create('games', function (Blueprint $table) {
             $table->id();
-            $table->string('org_logo');
+            $table->string('name');
+            $table->longText('description');
+            $table->string('image');
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('organizationlogos');
+        Schema::dropIfExists('games');
     }
 };

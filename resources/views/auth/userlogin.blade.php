@@ -23,16 +23,8 @@
         <div class="card-body login-card-body">
           <div class="login-logo mb-4">
             
-              @php
-                use App\Models\OrganizationLogo;
-                $organizationLogo = OrganizationLogo::first();
-              @endphp
-              
-              @if($organizationLogo && $organizationLogo->org_logo)
-                <img src="{{ asset('/public/organizationlogo/' . $organizationLogo->org_logo) }}" alt="logo"  height="100" style="width: 163px;"/>
-              @else
                 <img src="{{ asset('public/userprofile/1721712361_general_public.jpg') }}" alt="Default Logo" class="sidebar-logo" height="50"/>
-              @endif
+              
           </div>
           {{-- <p class="login-box-msg"><strong>Sign In</strong></p> --}}
           <p class="mb-4 text-center">sign in with your email & password.</p>
