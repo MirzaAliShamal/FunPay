@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('sub_categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained('categories');
+            $table->integer('category_id');
             $table->string('name');
+            $table->string('slug')->unique()->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

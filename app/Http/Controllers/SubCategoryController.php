@@ -3,62 +3,64 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\SubCategory;
 
 class SubCategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('sub-category.index');
+        $subCategories = SubCategory::with('category')->get();
+        return view('subcategory.index', compact('subCategories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    
     public function create()
     {
-        return view('sub-category.create');
+        $categories = Category::all(); 
+        return view('subcategory.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'permalink' => 'required|string|max:255',
+            'category_id' => 'required|integer|exists:categories,id',
+        ]);
+
+        SubCategory::create($request->all());
+        return redirect()->route('admin.subcategory.index')->with('success', 'Sub-Category created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    
+    public function edit($id)
     {
-        //
+        $categories = Category::all(); 
+        $subCategory = SubCategory::findOrFail($id); 
+       
+        return view('subcategory.edit', compact('subCategory', 'categories'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    
+    public function update(Request $request, $id)
     {
-        return view('sub-category.edit');
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'permalink' => 'required|string|max:255',
+            'category_id' => 'required|integer|exists:categories,id',
+        ]);
+        $subCategory = SubCategory::findOrFail($id); 
+        $subCategory->update($request->all());
+        return redirect()->route('admin.subcategory.index')->with('success', 'Sub-Category updated successfully.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $subCategory = SubCategory::findOrFail($id); 
+        $subCategory->delete();
+        return redirect()->route('admin.subcategory.index')->with('success', 'Sub-Category deleted successfully.');
     }
 }

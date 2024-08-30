@@ -12,8 +12,9 @@ return new class extends Migration {
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('game_id')->constrained('games');
             $table->string('name');
+            $table->string('slug')->unique()->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('games', function (Blueprint $table) {
             $table->id();
+            $table->integer('category_id');
+            $table->integer('sub_category_id');
             $table->string('name');
+            $table->string('slug')->unique()->nullable();
             $table->longText('description');
             $table->string('image');
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

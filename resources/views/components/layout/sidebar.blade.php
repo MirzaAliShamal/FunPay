@@ -9,28 +9,27 @@
   <nav class="mt-2">
    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-
     <li class="nav-item mt-2">
      <a href="{{ route('admin.dashboard') }}" class="nav-link">
-      <i class="side-menu__icon"></i>
+     <i class="nav-icon fas fa-tachometer-alt"></i>
       <p class="side-menu__label mx-2">Dashboard</p>
      </a>
     </li>
     <li class="nav-item mt-2">
      <a href="{{ route('admin.game') }}" class="nav-link">
-      <i class="side-menu__icon"></i>
+     <i class="fa fa-gamepad"></i>
       <p class="side-menu__label mx-2">Games</p>
      </a>
     </li>
     <li class="nav-item mt-2">
      <a href="{{ route('admin.category.index') }}" class="nav-link">
-      <i class="side-menu__icon"></i>
+      <i class="nav-icon fas fa-tachometer-alt"></i>
       <p class="side-menu__label mx-2">Category</p>
      </a>
     </li>
     <li class="nav-item mt-2">
      <a href="{{ route('admin.subcategory.index') }}" class="nav-link">
-      <i class="side-menu__icon"></i>
+      <i class="nav-icon fas fa-tachometer-alt"></i>
       <p class="side-menu__label mx-2">Sub Category</p>
      </a>
     </li>

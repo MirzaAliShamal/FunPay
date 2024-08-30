@@ -38,11 +38,12 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('subcategory', SubCategoryController::class);
 
     // **************************** Games ****************************
-    Route::get('/games', [GameController::class, 'index'])->name('game');
-    Route::get('/games/create', [GameController::class, 'create'])->name('game.create');
-    Route::post('/games/store', [GameController::class, 'store'])->name('game.store');
-    Route::get('/games/edit', [GameController::class, 'edit'])->name('game.edit');
-    Route::post('/games/update', [GameController::class, 'update'])->name('game.update');
+    Route::get('/game', [GameController::class, 'index'])->name('game');
+    Route::get('/game/create', [GameController::class, 'create'])->name('game.create');
+    Route::post('/game/store', [GameController::class, 'store'])->name('game.store');
+    Route::get('/game/edit/{game}', [GameController::class, 'edit'])->name('game.edit');
+    Route::put('/game/update/{game}', [GameController::class, 'update'])->name('game.update');
+    Route::delete('/game/destroy/{game}', [GameController::class, 'update'])->name('game.destroy');
 
 });
 
