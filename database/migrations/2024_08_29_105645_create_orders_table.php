@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('game_id')->constrained('games');
+            $table->integer('game_id');
             $table->string('short description');
             $table->string('detailed description');
             $table->timestamps();

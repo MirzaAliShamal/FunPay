@@ -48,7 +48,7 @@
                                     <select name="offer_category_id" id="offer_category_id" class="form-control select2bs4">
                                         <option value="">Select Offer</option>
                                         @foreach($offer_categories as $offer)
-                                            <option value="{{ $offer->id }}" {{ $subCategory->category_id == $offer->id ? 'selected' : '' }}>
+                                            <option value="{{ $offer->id }}" {{ $subCategory->offer_category_id == $offer->id ? 'selected' : '' }}>
                                                 {{ $offer->name }}
                                             </option>
                                         @endforeach
