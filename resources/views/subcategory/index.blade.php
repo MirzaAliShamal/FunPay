@@ -45,6 +45,7 @@
                                     <tr>
                                         <th style="width: 10px">#</th>
                                         <th>Category</th>
+                                        <th>Offer Type</th>
                                         <th>Name</th>
                                         <th>Permalink</th>
                                         <th>Status</th>
@@ -56,8 +57,9 @@
                                     <tr>
                                         <td>{{ $subCategory->id }}</td>
                                         <td>{{ $subCategory->category->name }}</td>
+                                        <td>@if($subCategory->offercategory){{ $subCategory->offercategory->name }}@endif</td>
                                         <td>{{ $subCategory->name }}</td>
-                                        <td>{{ $subCategory->permalink }}</td>
+                                        <td>{{ $subCategory->slug }}</td>
                                         <td>
                                             @if ($subCategory->status == 1)
                                             <div class="badge bg-success">Active</div>

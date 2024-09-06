@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\OfferCategory;
 
 class SubCategoryController extends Controller
 {
     public function index()
     {
-        $subCategories = SubCategory::with('category')->get();
+        $subCategories = SubCategory::with('category')->with('offercategory')->get();
         return view('subcategory.index', compact('subCategories'));
     }
 
@@ -18,7 +19,8 @@ class SubCategoryController extends Controller
     public function create()
     {
         $categories = Category::all(); 
-        return view('subcategory.create', compact('categories'));
+        $offer_categories = OfferCategory::all(); 
+        return view('subcategory.create', compact('categories','offer_categories'));
     }
 
     
@@ -26,7 +28,6 @@ class SubCategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'permalink' => 'required|string|max:255',
             'category_id' => 'required|integer|exists:categories,id',
         ]);
 
@@ -39,8 +40,9 @@ class SubCategoryController extends Controller
     {
         $categories = Category::all(); 
         $subCategory = SubCategory::findOrFail($id); 
+        $offer_categories = OfferCategory::all(); 
        
-        return view('subcategory.edit', compact('subCategory', 'categories'));
+        return view('subcategory.edit', compact('subCategory', 'categories','offer_categories'));
     }
 
     
@@ -48,8 +50,8 @@ class SubCategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'permalink' => 'required|string|max:255',
             'category_id' => 'required|integer|exists:categories,id',
+            'offer_category_id' => 'required|integer|exists:offer_categories,id',
         ]);
         $subCategory = SubCategory::findOrFail($id); 
         $subCategory->update($request->all());

@@ -4,15 +4,15 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\SubCategory;
+use App\Models\OfferCategory;
 
-class SubCategorySeeder extends Seeder
+class OfferCategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        SubCategory::factory()->count(3)->create();
+        OfferCategory::factory()->count(3)->create();
     }
 }

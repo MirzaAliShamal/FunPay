@@ -43,15 +43,22 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="name">Sub Category Name</label>
-                                    <input type="text" class="form-control" id="name" onblur="creat_link_product()" name="name" placeholder="Enter Sub-Category Name" value="{{ old('name') }}">
-                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                                    <label for="category_id">Offer Type</label>
+                                    <select name="offer_category_id" id="offer_category_id" class="form-control select2bs4">
+                                        <option value="">Select Offer</option>
+                                        @foreach($offer_categories as $offer)
+                                            <option value="{{ $offer->id }}">
+                                                {{ $offer->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <span class="text-danger">{{ $errors->first('category_id') }}</span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="permalink">Permalink</label>
-                                    <input type="text" class="form-control" id="permalink" name="permalink" placeholder="Enter Permalink" value="{{ old('permalink') }}">
-                                    <span class="text-danger">{{ $errors->first('permalink') }}</span>
+                                    <label for="name">Sub Category Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="{{ old('name') }}">
+                                    <span class="text-danger">{{ $errors->first('name') }}</span>
                                 </div>
 
                                 <div class="form-group">

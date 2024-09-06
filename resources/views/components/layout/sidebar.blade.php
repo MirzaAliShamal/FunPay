@@ -17,6 +17,32 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="javascript:void(0)" class="nav-link">
+                        <i class="nav-icon fas fa-edit"></i>
+                        <p>
+                            Setup
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item">
+                            <a href="{{route('admin.offer')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Offer Category</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.offertype')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Offer Type</p>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </li>
+
                 <li class="nav-item mt-2">
                     <a href="{{ route('admin.category.index') }}" class="nav-link">
                         <i class="fas fa-list"></i>

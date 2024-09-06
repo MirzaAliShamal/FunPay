@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Categories</h1>
+                    <h1>Offer Categories</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">Dashboard</li>
-                        <li class="breadcrumb-item active">Categories</li>
+                        <li class="breadcrumb-item active">Offer Categories</li>
                     </ol>
                 </div>
             </div>
@@ -32,26 +32,26 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Update Category</h3>
+                            <h3 class="card-title">Update Offer Category</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('admin.category.update', $category->id) }}" method="POST">
+                        <form action="{{ route('admin.offer.update', $offercategory->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="card-body">
 
                                 <div class="form-group">
-                                    <label for="name">Category Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="{{ old('name', $category->name) }}">
+                                    <label for="name">Offer Category Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="{{ old('name', $offercategory->name) }}">
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="status">Status</label>
                                     <select name="status" class="form-control select2bs4" style="width: 100%;">
-                                        <option value="1" {{ $category->status == 1 ? 'selected' : '' }}>Active</option>
-                                        <Option value="0" {{ $category->status == 0 ? 'selected' : '' }}>Inactive</Option>
+                                        <option value="1" {{ $offercategory->status == 1 ? 'selected' : '' }}>Active</option>
+                                        <Option value="0" {{ $offercategory->status == 0 ? 'selected' : '' }}>Inactive</Option>
                                     </select>
                                 </div>
 

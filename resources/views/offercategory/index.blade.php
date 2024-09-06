@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Categories</h1>
+                    <h1>Offer Categories</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">Dashboard</li>
-                        <li class="breadcrumb-item active">Categories</li>
+                        <li class="breadcrumb-item active">Offer Categories</li>
                     </ol>
                 </div>
             </div>
@@ -32,36 +32,47 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Update Category</h3>
+                            <h3 class="card-title">Offer Categories</h3>
+                            <a href="{{ route('admin.offer.create') }}" class="btn btn-info float-right">New</a>
                         </div>
                         <!-- /.card-header -->
-                        <!-- form start -->
-                        <form action="{{ route('admin.category.update', $category->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <div class="card-body">
-
-                                <div class="form-group">
-                                    <label for="name">Category Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="{{ old('name', $category->name) }}">
-                                    <span class="text-danger">{{ $errors->first('name') }}</span>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="status">Status</label>
-                                    <select name="status" class="form-control select2bs4" style="width: 100%;">
-                                        <option value="1" {{ $category->status == 1 ? 'selected' : '' }}>Active</option>
-                                        <Option value="0" {{ $category->status == 0 ? 'selected' : '' }}>Inactive</Option>
-                                    </select>
-                                </div>
-
-                            </div>
-                            <!-- /.card-body -->
-
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Update</button>
-                            </div>
-                        </form>
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10px">#</th>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($offer_categories as $category)
+                                    <tr>
+                                        <td>{{ $category->id }}</td>
+                                        <td>{{ $category->name }}</td>
+                                        <td>
+                                            @if ($category->status == 1)
+                                            <div class="badge bg-success" style="">Active</div>
+                                            @else
+                                            <div class="badge bg-danger">Inactive</div>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.offer.edit', $category) }}"
+                                                class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                            <form action="{{ route('admin.offer.destroy', $category->id) }}"
+                                                method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

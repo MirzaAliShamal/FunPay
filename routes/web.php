@@ -6,6 +6,8 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OfferCategoryController;
+use App\Http\Controllers\OfferTypeController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -43,7 +45,23 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/game/store', [GameController::class, 'store'])->name('game.store');
     Route::get('/game/edit/{game}', [GameController::class, 'edit'])->name('game.edit');
     Route::put('/game/update/{game}', [GameController::class, 'update'])->name('game.update');
-    Route::delete('/game/destroy/{game}', [GameController::class, 'update'])->name('game.destroy');
+    Route::delete('/game/destroy/{game}', [GameController::class, 'destroy'])->name('game.destroy');
+
+    // **************************** Offer Category ****************************
+    Route::get('/offer', [OfferCategoryController::class, 'index'])->name('offer');
+    Route::get('/offer/create', [OfferCategoryController::class, 'create'])->name('offer.create');
+    Route::post('/offer/store', [OfferCategoryController::class, 'store'])->name('offer.store');
+    Route::get('/offer/edit/{id}', [OfferCategoryController::class, 'edit'])->name('offer.edit');
+    Route::put('/offer/update/{id}', [OfferCategoryController::class, 'update'])->name('offer.update');
+    Route::delete('/offer/destroy/{id}', [OfferCategoryController::class, 'destroy'])->name('offer.destroy');
+
+    // **************************** Offer Type ****************************
+    Route::get('/offertype', [OfferTypeController::class, 'index'])->name('offertype');
+    Route::get('/offertype/create', [OfferTypeController::class, 'create'])->name('offertype.create');
+    Route::post('/offertype/store', [OfferTypeController::class, 'store'])->name('offertype.store');
+    Route::get('/offertype/edit/{game}', [OfferTypeController::class, 'edit'])->name('offertype.edit');
+    Route::put('/offertype/update/{game}', [OfferTypeController::class, 'update'])->name('offertype.update');
+    Route::delete('/offertype/destroy/{game}', [OfferTypeController::class, 'destroy'])->name('offertype.destroy');
 
 });
 

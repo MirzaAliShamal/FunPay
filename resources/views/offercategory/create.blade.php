@@ -36,7 +36,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('admin.category.store') }}" method="POST">
+                        <form action="{{ route('admin.offer.store') }}" method="POST">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
