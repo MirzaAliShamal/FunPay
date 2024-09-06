@@ -27,7 +27,7 @@ class OfferTypeController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'offer_category_id' => 'required|integer|exists:offer_categories,id',
+            // 'offer_category_id' => 'required|integer|exists:offer_categories,id',
         ]);
 
         OfferType::create($request->all());

@@ -31,7 +31,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="category_id">Category</label>
-                                    <select name="category_id" id="category_id" class="form-control select2bs4">
+                                    <select name="offer_category_id" id="offer_category_id" class="form-control select2bs4">
                                         <option value="">Select Category</option>
                                         @foreach($module_data as $data)
                                             <option value="{{ $data->id }}">
@@ -39,7 +39,7 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    <span class="text-danger">{{ $errors->first('category_id') }}</span>
+                                    <span class="text-danger">{{ $errors->first('offer_category_id') }}</span>
                                 </div>
 
                                 <div class="form-group">
