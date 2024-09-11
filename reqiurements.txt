@@ -1,0 +1,12 @@
+1- User Managment
+-- admin Management (done)
+-- buyer Management
+-- seller Management
+
+2- Game Management
+
+3- Category and Sub Cateogry (Front-end complete)
+
+4) Order Manage ment
+5) Post Module (front end forms)
+6) Chat System
