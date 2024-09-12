@@ -39,7 +39,7 @@
                                 <p>Offer Type</p>
                             </a>
                         </li>
-                        
+
                     </ul>
                 </li>
 
@@ -49,6 +49,15 @@
                         <p class="side-menu__label mx-2">Category</p>
                     </a>
                 </li>
+
+
+                <li class="nav-item mt-2">
+                    <a href="{{ route('filters.index') }}" class="nav-link">
+                        <i class="fas fa-list"></i>
+                        <p class="side-menu__label mx-2">Filters</p>
+                    </a>
+                </li>
+
                 <li class="nav-item mt-2">
                     <a href="{{ route('admin.subcategory.index') }}" class="nav-link">
                         <i class="fas fa-code-branch"></i>
