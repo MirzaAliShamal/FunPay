@@ -3,21 +3,13 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-<<<<<<< HEAD
-=======
 use App\Models\Category;
 use App\Models\Game;
 use App\Models\SubCategory;
->>>>>>> sharjeel
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-<<<<<<< HEAD
-    public function index(){
-        return view('front.home.home');
-    }
-=======
     public function index()
     {
         // Initialize an array to hold games for each letter
@@ -104,8 +96,4 @@ class HomeController extends Controller
 
         return view('front.subcategory', compact('subcategory', 'category', 'items'));
     }
-
-
-
->>>>>>> sharjeel
 }

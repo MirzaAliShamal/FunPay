@@ -19,15 +19,8 @@ class HomeController extends Controller
 
     public function index()
     {
-<<<<<<< HEAD
-        return view('auth.userlogin');   
-    } 
-=======
-        // dd(Hash::make('admin'));
         return view('auth.userlogin');
     }
-
->>>>>>> sharjeel
 
     public function home(Request $request)
     {
@@ -41,11 +34,7 @@ class HomeController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> sharjeel
         // Attempt to log the user in
         if (Auth::attempt($credentials)) {
             // Check if user is authenticated
@@ -62,27 +51,15 @@ class HomeController extends Controller
                 ->withErrors(['email' => 'The provided credentials do not match our records.'])
                 ->withInput();
         }
-<<<<<<< HEAD
-    } 
-
-    
-=======
     }
 
-
->>>>>>> sharjeel
-
-    public function logoutUser(Request $request) {
+    public function logoutUser(Request $request)
+    {
 
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/admin');
     }
-<<<<<<< HEAD
-    
 }
-=======
 
-}
->>>>>>> sharjeel
