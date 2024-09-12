@@ -19,17 +19,9 @@ class HomeController extends Controller
 
     public function index()
     {
-<<<<<<< HEAD
-        // dd(Hash::make('admin'));
         return view('auth.userlogin');
     }
 
-
-=======
-        return view('auth.userlogin');
-    }
-
->>>>>>> main
     public function home(Request $request)
     {
         return view('home');
@@ -61,24 +53,13 @@ class HomeController extends Controller
         }
     }
 
-<<<<<<< HEAD
-
-
-    public function logoutUser(Request $request) {
-=======
     public function logoutUser(Request $request)
     {
->>>>>>> main
 
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/admin');
     }
-<<<<<<< HEAD
 
 }
-=======
-}
-
->>>>>>> main
