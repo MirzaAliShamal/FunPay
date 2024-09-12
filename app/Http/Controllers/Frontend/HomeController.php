@@ -96,10 +96,4 @@ class HomeController extends Controller
 
         return view('front.subcategory', compact('subcategory', 'category', 'items'));
     }
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> main
 }
