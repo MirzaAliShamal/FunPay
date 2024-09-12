@@ -43,6 +43,17 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="filters">Filters</label>
+                                    <select name="filters[]" id="filters" class="form-control select2bs4" multiple>
+                                        @foreach($filters as $filter)
+                                            <option value="{{ $filter->id }}">{{ $filter->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span class="text-danger">{{ $errors->first('filters') }}</span>
+                                </div>
+
+
+                                <div class="form-group">
                                     <label for="category_id">Offer Type</label>
                                     <select name="offer_category_id" id="offer_category_id" class="form-control select2bs4">
                                         <option value="">Select Offer</option>

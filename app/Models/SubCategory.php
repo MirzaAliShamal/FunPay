@@ -10,7 +10,7 @@ use Spatie\Sluggable\SlugOptions;
 class SubCategory extends Model
 {
     use HasFactory, HasSlug;
-    protected $fillable = ['category_id','name', 'permalink','status','offer_category_id'];
+    protected $fillable = ['category_id','name', 'permalink','status','offer_category_id','slug'];
 
     public function category()
     {
@@ -33,6 +33,12 @@ class SubCategory extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+
+    public function filters()
+    {
+        return $this->belongsToMany(Filter::class, 'filter_subcategory', 'subcategory_id', 'filter_id');
+    }
+
 
     protected static function boot()
     {

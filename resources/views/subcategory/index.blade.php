@@ -49,6 +49,7 @@
                                         <th>Name</th>
                                         <th>Permalink</th>
                                         <th>Status</th>
+                                        <th>Filters</th> <!-- New column for filters -->
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -68,13 +69,25 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.subcategory.edit', $subCategory) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                            @if($subCategory->filters->isNotEmpty())
+                                                <ul>
+                                                    @foreach($subCategory->filters as $filter)
+                                                        <li>{{ $filter->name }}</li> <!-- Adjust according to your filter model -->
+                                                    @endforeach
+                                                </ul>
+                                            @else
+                                                <span>No filters</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.subcategory.edit', $subCategory->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
                                             <form action="{{ route('admin.subcategory.destroy', $subCategory) }}" method="POST" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
+
                                     </tr>
                                     @endforeach
                                 </tbody>
