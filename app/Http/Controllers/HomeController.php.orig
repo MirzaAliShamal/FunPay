@@ -19,17 +19,11 @@ class HomeController extends Controller
 
     public function index()
     {
-<<<<<<< HEAD
         // dd(Hash::make('admin'));
         return view('auth.userlogin');
     }
 
 
-=======
-        return view('auth.userlogin');
-    }
-
->>>>>>> main
     public function home(Request $request)
     {
         return view('home');
@@ -42,7 +36,6 @@ class HomeController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-
         // Attempt to log the user in
         if (Auth::attempt($credentials)) {
             // Check if user is authenticated
@@ -61,24 +54,14 @@ class HomeController extends Controller
         }
     }
 
-<<<<<<< HEAD
 
 
     public function logoutUser(Request $request) {
-=======
-    public function logoutUser(Request $request)
-    {
->>>>>>> main
 
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/admin');
     }
-<<<<<<< HEAD
 
 }
-=======
-}
-
->>>>>>> main
