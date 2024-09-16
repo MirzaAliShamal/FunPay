@@ -77,23 +77,35 @@ class HomeController extends Controller
 
 
     public function subcatpage(string $slug, Request $request) {
-        $subcategory = SubCategory::with(['category', 'filters'])->where('slug', $slug)->first();
-
+        $subcategory = SubCategory::with(['category', 'filters.options'])->where('slug', $slug)->first();
         if ($subcategory && $subcategory->category) {
             $categoryId = $subcategory->category->id;
-            $category = Category::where('id', $categoryId)->with('subCategories')->first();
+        $category = Category::where('id',$categoryId)->with('subCategories')->first();
 
-            // Retrieve selected filters from the request
-            $selectedFilters = $request->input('filters', []);
-
-            // Fetch items based on selected filters
-            $itemsQuery = Game::where('sub_category_id', $subcategory->id);
-            if (!empty($selectedFilters)) {
-                $itemsQuery->whereIn('filter_id', $selectedFilters);
-            }
-            $items = $itemsQuery->get();
         }
 
-        return view('front.subcategory', compact('subcategory', 'category', 'items'));
+
+        if (!$subcategory) {
+            abort(404);
+        }
+
+        // Retrieve selected filters from the request
+        $selectedFilters = $request->input('filters', []);
+
+        // Fetch items based on selected filters
+        $itemsQuery = Game::where('sub_category_id', $subcategory->id);
+        foreach ($selectedFilters as $filterId => $value) {
+            if (is_array($value)) {
+                $itemsQuery->whereIn('filter_id', $value);
+            } else {
+                $itemsQuery->where('filter_id', $value);
+            }
+        }
+        $items = $itemsQuery->paginate(10); // Pagination added
+
+
+        return view('front.subcategory', compact('subcategory', 'items','category'));
     }
+
+
 }

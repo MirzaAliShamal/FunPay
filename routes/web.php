@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\FilterController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Frontend\HomeController as FrontController;
 use App\Http\Controllers\GameController;
@@ -8,7 +11,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OfferCategoryController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\OfferTypeController;
+use App\Http\Controllers\SellerController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -21,29 +26,52 @@ Route::get('/clear', function () {
  return "Cleared!";
 });
 
+ // **************************** Seller Register ****************************
+
+Route::get('/seller-register', [SellerController::class, 'index'])->name('seller.register');
+Route::get('/seller/register', [SellerController::class, 'SecondIndex'])->name('step.two');
+Route::get('/seller/register/form', [SellerController::class, 'sellerregisterform'])->name('step.three');
+Route::post('/sellers/store', [SellerController::class, 'store'])->name('sellers.store');
+
+ // **************************** Seller offers ****************************
+ Route::get('/seller/offers', [OfferController::class, 'index'])->name('offer.index');
+ Route::get('/seller/offer/create', [OfferController::class, 'create'])->name('offer.create');
+
+
+// **************************** Frontend Routes for login and logout ****************************
+Route::get('account/login', [LoginController::class, 'index'])->name('user.seller.login');
+Route::post('account/login/post', [LoginController::class, 'userlogin'])->name('login.post');
+Route::post('/logout', [LoginController::class, 'logout'])->name('user.seller.logout');
+
+ // **************************** Buyer Register ****************************
+
+ Route::get('/account/register', [BuyerController::class, 'index'])->name('buyer.register');
+ Route::post('/buyer/store', [BuyerController::class, 'store'])->name('buyer.store');
+ //  Route::get('/welcome-onboardds', [BuyerController::class, 'dfdfdf'])->name('user.register');
+ //  Route::get('/welcome-onboard/register', [BuyerController::class, 'SecondIndex'])->name('step.two');
+ //  Route::get('/register/form', [BuyerController::class, 'sellerregisterform'])->name('step.three');
+
 // **************************** Frontend Routes ****************************
 Route::get('/home', [FrontController::class, 'index'])->name('homepage');
 Route::get('/game-details/{slug}', [FrontController::class, 'showdetails'])->name('game.details');
 Route::get('/en/game-details/{slug}', [FrontController::class, 'subcatpage'])->name('subcatpage');
 
-// **************************** Backend Routes ****************************
+// **************************** Backend Routes for login and logout ****************************
 Route::get('/admin', [HomeController::class, 'index'])->name('indexlogin');
 Route::get('/login', [HomeController::class, 'index'])->name('login');
 Route::post('/user-login', [HomeController::class, 'userLogin'])->name('userlogin');
 Route::get('/logout', [HomeController::class, 'logoutUser'])->name('logoutuser');
 
-Route::prefix('admin')->group(function () {
+ // **************************** Filters ****************************
+
+Route::middleware('auth')->prefix('admin')->group(function () {
     Route::resource('filters', FilterController::class);
 });
 
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
-    // **************************** Dashboard ****************************
+// **************************** Dashboard ****************************
     Route::get('/dashboard', [HomeController::class, 'home'])->name('dashboard');
-
-    // filter routes
-    // Route::get('/filters', [HomeController::class, 'filter'])->name('filter');
-
 
  // **************************** Category ****************************
  Route::resource('category', CategoryController::class);

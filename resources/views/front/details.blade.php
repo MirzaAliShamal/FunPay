@@ -130,7 +130,7 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a href="https://funpay.com/en/" class="navbar-brand">
+                                <a href="{{route('homepage')}}" class="navbar-brand">
                                     <img src="/img/layout/logo-funpay.svg" alt="FunPay" class="logo-color" />
                                 </a>
                                 <form action="https://funpay.com/en/games/promoFilter" method="post" class="navbar-form navbar-left dropdown promo-games-filter">
@@ -154,9 +154,9 @@
                                         <li><a href="https://forms.gle/PNULY9gcB7QGvtW67" class="menu-item-resellers" target="_blank">For Resellers</a></li>
                                     </ul>
                                     <ul class="nav navbar-nav navbar-right">
-                                        <li><a href="https://funpay.com/en/account/login" class="menu-item-login">Log In</a></li>
-                                        <li><a href="https://funpay.com/en/account/register" class="menu-item-register">Sign Up</a></li>
-                                        <li class="dropdown">
+                                        <li><a href="{{route('user.seller.login')}}" class="menu-item-login">Log In</a></li>
+                                        <li><a href="{{route('buyer.register')}}" class="menu-item-register">Sign Up</a></li>
+                                        <li><a href="{{route('seller.register')}}" class="menu-item-register">Sign Up as Seller</a></li>                                        <li class="dropdown">
                                             <a href="javascript:void(0)" class="dropdown-toggle menu-item-langs" data-toggle="dropdown">
                                                 English <i class="menu-icon menu-icon-lang-en"></i> <span class="caret"></span>
                                             </a>
@@ -329,7 +329,52 @@
 
                                             </div>
                                             <!--noindex-->
-                                            <div class="tc table-hover table-clickable tc-short showcase-table tc-sortable" data-section-type="lot">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            {{-- <div class="tc table-hover table-clickable tc-short showcase-table tc-sortable" data-section-type="lot">
                                                 <div class="tc-header">
                                                     <div class="tc-server hidden-xs">Platform</div>
                                                     <div class="tc-desc">Description</div>
@@ -4402,7 +4447,30 @@
                                                         <div>751.43 <span class="unit">$</span></div>
                                                     </div>
                                                 </a>
-                                            </div>
+                                            </div> --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                             <p class="lead showcase-empty margin-top pb20 hidden">No offers.</p>
                                             <!--/noindex-->
                                         </div>
@@ -4428,6 +4496,11 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+
+
+
                             </div>
                         </div>
                     </div>

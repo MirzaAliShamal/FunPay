@@ -128,7 +128,7 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a href="" class="navbar-brand">
+                                <a href="{{route('homepage')}}" class="navbar-brand">
                                     <img src="https://funpay.com/img/layout/logo-funpay.svg" alt="FunPay" class="logo-color" />
                                 </a>
                                 <form action="https://funpay.com/en/games/promoFilter" method="post" class="navbar-form navbar-left dropdown promo-games-filter">
@@ -152,8 +152,9 @@
                                         <li><a href="https://forms.gle/PNULY9gcB7QGvtW67" class="menu-item-resellers" target="_blank">For Resellers</a></li>
                                     </ul>
                                     <ul class="nav navbar-nav navbar-right">
-                                        <li><a href="https://funpay.com/en/account/login" class="menu-item-login">Log In</a></li>
-                                        <li><a href="https://funpay.com/en/account/register" class="menu-item-register">Sign Up</a></li>
+                                        <li><a href="{{route('user.seller.login')}}" class="menu-item-login">Log In</a></li>
+                                        <li><a href="{{route('buyer.register')}}" class="menu-item-register">Sign Up</a></li>
+                                        <li><a href="{{route('seller.register')}}" class="menu-item-register">Sign Up as Seller</a></li>
                                         <li class="dropdown">
                                             <a href="javascript:void(0)" class="dropdown-toggle menu-item-langs" data-toggle="dropdown">
                                                 English <i class="menu-icon menu-icon-lang-en"></i> <span class="caret"></span>
@@ -200,7 +201,7 @@
                             <div class="container">
                                 <div class="content-with-cd">
                                     <div>
-                                        <h1>{{$subcategory->category->name}} {{$subcategory->name}}</h1>
+                                        <h1>{{$subcategory->category->name}} - {{$subcategory->name}}</h1>
 
                                         <div class="block-info">
                                             <p>FunPay is a player-to-player marketplace where you can buy AFK Arena account at the best price. All trades are safe and secure due to transactions protection – sellers receive their payment once they fulfill the customer’s order. Users are allowed to sell only legally obtained accounts.</p>
@@ -246,10 +247,60 @@
                                         </div>
                                     </a>
                                     @endforeach
+                                    </div>
 
 
                                     @yield('content')
 
+
+
+
+
+                                    {{-- <p class="lead showcase-empty margin-top pb20 hidden">No offers.</p>
+                                    <!--/noindex-->
+                                </div>
+                            </div>
+                            <div>
+                                <div class="content-with-cd-wide tbl-footer">
+                                    <div class="game-about">
+                                        <div class="block-info">
+                                            <p>AFK Arena is a casual action card game. It is a CCG (collectible card game) mixed with RPG (role-playing game) elements. Enter the beautiful world of Esperia, go through battle phases and defeat your enemies. Heroes are divided into 6 different factions; each of them has unique abilities and its own equipment, which gives room for strategy development. Choose a set of heroes, their abilities, and faction bonuses to defeat the army of evil. Every single action, no matter how minor, is rewarded generously. Join players all over the world in this journey of fantasy and prevent an ancient evil from destroying the realm of Esperia.</p>
+                                            <p>FunPay can help you get the strongest AFK Arena heroes. FunPay is the biggest marketplace where you can buy AFK Arena account without intermediaries. All transactions are secured and customers are fully protected from payment fraud. The buyer’s funds are frozen until the seller fulfills his obligations. The buyer confirms the payment only after receiving and checking the account data. But this isn’t our only advantage! Here are the benefits of using FunPay: free market, wide range of offers and payment methods, user-friendly interface, fast order fulfillment, regularly updated items/services range and the above-mentioned transaction protection.</p>
+                                            <h2>How to buy AFK Arena account:</h2>
+                                            <p>Choose an offer you like. The seller performance evaluation system will help you: feedback can show the reliability of a seller.</p>
+                                            <ol>
+                                                <li>Find AFK Arena account for sale. Select an offer by clicking on it and go to the checkout page.</li>
+                                                <li>Contact a seller via order chat to discuss all the details. </li>
+                                                <li>Choose a payment method and click “Pay”.</li>
+                                            </ol>
+                                            <p>Once the transaction is confirmed, the seller will see that the order has been paid and will give access to the account. After checking the account data, the buyer completes the transaction by clicking on the appropriate button. Then the funds that were frozen are transferred to the seller.</p>
+                                            <h3>For sellers</h3>
+                                            <p>If you are tired of playing or you can level heroes fast, then you can sell your AFK Arena account on our marketplace. In order to do this, you should sign up as a seller. Read the rules and take a brief test on whether you know it. Then you can post your offer.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+ --}}
+
+
+
+
+
+
+
+                                    {{-- footer starting from heree --}}
                                     <div class="wrapper-footer">
                                         <div class="container">
                                             <footer id="footer">

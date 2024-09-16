@@ -17,13 +17,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                   </button>
-                  <a href="index.html" class="navbar-brand">
-                    <img
-                      src="img/layout/logo-funpay.svg"
-                      alt="FunPay"
-                      class="logo-color"
-                    />
-                  </a>
+                  <a href="{{route('homepage')}}" class="navbar-brand">
+                    <img src="https://funpay.com/img/layout/logo-funpay.svg" alt="FunPay" class="logo-color" />
+                </a>
                   <form
                     action="https://funpay.com/en/games/promoFilter"
                     method="post"
@@ -101,17 +97,12 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                       <li>
-                        <a href="login.html" class="menu-item-login"
+                        <a href="{{route('user.seller.login')}}" class="menu-item-login"
                           >Log In</a
                         >
                       </li>
-                      <li>
-                        <a
-                          href="register.html"
-                          class="menu-item-register"
-                          >Sign Up</a
-                        >
-                      </li>
+                      <li><a href="{{route('buyer.register')}}" class="menu-item-register">Sign Up</a></li>
+                      <li><a href="{{route('seller.register')}}" class="menu-item-register">Sign Up as Seller</a></li>
                       <li class="dropdown">
                         <a
                           href="javascript:void(0)"
