@@ -22,6 +22,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Type</th>
+                                <th>Options</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -30,6 +31,17 @@
                                 <tr>
                                     <td>{{ $filter->name }}</td>
                                     <td>{{ $filter->type }}</td>
+                                    <td>
+                                        @if($filter->options->isNotEmpty())
+                                            <ul>
+                                                @foreach ($filter->options as $option)
+                                                    <li>{{ $option->name }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            No options available
+                                        @endif
+                                    </td>
                                     <td>
                                         <a href="{{ route('filters.edit', $filter) }}" class="btn btn-warning btn-sm">Edit</a>
                                         <form action="{{ route('filters.destroy', $filter) }}" method="POST" style="display:inline;">

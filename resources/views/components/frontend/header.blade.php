@@ -20,8 +20,8 @@
                   <a href="{{route('homepage')}}" class="navbar-brand">
                     <img src="https://funpay.com/img/layout/logo-funpay.svg" alt="FunPay" class="logo-color" />
                 </a>
-                  <form
-                    action="https://funpay.com/en/games/promoFilter"
+                  <!-- <form
+                    action=""
                     method="post"
                     class="navbar-form navbar-left dropdown promo-games-filter"
                   >
@@ -42,14 +42,14 @@
                     <button type="submit" class="btn btn-link">
                       <i class="fa fa-search"></i>
                     </button>
-                  </form>
+                  </form> -->
                 </div>
                 <div class="nav-container">
                   <div
                     class="collapse navbar-collapse no-transition"
                     id="navbar"
                   >
-                    <ul class="nav navbar-nav">
+                    <!-- <ul class="nav navbar-nav">
                       <li class="dropdown">
                         <a
                           href="index.html"
@@ -86,16 +86,10 @@
                           </li>
                         </ul>
                       </li>
-                      <li>
-                        <a
-                          href="https://forms.gle/PNULY9gcB7QGvtW67"
-                          class="menu-item-resellers"
-                          target="_blank"
-                          >For Resellers</a
-                        >
-                      </li>
-                    </ul>
+                      
+                    </ul> -->
                     <ul class="nav navbar-nav navbar-right">
+                      @if(!session('user_id'))
                       <li>
                         <a href="{{route('user.seller.login')}}" class="menu-item-login"
                           >Log In</a
@@ -103,7 +97,10 @@
                       </li>
                       <li><a href="{{route('buyer.register')}}" class="menu-item-register">Sign Up</a></li>
                       <li><a href="{{route('seller.register')}}" class="menu-item-register">Sign Up as Seller</a></li>
-                      <li class="dropdown">
+                      @else
+                      <li><a href="{{route('user.seller.logout')}}" method="POST" class="menu-item-register">Logout</a></li>
+                      @endif
+                      <!-- <li class="dropdown">
                         <a
                           href="javascript:void(0)"
                           class="dropdown-toggle menu-item-langs"
@@ -132,8 +129,8 @@
                             </a>
                           </li>
                         </ul>
-                      </li>
-                      <li class="dropdown">
+                      </li> -->
+                      <!-- <li class="dropdown">
                         <a
                           href="javascript:void(0)"
                           class="dropdown-toggle menu-item-currencies"
@@ -152,7 +149,7 @@
                             </a>
                           </li>
                         </ul>
-                      </li>
+                      </li> -->
                     </ul>
                   </div>
                 </div>

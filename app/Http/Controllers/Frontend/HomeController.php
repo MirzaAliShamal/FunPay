@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\Game;
+use App\Models\Offer;
+use App\Models\Seller;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,7 @@ class HomeController extends Controller
         }
 
         // Prepare data for view
-        return view('front.home', [
+        return view('frontend.home', [
             'gameswithA' => $gamesByLetter['A'],
             'gameswithB' => $gamesByLetter['B'],
             'gameswithC' => $gamesByLetter['C'],
@@ -59,7 +60,7 @@ class HomeController extends Controller
     public function showdetails(string $slug) {
         $category = Category::with('subCategories')->where('slug', $slug)->first();
         // dd($category);
-        return view('front.details', compact('category'));
+        return view('frontend.details', compact('category'));
     }
 
 
@@ -80,31 +81,33 @@ class HomeController extends Controller
         $subcategory = SubCategory::with(['category', 'filters.options'])->where('slug', $slug)->first();
         if ($subcategory && $subcategory->category) {
             $categoryId = $subcategory->category->id;
-        $category = Category::where('id',$categoryId)->with('subCategories')->first();
-
+            $category = Category::where('id',$categoryId)->with('subCategories')->first();
         }
 
 
         if (!$subcategory) {
             abort(404);
         }
-
-        // Retrieve selected filters from the request
-        $selectedFilters = $request->input('filters', []);
+        session()->forget(['sub_category_id', 'offer_category_id']);
+        session([
+            'sub_category_id' => $subcategory->id,
+            'sub_category_slug' => $subcategory->slug,
+            'offer_category_id' => $subcategory->offer_category_id,
+        ]);
 
         // Fetch items based on selected filters
-        $itemsQuery = Game::where('sub_category_id', $subcategory->id);
-        foreach ($selectedFilters as $filterId => $value) {
-            if (is_array($value)) {
-                $itemsQuery->whereIn('filter_id', $value);
-            } else {
-                $itemsQuery->where('filter_id', $value);
-            }
-        }
-        $items = $itemsQuery->paginate(10); // Pagination added
+        $itemsQuery = Offer::where('sub_category_id', $subcategory->id);
+        // foreach ($selectedFilters as $filterId => $value) {
+        //     if (is_array($value)) {
+        //         $itemsQuery->whereIn('filter_id', $value);
+        //     } else {
+        //         $itemsQuery->where('filter_id', $value);
+        //     }
+        // }
+        $items = $itemsQuery->paginate(20); // Pagination added
 
-
-        return view('front.subcategory', compact('subcategory', 'items','category'));
+        $seller_obj = new Seller();
+        return view('frontend.subcategory', compact('subcategory', 'items','category','seller_obj'));
     }
 
 

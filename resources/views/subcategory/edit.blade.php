@@ -75,6 +75,9 @@
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
                                 </div>
 
+                               
+
+
                                 <div class="form-group">
                                     <label for="status">Status</label>
                                     <select name="status" class="form-control select2bs4" style="width: 100%;">

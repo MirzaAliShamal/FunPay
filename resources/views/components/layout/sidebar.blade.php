@@ -33,10 +33,17 @@
                                 <p>Offer Category</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="{{route('admin.offertype')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Offer Type</p>
+                            </a>
+                        </li> -->
+
+                        <li class="nav-item">
+                            <a href="{{route('admin.offerfield')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Offer Field</p>
                             </a>
                         </li>
 
@@ -69,6 +76,13 @@
                     <a href="{{ route('admin.game') }}" class="nav-link">
                         <i class="fa fa-gamepad"></i>
                         <p class="side-menu__label mx-2">Games</p>
+                    </a>
+                </li>
+
+                <li class="nav-item mt-2">
+                    <a href="{{ route('admin.seller') }}" class="nav-link">
+                         <i class="fa fa-user" aria-hidden="true"></i>
+                        <p class="side-menu__label mx-2">Sellers</p>
                     </a>
                 </li>
 

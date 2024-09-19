@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             GameSeeder::class,
             OfferCategorySeeder::class,
             OfferTypeSeeder::class,
+            OptionsTableSeeder::class
         ]);
     }
 }

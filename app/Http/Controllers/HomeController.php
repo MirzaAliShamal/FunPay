@@ -19,8 +19,10 @@ class HomeController extends Controller
 
     public function index()
     {
+        // dd(Hash::make('admin'));
         return view('auth.userlogin');
     }
+
 
     public function home(Request $request)
     {
@@ -53,8 +55,9 @@ class HomeController extends Controller
         }
     }
 
-    public function logoutUser(Request $request)
-    {
+
+
+    public function logoutUser(Request $request) {
 
         Auth::logout();
         $request->session()->invalidate();

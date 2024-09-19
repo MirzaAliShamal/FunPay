@@ -1,4 +1,4 @@
-<div class="wrapper-footer">
+
         <div class="container">
           <footer id="footer">
             <div class="footer-block footer-block-strings">

@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Sub Categories</h1>
+                    <h1>Sellers</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">Dashboard</li>
-                        <li class="breadcrumb-item active">Sub Categories</li>
+                        <li class="breadcrumb-item active">Sellers</li>
                     </ol>
                 </div>
             </div>
@@ -35,8 +35,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Sub Categories</h3>
-                            <a href="{{ route('admin.subcategory.create') }}" class="btn btn-info float-right">New</a>
+                            <h3 class="card-title">Sellers</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -45,49 +44,35 @@
                                     <tr>
                                         <th style="width: 10px">#</th>
                                         <th>Name</th>
-                                        <th>Category</th>
-                                        <th>Offer Type</th>
-                                        <th>Permalink</th>
+                                        <th>Email</th>
+                                        <th>Country</th>
                                         <th>Status</th>
-                                        <th>Filters</th> <!-- New column for filters -->
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($subCategories as $subCategory)
+                                    @foreach($module_data as $data)
                                     <tr>
-                                        <td>{{ $subCategory->id }}</td>
-                                        <td>{{ $subCategory->name }}</td>
-                                        <td>{{ $subCategory->category->name }}</td>
-                                        <td>@if($subCategory->offercategory){{ $subCategory->offercategory->name }}@endif</td>
-                                        <td>{{ $subCategory->slug }}</td>
+                                        <td>{{ $data->id }}</td>
+                                        <td>{{ $data->full_name }}</td>
+                                        <td>{{ $data->country }}</td>
+                                        <td>{{ $data->email }}</td>
+                                        
                                         <td>
-                                            @if ($subCategory->status == 1)
+                                            @if ($data->status == 1)
                                             <div class="badge bg-success">Active</div>
                                             @else
                                             <div class="badge bg-danger">Inactive</div>
                                             @endif
                                         </td>
                                         <td>
-                                            @if($subCategory->filters->isNotEmpty())
-                                                <ul>
-                                                    @foreach($subCategory->filters as $filter)
-                                                        <li>{{ $filter->name }}</li> <!-- Adjust according to your filter model -->
-                                                    @endforeach
-                                                </ul>
-                                            @else
-                                                <span>No filters</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('admin.subcategory.edit', $subCategory->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                                            <form action="{{ route('admin.subcategory.destroy', $subCategory) }}" method="POST" style="display: inline;">
+                                            <a href="{{ route('admin.seller.show', $data) }}" class="btn btn-warning"><i class="fas fa-eye"></i></a>
+                                            <form action="{{ route('admin.seller.destroy', $data) }}" method="POST" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
-
                                     </tr>
                                     @endforeach
                                 </tbody>

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Buyer;
@@ -10,7 +11,7 @@ class BuyerController extends Controller
 {
 
     public function index(){
-        return view('buyer.register');
+        return view('frontend.buyer.register');
     }
 
 

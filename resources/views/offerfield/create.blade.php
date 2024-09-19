@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Add Sub-Category</h1>
+                    <h1>Add Offer Field</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">Dashboard</li>
-                        <li class="breadcrumb-item active">Add Sub-Category</li>
+                        <li class="breadcrumb-item active">Add Offer Field</li>
                     </ol>
                 </div>
             </div>
@@ -23,51 +23,43 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Create Sub-Category</h3>
+                            <h3 class="card-title">Create Offer Field</h3>
                         </div>
                         <!-- form start -->
-                        <form action="{{ route('admin.subcategory.store') }}" method="POST">
+                        <form action="{{ route('admin.offerfield.store') }}" method="POST">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="category_id">Category</label>
-                                    <select name="category_id" id="category_id" class="form-control select2bs4">
+                                    <select name="offer_category_id" required id="offer_category_id" class="form-control select2bs4">
                                         <option value="">Select Category</option>
-                                        @foreach($categories as $category)
-                                            <option value="{{ $category->id }}">
-                                                {{ $category->name }}
+                                        @foreach($module_data as $data)
+                                            <option value="{{ $data->id }}">
+                                                {{ $data->name }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    <span class="text-danger">{{ $errors->first('category_id') }}</span>
+                                    <span class="text-danger">{{ $errors->first('offer_category_id') }}</span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="filters">Filters</label>
-                                    <select name="filters[]" id="filters" class="form-control select2bs4" multiple>
-                                        @foreach($filters as $filter)
-                                            <option value="{{ $filter->id }}">{{ $filter->name }}</option>
-                                        @endforeach
+                                    <label for="status">Type</label>
+                                    <select name="type" required class="form-control select2bs4" style="width: 100%;">
+                                        <option value="1">Input Field</option>
+                                        <option value="2">Dropdown</option>
                                     </select>
-                                    <span class="text-danger">{{ $errors->first('filters') }}</span>
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label for="offer_category_id">Offer Type</label>
-                                    <select name="offer_category_id" id="offer_category_id" class="form-control select2bs4">
-                                        <option value="">Select Offer</option>
-                                        @foreach($offer_categories as $offer)
-                                            <option value="{{ $offer->id }}">{{ $offer->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <span class="text-danger">{{ $errors->first('category_id') }}</span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="name">Sub Category Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="{{ old('name') }}">
-                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                                    <label for="name">Label</label>
+                                    <input type="text" required class="form-control" id="label" name="label" placeholder="Enter Label Name">
+                                    <span class="text-danger">{{ $errors->first('label') }}</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name">Values</label>
+                                    <input type="text" class="form-control" id="values" name="values" placeholder="You can enter multiple values on comma saperation" >
+                                    <span class="text-danger">{{ $errors->first('values') }}</span>
                                 </div>
 
                                 <div class="form-group">

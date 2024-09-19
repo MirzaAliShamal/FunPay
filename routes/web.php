@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\FilterController;
+use App\Http\Controllers\FilterController;
+use App\Http\Controllers\SellersController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\BuyerController;
+use App\Http\Controllers\Frontend\BuyerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Frontend\HomeController as FrontController;
 use App\Http\Controllers\GameController;
@@ -11,9 +12,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OfferCategoryController;
-use App\Http\Controllers\OfferController;
+use App\Http\Controllers\Frontend\OfferController;
 use App\Http\Controllers\OfferTypeController;
-use App\Http\Controllers\SellerController;
+use App\Http\Controllers\OfferFieldController;
+use App\Http\Controllers\Frontend\SellerController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -41,7 +43,7 @@ Route::post('/sellers/store', [SellerController::class, 'store'])->name('sellers
 // **************************** Frontend Routes for login and logout ****************************
 Route::get('account/login', [LoginController::class, 'index'])->name('user.seller.login');
 Route::post('account/login/post', [LoginController::class, 'userlogin'])->name('login.post');
-Route::post('/logout', [LoginController::class, 'logout'])->name('user.seller.logout');
+Route::get('/frontend/logout', [LoginController::class, 'logout'])->name('user.seller.logout');
 
  // **************************** Buyer Register ****************************
 
@@ -52,7 +54,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('user.seller.lo
  //  Route::get('/register/form', [BuyerController::class, 'sellerregisterform'])->name('step.three');
 
 // **************************** Frontend Routes ****************************
-Route::get('/home', [FrontController::class, 'index'])->name('homepage');
+Route::get('/', [FrontController::class, 'index'])->name('homepage');
 Route::get('/game-details/{slug}', [FrontController::class, 'showdetails'])->name('game.details');
 Route::get('/en/game-details/{slug}', [FrontController::class, 'subcatpage'])->name('subcatpage');
 
@@ -61,6 +63,10 @@ Route::get('/admin', [HomeController::class, 'index'])->name('indexlogin');
 Route::get('/login', [HomeController::class, 'index'])->name('login');
 Route::post('/user-login', [HomeController::class, 'userLogin'])->name('userlogin');
 Route::get('/logout', [HomeController::class, 'logoutUser'])->name('logoutuser');
+
+ // **************************** Offer ****************************
+Route::post('/create/frontend/offer', [OfferController::class, 'store'])->name('create.frontend.offer');
+
 
  // **************************** Filters ****************************
 
@@ -107,6 +113,23 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
  Route::get('/offertype/edit/{game}', [OfferTypeController::class, 'edit'])->name('offertype.edit');
  Route::put('/offertype/update/{game}', [OfferTypeController::class, 'update'])->name('offertype.update');
  Route::delete('/offertype/destroy/{game}', [OfferTypeController::class, 'destroy'])->name('offertype.destroy');
+
+
+ // **************************** Offer Field ****************************
+ Route::get('/offerfield', [OfferFieldController::class, 'index'])->name('offerfield');
+ Route::get('/offerfield/create', [OfferFieldController::class, 'create'])->name('offerfield.create');
+ Route::post('/offerfield/store', [OfferFieldController::class, 'store'])->name('offerfield.store');
+ Route::get('/offerfield/edit/{game}', [OfferFieldController::class, 'edit'])->name('offerfield.edit');
+ Route::put('/offerfield/update/{game}', [OfferFieldController::class, 'update'])->name('offerfield.update');
+ Route::delete('/offerfield/destroy/{game}', [OfferFieldController::class, 'destroy'])->name('offerfield.destroy');
+
+
+ // **************************** Sellers ****************************
+
+ Route::get('/seller', [SellersController::class, 'index'])->name('seller');
+ Route::get('/seller/show/{id}', [SellersController::class, 'show'])->name('seller.show');
+ Route::delete('/seller/destroy/{id}', [SellersController::class, 'destroy'])->name('seller.destroy');
+ Route::post('/seller/update/{id}', [SellersController::class, 'update'])->name('seller.update');
 
 });
 

@@ -3,16 +3,7 @@
 @section('content')
 
 <section id="content-body">
-    @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @endif
-    @if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-    @endif
+    
     <div class="search-fade"></div>
     <div id="content" class="content-promo content-promo-index">
         <div class="promo-cd promo-abc">
@@ -124,5 +115,6 @@
         </div>
     </div>
 </section>
+<div class="wrapper-footer" style="position:relative;bottom:0px;text-align:center;width:100%">
 
 @endsection

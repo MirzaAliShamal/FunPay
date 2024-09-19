@@ -15,6 +15,7 @@
   type="font/woff2" crossorigin />
  <link rel="preload" href="{{ asset('public/assets/frontend/681/fonts/Graphik-Semibold-Web.woff2') }}" as="font"
   type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>

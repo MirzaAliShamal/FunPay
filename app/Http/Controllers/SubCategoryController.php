@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Filter;
 use App\Models\SubCategory;
 use App\Models\OfferCategory;
+use App\Models\Option;
 
 class SubCategoryController extends Controller
 {
@@ -16,100 +17,70 @@ class SubCategoryController extends Controller
         return view('subcategory.index', compact('subCategories'));
     }
 
-
-
-    // public function create()
-    // {
-    //     $categories = Category::all();
-    //     $offer_categories = OfferCategory::all();
-    //     return view('subcategory.create', compact('categories','offer_categories'));
-    // }
-
     public function create()
-{
-    $categories = Category::all();
-    $offer_categories = OfferCategory::all();
-    $filters = Filter::all(); // Fetch all filters
+    {
+        $categories = Category::all();
+        $offer_categories = OfferCategory::all();
+        $filters = Filter::all(); // Fetch all filters
 
-    return view('subcategory.create', compact('categories', 'offer_categories', 'filters'));
-}
-
-
-
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'name' => 'required|string|max:255',
-    //         'category_id' => 'required|integer|exists:categories,id',
-    //     ]);
-
-    //     SubCategory::create($request->all());
-    //     return redirect()->route('admin.subcategory.index')->with('success', 'Sub-Category created successfully.');
-    // }
+        return view('subcategory.create', compact('categories', 'offer_categories', 'filters'));
+    }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'category_id' => 'required',
-        'name' => 'required|string|max:255',
-        // 'filters' => 'array',
-    ]);
+    {
+        $request->validate([
+            'category_id' => 'required|exists:categories,id',
+            'name' => 'required|string|max:255',
+        ]);
 
-    $subCategory = SubCategory::create($request->all());
-    $subCategory->filters()->sync($request->filters); // Sync filters
+        // Create the subcategory
+        $subCategory = SubCategory::create($request->all());
 
-    return redirect()->route('admin.subcategory.index')->with('success', 'Subcategory created successfully.');
-}
+        // Sync filters
+        $subCategory->filters()->sync($request->filters);
 
+        return redirect()->route('admin.subcategory.index')->with('success', 'Subcategory created successfully.');
+    }
 
-
-    // public function edit($id)
-    // {
-    //     $categories = Category::all();
-    //     $subCategory = SubCategory::findOrFail($id);
-    //     $offer_categories = OfferCategory::all();
-
-    //     return view('subcategory.edit', compact('subCategory', 'categories','offer_categories'));
-    // }
 
     public function edit(string $id)
     {
+        $subCategory = SubCategory::with(['filters.options'])->findOrFail($id); // Eager load filters and their options
         $categories = Category::all();
-        $subCategory = SubCategory::findorfail($id);
         $offer_categories = OfferCategory::all();
         $filters = Filter::all(); // Fetch all filters
 
         return view('subcategory.edit', compact('subCategory', 'categories', 'offer_categories', 'filters'));
     }
 
-
-
-
-    // public function update(Request $request, $id)
-    // {
-    //     $request->validate([
-    //         'name' => 'required|string|max:255',
-    //         'category_id' => 'required|integer|exists:categories,id',
-    //         'offer_category_id' => 'required|integer|exists:offer_categories,id',
-    //     ]);
-    //     $subCategory = SubCategory::findOrFail($id);
-    //     $subCategory->update($request->all());
-    //     return redirect()->route('admin.subcategory.index')->with('success', 'Sub-Category updated successfully.');
-    // }
-
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'category_id' => 'required',
+            'category_id' => 'required|exists:categories,id',
             'name' => 'required|string|max:255',
+            'filters' => 'array',
+            'filters.*' => 'exists:filters,id', // Validate each filter ID
+            'offer_category_id' => 'nullable|exists:offer_categories,id',
+            'status' => 'required|boolean',
         ]);
-        $subCategory=SubCategory::findorfail($id);
+
+        $subCategory = SubCategory::findOrFail($id);
         $subCategory->update($request->all());
         $subCategory->filters()->sync($request->filters); // Sync filters
 
+        // Handle updating options for dropdown filters
+        if ($request->filled('filter_options')) {
+            foreach ($request->filters as $filterId) {
+                Option::where('filter_id', $filterId)->delete(); // Clear existing options
+                $options = array_map('trim', explode(',', $request->filter_options[$filterId]));
+                foreach ($options as $option) {
+                    Option::create(['name' => $option, 'filter_id' => $filterId]);
+                }
+            }
+        }
+
         return redirect()->route('admin.subcategory.index')->with('success', 'Subcategory updated successfully.');
     }
-
 
     public function destroy($id)
     {

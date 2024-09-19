@@ -30,6 +30,7 @@ class CreateSellersTable extends Migration
             $table->text('other_info')->nullable(); // Other information (optional)
             $table->string('stock_source'); // Source of stock
             $table->boolean('selling_elsewhere')->nullable(); // Whether selling elsewhere
+            $table->integer('status')->default(0)->nullable();
             $table->timestamps(); // Created at and updated at timestamps
         });
     }

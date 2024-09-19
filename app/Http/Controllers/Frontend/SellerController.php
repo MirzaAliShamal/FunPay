@@ -1,0 +1,69 @@
+<?php
+
+namespace App\Http\Controllers\Frontend;
+
+use App\Models\Seller;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class SellerController extends Controller
+{
+    public function index()
+    {
+        return view('frontend.seller.registration.step1');
+    }
+
+
+    public function SecondIndex()
+    {
+        return view('frontend.seller.registration.step2');
+    }
+
+    public function sellerregisterform()
+    {
+        return view('frontend.seller.registration.step3');
+    }
+
+    // Store the seller information
+    public function store(Request $request)
+    {
+
+
+        $validatedData = $request->validate([
+            'full_name' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'email' => 'required|email',
+            'password' => 'required|string|min:6',
+            'messenger' => 'nullable|string|max:255',
+            'messenger_link' => 'nullable|string|max:255',
+            'dob' => 'required|date',
+            'phone_number' => 'required|string|max:20',
+            'country_code' => 'required|string|max:5',
+            'selfie' => 'required|file|mimes:jpg,jpeg,png,pdf',
+            'id_card_front' => 'required|file|mimes:jpg,jpeg,png,pdf',
+            'id_card_back' => 'required|file|mimes:jpg,jpeg,png,pdf',
+            'games_products' => 'required|string',
+            'other_info' => 'nullable|string',
+            'stock_source' => 'required|string',
+            'selling_elsewhere' => 'nullable|integer',
+        ]);
+
+
+
+        // Store the files
+        $selfie = $request->file('selfie')->store('uploads/selfie');
+        $idCardFrontPath = $request->file('id_card_front')->store('uploads/id_card_fronts');
+        $idCardBackPath = $request->file('id_card_back')->store('uploads/id_card_backs');
+
+        Seller::create(array_merge($validatedData, [
+            'selfie' => $selfie,
+            'id_card_front' => $idCardFrontPath,
+            'id_card_back' => $idCardBackPath,
+            'password' => bcrypt($request->password), // Hash the password
+        ]));
+
+
+        // Redirect to success page
+        return redirect()->route('seller.register')->with('success', 'Seller Registered Successfully!');
+    }
+}
