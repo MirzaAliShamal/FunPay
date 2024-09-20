@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FilterController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SellersController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -38,6 +39,11 @@ Route::post('/sellers/store', [SellerController::class, 'store'])->name('sellers
  // **************************** Seller offers ****************************
  Route::get('/seller/offers', [OfferController::class, 'index'])->name('offer.index');
  Route::get('/seller/offer/create', [OfferController::class, 'create'])->name('offer.create');
+ Route::get('/seller/offer/edit/{id}', [OfferController::class, 'edit'])->name('offer.edit');
+ Route::get('/seller/offer/delete/{id}', [OfferController::class, 'delete'])->name('offer.delete');
+ Route::get('/delete/offer/image', [OfferController::class, 'deleteImage'])->name('offer.deleteImage');
+ Route::post('/create/frontend/offer', [OfferController::class, 'store'])->name('create.frontend.offer');
+ Route::post('/update/frontend/offer/{id}', [OfferController::class, 'update'])->name('update.frontend.offer');
 
 
 // **************************** Frontend Routes for login and logout ****************************
@@ -64,9 +70,6 @@ Route::get('/login', [HomeController::class, 'index'])->name('login');
 Route::post('/user-login', [HomeController::class, 'userLogin'])->name('userlogin');
 Route::get('/logout', [HomeController::class, 'logoutUser'])->name('logoutuser');
 
- // **************************** Offer ****************************
-Route::post('/create/frontend/offer', [OfferController::class, 'store'])->name('create.frontend.offer');
-
 
  // **************************** Filters ****************************
 
@@ -77,7 +80,8 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
 // **************************** Dashboard ****************************
-    Route::get('/dashboard', [HomeController::class, 'home'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'home'])->name('dashboard');
+    Route::get('/monthly-data', [DashboardController::class, 'getMonthlyData'])->name('monthly.data');
 
  // **************************** Category ****************************
  Route::resource('category', CategoryController::class);

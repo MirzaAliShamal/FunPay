@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Http\Controllers\Controller;
 use App\Models\Seller;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class SellerController extends Controller
 {
@@ -49,8 +49,8 @@ class SellerController extends Controller
         ]);
 
 
-
         // Store the files
+
         $selfie = $request->file('selfie')->store('uploads/selfie');
         $idCardFrontPath = $request->file('id_card_front')->store('uploads/id_card_fronts');
         $idCardBackPath = $request->file('id_card_back')->store('uploads/id_card_backs');
@@ -64,6 +64,9 @@ class SellerController extends Controller
 
 
         // Redirect to success page
-        return redirect()->route('seller.register')->with('success', 'Seller Registered Successfully!');
+        return redirect()->route('frontend.seller.register')->with('success', 'Seller Registered Successfully!');
     }
+
+
+
 }

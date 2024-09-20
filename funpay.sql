@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 17, 2024 at 01:08 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Sep 20, 2024 at 12:14 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,7 @@ CREATE TABLE `buyers` (
 --
 
 INSERT INTO `buyers` (`id`, `name`, `email`, `password`, `created_at`, `updated_at`) VALUES
-(1, 'Buyer', 'buyer@gmail.com', '$2y$12$yBImYlCVtEKm/qS1zH9Llu8QmHqtFyQ60ILDrDzI.Vv4LY95TUvYm', '2024-09-17 01:17:17', '2024-09-17 01:17:17'),
+(1, 'Buyer', 'buyer@gmail.com', '$2y$12$hwu/AYdhBQHUH48LSIPLRuZxoajLdKD02UEQq/cuW5EqoGORZpDRy', '2024-09-17 01:17:17', '2024-09-17 01:17:17'),
 (3, 'Aown Abbas', 'codebyaown@gmail.com', '$2y$12$f2LVBJoBheRDP8/eTdhIb.W8SYpX0AnNstQ3nAfI.EEJTbsjX1WUu', '2024-09-17 01:25:46', '2024-09-17 01:25:46'),
 (6, 'Buyer2', 'buyer02@gmail.com', '$2y$12$x7wdgZvDkAdDg.MtBmIARevMdszyHcL7tYlU/EyrhN6pL4QbPunKa', '2024-09-17 01:31:23', '2024-09-17 01:31:23'),
 (7, 'buyer3', 'buyer03@gmail.com', '$2y$12$U5H9TBf1hJAlJ/8dLVzxA.Ei8BMfQLxOd4RC1Ka5zzgAgEOVVJ9rm', '2024-09-17 01:33:03', '2024-09-17 01:33:03'),
@@ -196,7 +196,6 @@ INSERT INTO `filter_subcategory` (`id`, `subcategory_id`, `filter_id`, `created_
 (6, 12, 3, NULL, NULL),
 (7, 12, 4, NULL, NULL),
 (14, 25, 4, NULL, NULL),
-(15, 25, 6, NULL, NULL),
 (16, 25, 8, NULL, NULL),
 (20, 27, 16, NULL, NULL),
 (21, 27, 8, NULL, NULL),
@@ -226,22 +225,27 @@ CREATE TABLE `games` (
   `sub_category_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `slug` varchar(255) DEFAULT NULL,
-  `description` longtext NOT NULL,
+  `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
   `status` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `long_description` text DEFAULT NULL,
+  `fields` text DEFAULT NULL,
+  `buyer_message` text DEFAULT NULL,
+  `price` varchar(50) DEFAULT NULL,
+  `stock` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `games`
 --
 
-INSERT INTO `games` (`id`, `category_id`, `sub_category_id`, `name`, `slug`, `description`, `image`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 10, 'test', 'test', 'test', 'game_images/j4rFZgvv1fB91QDOC0FCXHtUG4VVqZw4LtvBmx8v.jpg', 1, '2024-09-06 06:23:00', '2024-09-06 06:23:00'),
-(2, 5, 13, 'test', 'test-1', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi corrupti placeat sunt corporis rem possimus sed, officia eum suscipit illo doloribus voluptatibus laudantium, quos commodi excepturi. Aut ipsam modi alias?', 'game_images/a95euvj66NkRVBunGQOF35oQU53LxSxmJTVleWcm.jpg', 1, '2024-09-06 06:31:49', '2024-09-06 06:31:49'),
-(3, 18, 22, 'occaecati', 'quod-quia-consequatur-voluptatum-laborum-eaque', 'Odit voluptatem tempore illum sint voluptas quidem ipsam. Suscipit consequuntur velit unde aliquid. Ut velit voluptates cum quod tempore.', 'https://via.placeholder.com/640x480.png/0033ee?text=nemo', 0, '2024-09-12 13:10:01', '2024-09-12 13:10:01'),
-(5, 22, 24, 'cupiditate', 'eligendi-ex-ipsum-accusamus-alias-ut-provident', 'Qui consectetur quasi nam tempore nulla ut. Eos quam voluptatem vel. Omnis autem delectus culpa nam in hic consequatur. Illum fugiat natus tenetur sunt nulla quaerat.', 'https://via.placeholder.com/640x480.png/008844?text=porro', 0, '2024-09-12 13:10:01', '2024-09-12 13:10:01');
+INSERT INTO `games` (`id`, `category_id`, `sub_category_id`, `name`, `slug`, `description`, `image`, `status`, `created_at`, `updated_at`, `long_description`, `fields`, `buyer_message`, `price`, `stock`) VALUES
+(1, 1, 10, 'test', 'test', 'test', 'game_images/j4rFZgvv1fB91QDOC0FCXHtUG4VVqZw4LtvBmx8v.jpg', 1, '2024-09-06 06:23:00', '2024-09-06 06:23:00', NULL, NULL, NULL, NULL, NULL),
+(2, 5, 13, 'test', 'test-1', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi corrupti placeat sunt corporis rem possimus sed, officia eum suscipit illo doloribus voluptatibus laudantium, quos commodi excepturi. Aut ipsam modi alias?', 'game_images/a95euvj66NkRVBunGQOF35oQU53LxSxmJTVleWcm.jpg', 1, '2024-09-06 06:31:49', '2024-09-06 06:31:49', NULL, NULL, NULL, NULL, NULL),
+(3, 18, 22, 'occaecati', 'quod-quia-consequatur-voluptatum-laborum-eaque', 'Odit voluptatem tempore illum sint voluptas quidem ipsam. Suscipit consequuntur velit unde aliquid. Ut velit voluptates cum quod tempore.', 'https://via.placeholder.com/640x480.png/0033ee?text=nemo', 0, '2024-09-12 13:10:01', '2024-09-12 13:10:01', NULL, NULL, NULL, NULL, NULL),
+(5, 22, 24, 'cupiditate', 'eligendi-ex-ipsum-accusamus-alias-ut-provident', 'Qui consectetur quasi nam tempore nulla ut. Eos quam voluptatem vel. Omnis autem delectus culpa nam in hic consequatur. Illum fugiat natus tenetur sunt nulla quaerat.', 'https://via.placeholder.com/640x480.png/008844?text=porro', 0, '2024-09-12 13:10:01', '2024-09-12 13:10:01', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -316,7 +320,38 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (76, '2024_09_11_070138_remove_options_from_filters_table', 8),
 (80, '2024_09_12_192801_create_sellers_table', 9),
 (82, '2024_09_14_224823_create_buyers_table', 10),
-(83, '2024_09_16_215220_add_password_to_sellers_table', 11);
+(83, '2024_09_16_215220_add_password_to_sellers_table', 11),
+(84, '2024_09_19_084659_create_offer_fields_table', 12);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `offers`
+--
+
+CREATE TABLE `offers` (
+  `id` int(11) NOT NULL,
+  `fields` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`fields`)),
+  `description` text DEFAULT NULL,
+  `long_description` text DEFAULT NULL,
+  `buyer_message` text DEFAULT NULL,
+  `price` varchar(50) DEFAULT NULL,
+  `stock` varchar(50) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `seller_id` int(11) DEFAULT NULL,
+  `sub_category_id` int(11) DEFAULT NULL,
+  `offer_category_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `offers`
+--
+
+INSERT INTO `offers` (`id`, `fields`, `description`, `long_description`, `buyer_message`, `price`, `stock`, `image`, `status`, `created_at`, `updated_at`, `seller_id`, `sub_category_id`, `offer_category_id`) VALUES
+(1, '[\"Platform\",\"Level\",\"Stage\",\"Value-XBOX\",\"Value-43\",\"Value-1234\"]', '💎【300 DIAMONDS】💎⭐BY ID⭐✅SAFE✅🎶OFFICIALLY🎶🎉100% GUARANTEED🎉', '💎【300 DIAMONDS】💎⭐BY ID⭐✅SAFE✅🎶OFFICIALLY🎶🎉100% GUARANTEED🎉', '💎【300 DIAMONDS】💎⭐BY ID⭐✅SAFE✅🎶OFFICIALLY🎶🎉100% GUARANTEED🎉', '22', '145', '[\"X9PmXMmkWBlEIlV58TgJYzz2p5BUK5Cqfx1es1Hd.jpg\",\"qtg8kLylGQKcejabBtb2H6cHalNUGRpCyVMeQTu4.jpg\",\"ABpuTCH2k0trFDibgO9aexoc6rjU0IhxI7Diyeub.jpg\"]', 1, '2024-09-20 02:12:18', '2024-09-20 08:38:07', 1, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -340,19 +375,34 @@ INSERT INTO `offer_categories` (`id`, `name`, `status`, `created_at`, `updated_a
 (1, 'Platform', 1, '2024-09-06 05:25:30', '2024-09-06 05:25:30'),
 (2, 'Server', 1, '2024-09-06 05:25:35', '2024-09-06 05:25:35'),
 (3, 'Game', 1, '2024-09-06 05:25:41', '2024-09-06 05:25:41'),
-(4, 'Others', 1, '2024-09-06 05:30:18', '2024-09-06 05:30:18'),
-(5, 'repellendus', 1, '2024-09-12 13:10:01', '2024-09-12 13:10:01'),
-(6, 'non', 1, '2024-09-12 13:10:01', '2024-09-12 13:10:01'),
-(7, 'minima', 1, '2024-09-12 13:10:01', '2024-09-12 13:10:01'),
-(8, 'vel', 1, '2024-09-12 13:10:01', '2024-09-12 13:10:01'),
-(9, 'qui', 1, '2024-09-12 13:10:01', '2024-09-12 13:10:01'),
-(10, 'quasi', 1, '2024-09-12 13:10:01', '2024-09-12 13:10:01'),
-(11, 'est', 1, '2024-09-12 13:10:01', '2024-09-12 13:10:01'),
-(12, 'est', 1, '2024-09-12 13:10:01', '2024-09-12 13:10:01'),
-(13, 'earum', 1, '2024-09-12 13:10:01', '2024-09-12 13:10:01'),
-(14, 'voluptatem', 1, '2024-09-12 13:10:01', '2024-09-12 13:10:01'),
-(15, 'dolore', 1, '2024-09-12 13:10:01', '2024-09-12 13:10:01'),
-(16, 'tenetur', 1, '2024-09-12 13:10:01', '2024-09-12 13:10:01');
+(4, 'Others', 1, '2024-09-06 05:30:18', '2024-09-06 05:30:18');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `offer_fields`
+--
+
+CREATE TABLE `offer_fields` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `offer_category_id` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `label` varchar(255) DEFAULT NULL,
+  `values` varchar(1000) DEFAULT NULL,
+  `status` varchar(255) DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `offer_fields`
+--
+
+INSERT INTO `offer_fields` (`id`, `offer_category_id`, `type`, `label`, `values`, `status`, `created_at`, `updated_at`) VALUES
+(3, '1', '2', 'Platform', 'Andriod,IOS,PS,PC,XBOX', '1', '2024-09-19 04:07:30', '2024-09-19 04:07:30'),
+(4, '1', '1', 'Level', NULL, '1', '2024-09-19 04:21:46', '2024-09-19 04:21:46'),
+(5, '1', '1', 'Stage', NULL, '1', '2024-09-19 04:21:53', '2024-09-19 04:21:53'),
+(6, '3', '2', 'Game', 'Asphalt 8,Asphalt Legends Unite,Asphalt Nitro,Asphalt Xtreme', '1', '2024-09-20 02:48:39', '2024-09-20 02:48:39');
 
 -- --------------------------------------------------------
 
@@ -386,10 +436,7 @@ INSERT INTO `offer_types` (`id`, `offer_category_id`, `name`, `status`, `created
 (10, 4, 'Diamond', 1, '2024-09-06 05:31:39', '2024-09-06 05:31:39'),
 (11, 1, 'PS', 1, '2024-09-06 05:32:32', '2024-09-06 05:32:32'),
 (12, 1, 'PC', 1, '2024-09-06 05:32:39', '2024-09-06 05:32:39'),
-(13, 1, 'Xbox', 1, '2024-09-06 05:32:47', '2024-09-06 05:32:47'),
-(14, 14, 'voluptas', 1, '2024-09-12 13:10:01', '2024-09-12 13:10:01'),
-(15, 15, 'repellat', 1, '2024-09-12 13:10:01', '2024-09-12 13:10:01'),
-(16, 16, 'ut', 1, '2024-09-12 13:10:01', '2024-09-12 13:10:01');
+(13, 1, 'Xbox', 1, '2024-09-06 05:32:47', '2024-09-06 05:32:47');
 
 -- --------------------------------------------------------
 
@@ -515,23 +562,21 @@ CREATE TABLE `sellers` (
   `selling_elsewhere` tinyint(1) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `status` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `sellers`
 --
 
-INSERT INTO `sellers` (`id`, `full_name`, `country`, `email`, `messenger`, `messenger_link`, `dob`, `phone_number`, `country_code`, `selfie`, `id_card_front`, `id_card_back`, `games_products`, `other_info`, `stock_source`, `selling_elsewhere`, `created_at`, `updated_at`, `password`) VALUES
-(1, 'seller test', 'Canada', 'sellertest@gmail.com', 'Telegram', 'https://www.telegram.com/', '2024-09-15', '5124277273', '+1', 'C:\\xampp\\tmp\\php934F.tmp', 'C:\\xampp\\tmp\\php937F.tmp', 'C:\\xampp\\tmp\\php9380.tmp', 'my name is aown abbas', 'my name is aown abbas', 'I farm my own items', 0, '2024-09-15 05:22:02', '2024-09-15 05:22:02', ''),
-(2, 'seller test', 'Canada', 'sellertest@gmail.com', 'Telegram', 'https://www.telegram.com/', '2024-09-15', '5124277273', '+1', 'uploads/selfie/yO7cQHefLosRYeKoAQO8dgdbRS7cBg2IdRQPMNIl.png', 'uploads/id_card_fronts/NmhMIgKj0rHPhEdCm1cmIXObsZXb79tQgKBtAFuo.png', 'uploads/id_card_backs/qDvC6gmmeAdFhwOZfglwlC8g6fpEejIGcw13DAtd.png', 'my name is aown abbas', 'my name is aown abbas', 'I farm my own items', 0, '2024-09-15 05:22:02', '2024-09-15 05:22:02', ''),
-(3, 'Aown Abbas', 'USA', 'codebyaown@gmail.com', 'Telegram', 'https://www.telegram.com/', '2024-09-20', '5124277273', '+1', 'C:\\xampp\\tmp\\php982A.tmp', 'C:\\xampp\\tmp\\php983B.tmp', 'C:\\xampp\\tmp\\php983C.tmp', 'this is just a text', 'this is just a text', 'I farm my own items', 0, '2024-09-15 05:24:15', '2024-09-15 05:24:15', ''),
-(4, 'Aown Abbas', 'USA', 'codebyaown@gmail.com', 'Telegram', 'https://www.telegram.com/', '2024-09-20', '5124277273', '+1', 'uploads/selfie/EGPxnykhxT1w0317o1ilmpStkcR0tYTCWLRlZJWZ.png', 'uploads/id_card_fronts/aKz0WPe00R8TFWATmHCidUXFVtUZXPhYFWdojK0e.png', 'uploads/id_card_backs/8UWK9pH39YngDeofZCUqPXzB1J4g9gKKSrKD0ATS.png', 'this is just a text', 'this is just a text', 'I farm my own items', 0, '2024-09-15 05:24:15', '2024-09-15 05:24:15', ''),
-(5, 'seller2@gmai.com', 'Canada', 'codebyaown@gmail.com', 'Discord', NULL, '2024-09-25', '03284938053', '+1', 'uploads/selfie/NaDEHuFnpavUZHe7SejGXr90CzO4EwuELXAxRN1b.png', 'uploads/id_card_fronts/FwBStMsbePJVrHqrvlujhfeVtKfx2xwc1aKVtQYG.png', 'uploads/id_card_backs/zN0dseU9XbfULmGxz2MX9GngMTpYNMxSoiFbM8eQ.png', 'my name is ..', 'my name is aown ababs', 'I farm my own items', 1, '2024-09-15 05:28:55', '2024-09-15 05:28:55', ''),
-(6, 'seller6@gmai.com', 'Canada', 'codebyaown@gmail.com', 'Discord', 'https://www.telegram.com/', '2024-09-25', '03284938053', '+1', 'uploads/selfie/k8SLFIH0hI3hf1iMNDLYNF4Y11UBVqWdVE5ixZJX.png', 'uploads/id_card_fronts/gbLYeyP8EyzWa57bdzEFqj0eN4I0GIHWMueqzFZC.png', 'uploads/id_card_backs/tWNusZ9WLOKU07wuNt8il6XGd3S2ZQIdnVzuSIzL.png', 'my name is ..', 'my name is aown ababs', 'I farm my own items', 1, '2024-09-15 05:29:38', '2024-09-15 05:29:38', ''),
-(7, 'seller03@gmai.com', 'Canada', 'codebyaown@gmail.com', 'Discord', 'https://www.telegram.com/', '2024-09-25', '03284938053', '+44', 'uploads/selfie/5WbSDwsRfKD3J2WEtWt2MPC7DvhRRkN964zqfcvx.png', 'uploads/id_card_fronts/K34ePCq5o71ce5w1fB55DjW0hJFbWUTr7cL4cNW4.png', 'uploads/id_card_backs/PizJzp5NlQ56YX5ZQNLrb1MdA969w29bZJCkb0lG.png', 'my name is ..', 'my name is aown ababs', 'I farm my own items', 1, '2024-09-15 05:30:09', '2024-09-15 05:30:09', ''),
-(8, 'Best Seller', 'UK', 'bestseller@gmail.com', 'Telegram', 'https://www.telegram.com/', '2024-09-20', '03150004389', '+1', 'uploads/selfie/bRHDlIgI9YR33EO8S6bz8qLTmkUqCk5cealJdYpu.png', 'uploads/id_card_fronts/f2jshnQZphy8pct2gfruhT3J1KpyDqxtHRHJ3AHF.png', 'uploads/id_card_backs/j6JyMrfq585Y9GVNcJuoY3LQQJC6vlEoCWYC6b0W.png', 'test data', 'test data', 'I farm my own items', 0, '2024-09-17 04:59:32', '2024-09-17 04:59:32', '$2y$12$DjYGrnB0ivYFLdtdsP8f4e/Io8nDszdMpAAUW3OrTscuO/7Dzt6uS'),
-(9, 'Master Admin', 'Canada', 'masteradmin@gmail.com', 'Telegram', 'https://www.telegram.com/', '2024-09-26', '03077174343', '+1', 'uploads/selfie/2txIlrM4XAI9IZ41foQrhzgMAcyIgTHxntSbomIB.png', 'uploads/id_card_fronts/YHT3rG2uLN6cuy233Zd44TjEWsBTItaar828BBhX.png', 'uploads/id_card_backs/sLyRFPYzSJNWKSszOSnq0XBLh4csdjTvs3luZfxW.png', 'masteradmin', 'masteradmin', 'I farm my own items', 0, '2024-09-17 06:02:40', '2024-09-17 06:02:40', '$2y$12$iB4JbzPg0zJKLoGU0Xf.Ee.AVYCv9mxyud/6wK6wtgi/DzVEzvomG');
+INSERT INTO `sellers` (`id`, `full_name`, `country`, `email`, `messenger`, `messenger_link`, `dob`, `phone_number`, `country_code`, `selfie`, `id_card_front`, `id_card_back`, `games_products`, `other_info`, `stock_source`, `selling_elsewhere`, `created_at`, `updated_at`, `password`, `status`) VALUES
+(1, 'seller test', 'Canada', 'sellertest@gmail.com', 'Telegram', 'https://www.telegram.com/', '2024-09-15', '5124277273', '+1', 'C:\\xampp\\tmp\\php934F.tmp', 'C:\\xampp\\tmp\\php937F.tmp', 'C:\\xampp\\tmp\\php9380.tmp', 'my name is aown abbas', 'my name is aown abbas', 'I farm my own items', 0, '2024-09-15 05:22:02', '2024-09-18 09:08:56', '$2y$12$hwu/AYdhBQHUH48LSIPLRuZxoajLdKD02UEQq/cuW5EqoGORZpDRy', 1),
+(2, 'seller test', 'Canada', 'sellertest@gmail.com', 'Telegram', 'https://www.telegram.com/', '2024-09-15', '5124277273', '+1', 'uploads/selfie/yO7cQHefLosRYeKoAQO8dgdbRS7cBg2IdRQPMNIl.png', 'uploads/id_card_fronts/NmhMIgKj0rHPhEdCm1cmIXObsZXb79tQgKBtAFuo.png', 'uploads/id_card_backs/qDvC6gmmeAdFhwOZfglwlC8g6fpEejIGcw13DAtd.png', 'my name is aown abbas', 'my name is aown abbas', 'I farm my own items', 0, '2024-09-15 05:22:02', '2024-09-15 05:22:02', '$2y$12$hwu/AYdhBQHUH48LSIPLRuZxoajLdKD02UEQq/cuW5EqoGORZpDRy', 0),
+(3, 'Aown Abbas', 'USA', 'codebyaown@gmail.com', 'Telegram', 'https://www.telegram.com/', '2024-09-20', '5124277273', '+1', 'C:\\xampp\\tmp\\php982A.tmp', 'C:\\xampp\\tmp\\php983B.tmp', 'C:\\xampp\\tmp\\php983C.tmp', 'this is just a text', 'this is just a text', 'I farm my own items', 0, '2024-09-15 05:24:15', '2024-09-15 05:24:15', '', 0),
+(4, 'Aown Abbas', 'USA', 'codebyaown@gmail.com', 'Telegram', 'https://www.telegram.com/', '2024-09-20', '5124277273', '+1', 'uploads/selfie/EGPxnykhxT1w0317o1ilmpStkcR0tYTCWLRlZJWZ.png', 'uploads/id_card_fronts/aKz0WPe00R8TFWATmHCidUXFVtUZXPhYFWdojK0e.png', 'uploads/id_card_backs/8UWK9pH39YngDeofZCUqPXzB1J4g9gKKSrKD0ATS.png', 'this is just a text', 'this is just a text', 'I farm my own items', 0, '2024-09-15 05:24:15', '2024-09-15 05:24:15', '', 0),
+(5, 'seller2@gmai.com', 'Canada', 'codebyaown@gmail.com', 'Discord', NULL, '2024-09-25', '03284938053', '+1', 'uploads/selfie/NaDEHuFnpavUZHe7SejGXr90CzO4EwuELXAxRN1b.png', 'uploads/id_card_fronts/FwBStMsbePJVrHqrvlujhfeVtKfx2xwc1aKVtQYG.png', 'uploads/id_card_backs/zN0dseU9XbfULmGxz2MX9GngMTpYNMxSoiFbM8eQ.png', 'my name is ..', 'my name is aown ababs', 'I farm my own items', 1, '2024-09-15 05:28:55', '2024-09-15 05:28:55', '', 0),
+(6, 'seller6@gmai.com', 'Canada', 'codebyaown@gmail.com', 'Discord', 'https://www.telegram.com/', '2024-09-25', '03284938053', '+1', 'uploads/selfie/k8SLFIH0hI3hf1iMNDLYNF4Y11UBVqWdVE5ixZJX.png', 'uploads/id_card_fronts/gbLYeyP8EyzWa57bdzEFqj0eN4I0GIHWMueqzFZC.png', 'uploads/id_card_backs/tWNusZ9WLOKU07wuNt8il6XGd3S2ZQIdnVzuSIzL.png', 'my name is ..', 'my name is aown ababs', 'I farm my own items', 1, '2024-09-15 05:29:38', '2024-09-15 05:29:38', '', 0);
 
 -- --------------------------------------------------------
 
@@ -553,8 +598,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('eiul2yxTa2WpIFeldo4l9PNeDK9uFdboivcmPfvi', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiOVdLOW5MSzZJWUtWMFd6Rm9UNndzY0RDZTE5S0w1aFR1VmM3N2VGYiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly9sb2NhbGhvc3QvZnVucGF5L3NlbGxlci1yZWdpc3RlciI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1726527761),
-('tFizRyY9PnV7Fjcy25rhcAgvwN96c7whYLJXrmQl', 201, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiZWI3cmNRb1NFUWprUlllWGRFcHlGekZQUnhGMDZaUGJlajI3VlZkZSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjEvZnVucGF5L2FjY291bnQvbG9naW4iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMDE7fQ==', 1726527915);
+('dqbS2R3FZ9ixjBcv2DepThjcpQtuloQrBWyNxovt', 201, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IkNFYXlkbVB3Q29PSzhTbjdvQXJwODVWc1pMYU5UMjlmMjM5WUFxbjUiO3M6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQyOiJodHRwOi8vbG9jYWxob3N0L2Z1bnBheS9hZG1pbi9tb250aGx5LWRhdGEiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjk6InVzZXJfdHlwZSI7czo2OiJzZWxsZXIiO3M6NzoidXNlcl9pZCI7aToxO3M6OToidXNlcl9uYW1lIjtzOjExOiJzZWxsZXIgdGVzdCI7czo1OiJlbWFpbCI7czoyMDoic2VsbGVydGVzdEBnbWFpbC5jb20iO3M6MTc6InN1Yl9jYXRlZ29yeV9zbHVnIjtzOjY6InRvcC11cCI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo0MToiaHR0cDovL2xvY2FsaG9zdC9mdW5wYXkvYWRtaW4vc3ViY2F0ZWdvcnkiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMDE7czoxNToic3ViX2NhdGVnb3J5X2lkIjtpOjM7czoxNzoib2ZmZXJfY2F0ZWdvcnlfaWQiO2k6MTt9', 1726827177);
 
 -- --------------------------------------------------------
 
@@ -598,7 +642,7 @@ INSERT INTO `sub_categories` (`id`, `category_id`, `offer_category_id`, `name`, 
 (21, 17, 7, 'et', 'sint-odio-eos-inventore-laborum-ratione-sed-quas', 1, '2024-09-12 13:10:01', '2024-09-12 13:10:01'),
 (22, 19, 8, 'qui', 'blanditiis-error-distinctio-omnis-qui-sed-blanditiis-vel', 1, '2024-09-12 13:10:01', '2024-09-12 13:10:01'),
 (24, 23, 10, 'neque', 'sint-beatae-consequatur-ullam-et-sed', 1, '2024-09-12 13:10:01', '2024-09-12 13:10:01'),
-(25, 1, 3, 'dropdown options checking', 'dropdown-options-checking', 1, '2024-09-13 04:56:15', '2024-09-13 04:56:15'),
+(25, 1, 3, 'dropdown options', 'dropdown-options', 1, '2024-09-13 04:56:15', '2024-09-19 01:28:59'),
 (27, 2, 3, 'legends subcategory', 'legends-subcategory', 1, '2024-09-14 01:41:26', '2024-09-14 01:41:26');
 
 -- --------------------------------------------------------
@@ -642,7 +686,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `employee_id`, `employee_old_id`, `name`, `strategic_unit`, `designation`, `phone_number`, `email`, `gender`, `su_head`, `functionally_reports_to`, `functional_head_name`, `administratively_reports_to`, `admin_head_name`, `email_verified_at`, `password`, `status`, `role_id`, `address`, `unique_id`, `org_o`, `profile_img`, `created_by`, `remember_token`, `created_at`, `updated_at`, `authenticated_id`) VALUES
-(201, 201, 0, 'Admin', 'RPI', 'joiner developer', '1344421', 'admin@admin.com', 'male', 'Farasat', 323, 'abc', 323, 'xyz', NULL, '$2y$12$D0RizbTBEEh2p59iUu3uMOwiaa1a.TUhLLiwmeSkB0/0Z2dlQeD/W', 1, 1, 'eced', 'ABC@$23836420240805111758', NULL, 'userprofile/1723804263_avatar5.png', NULL, NULL, '2023-10-10 00:13:26', '2024-08-16 05:31:03', '340583');
+(201, 201, 0, 'Admin', 'RPI', 'joiner developer', '1344421', 'admin@admin.com', 'male', 'Farasat', 323, 'abc', 323, 'xyz', NULL, '$2y$12$hwu/AYdhBQHUH48LSIPLRuZxoajLdKD02UEQq/cuW5EqoGORZpDRy', 1, 1, 'eced', 'ABC@$23836420240805111758', NULL, 'userprofile/1723804263_avatar5.png', NULL, NULL, '2023-10-10 00:13:26', '2024-09-17 09:42:12', '340583');
 
 --
 -- Indexes for dumped tables
@@ -720,9 +764,21 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `offers`
+--
+ALTER TABLE `offers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `offer_categories`
 --
 ALTER TABLE `offer_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `offer_fields`
+--
+ALTER TABLE `offer_fields`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -839,13 +895,25 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+
+--
+-- AUTO_INCREMENT for table `offers`
+--
+ALTER TABLE `offers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `offer_categories`
 --
 ALTER TABLE `offer_categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `offer_fields`
+--
+ALTER TABLE `offer_fields`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `offer_types`

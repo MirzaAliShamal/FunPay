@@ -19,6 +19,8 @@ class Offer extends Model
         'image', 
         'status',
         'seller_id',
-        'sub_category_id'
+        'sub_category_id',
+        'offer_category_id'
     ];
+    
 }

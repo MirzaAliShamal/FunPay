@@ -22,6 +22,11 @@ class SubCategory extends Model
         return $this->belongsTo(OfferCategory::class,'offer_category_id','id');
     }
 
+    public function offers()
+    {
+        return $this->hasMany(Offer::class);
+    }
+
     public function games()
     {
         return $this->hasMany(Game::class);

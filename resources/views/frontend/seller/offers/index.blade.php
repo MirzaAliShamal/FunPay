@@ -25,7 +25,15 @@
                     </div>
                 </div>
                 <div class="col-md-10 col-sm-9">
-                    @if(!$offer_data)
+                    @php
+                        $footer_div = null;
+                       
+                    @endphp
+                       
+                    @if(count($offers) < 1)
+                    @php
+                        $footer_div = 'absolute';
+                    @endphp
                     <div class="page-content">
 
                         <h1 class="page-header page-header-no-hr">Your offers</h1>
@@ -35,7 +43,14 @@
                     </div>
 
                     @else
+                    @php
+                        if(count($offers)>5){
+                            $footer_div = 'relative';
+                        }else{
+                            $footer_div = 'absolute';
+                        }
 
+                    @endphp
                     <div class="page-content">
                         <div class="row">
                             <div class="col-lg-6 col-md-5">
@@ -57,9 +72,10 @@
                         <!--noindex-->
                         <div class="tc table-hover table-clickable tc-short showcase-table" data-section-type="lot">
                             <div class="tc-header">
-                                @if($offer_data)
+                                
 
                                 @php
+                                
                                 function getRelatedValue($searchKey, $keysArray, $valuesArray)
                                 {
 
@@ -69,26 +85,9 @@
 
                                 }
                                 }
-                                $temp_var = 0;
                                 @endphp
-                                @if($offer_data[0]['name'] == 'Platform' || $offer_data[0]['name'] == 'platform')
-                                @php
-                                $temp_var = 'Platform';
-                                @endphp
-                                <div class="tc-server hidden-xs">Platform</div>
-                                @elseif($offer_data[0]['name'] == 'Server' || $offer_data[0]['name'] == 'server')
-                                @php
-                                $temp_var = 'Server';
-                                @endphp
-                                <div class="tc-server hidden-xs">Server</div>
-                                @elseif($offer_data[0]['name'] == 'Game' || $offer_data[0]['name'] == 'game')
-                                @php
-                                $temp_var = 'Game';
-                                @endphp
-                                <div class="tc-server hidden-xs">Game</div>
-
-                                @endif
-                                @endif
+                                <div class="tc-server hidden-xs">{{$offer_data[0]['name']}}</div>
+                                
                                 <div class="tc-desc">Description</div>
                                 <div class="tc-amount hidden-xxs sort" data-sort-field="tc-amount" data-sort-type="num"
                                     data-sort-dir="desc">In&nbsp;stock</div>
@@ -111,11 +110,11 @@
                             }
                             }
 
-                            $searchKey = $temp_var;
+                            $searchKey = $offer_data[0]['name'];
                             $result = getRelatedValue($searchKey, $labels, $values);
                             $platform = explode("-", $result);
                             @endphp
-                            <a href="https://funpay.com/en/lots/offerEdit?node=791&amp;offer=33197025" class="tc-item"
+                            <a href="{{route('offer.edit',$offer['id'])}}" class="tc-item"
                                 data-offer="33197025">
                                 <div class="tc-server hidden-xs">{{$platform[1]}}</div>
                                 <div class="tc-desc">
@@ -139,5 +138,6 @@
         </div>
     </div>
 </section>
-<div class="wrapper-footer" style="position:relative;bottom:0px;text-align:center;width:100%">
+
+<div class="wrapper-footer" style="position:{{$footer_div}};bottom:0px;text-align:center;width:100%">
     @endsection

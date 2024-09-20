@@ -45,6 +45,7 @@ table {
 .thclass {
     border: #eaeaea 1px solid;
     padding: 10px;
+    font-size:14px;
 }
 /* Container for pagination */
 .pagination {
@@ -220,7 +221,7 @@ table {
                             style="width: 110px; height: 110px;">
                             <div class="inside">
                                 <div class="counter-param">{{ $subcat->name }}</div>
-                                <div class="counter-value">155</div>
+                                <div class="counter-value">@if($subcat->offers){{count($subcat->offers)}}@else 0 @endif</div>
                             </div>
                         </a>
                         @endforeach
@@ -310,6 +311,7 @@ table {
                                                         <div class="form-group">
                                                             <textarea class="form-control showcase-filter-input"
                                                                 name="filters[{{ $filter->id }}]"
+                                                                style="height:40px"
                                                                 placeholder="Enter {{ $filter->name }}">{{ request('filters.' . $filter->id) }}</textarea>
                                                         </div>
                                                         @elseif ($filter->type === 'date')
@@ -357,7 +359,7 @@ table {
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th class="thclass">Platform</th>
+                                                <th class="thclass">{{$subcategory->offercategory->name}}</th>
                                                 <th class="thclass">Description</th>
                                                 <th class="thclass">Seller</th>
                                                 <th class="thclass">Price</th>
@@ -377,7 +379,9 @@ table {
                                                 
                                             @endphp
                                             <tr>
-                                                <th class="thclass" width="20%">Platform</th>
+                                                
+                                                
+                                                <th class="thclass" width="20%"></th>
                                                 <th class="thclass" width="40%">{{ $item->description }}</th>
                                                 <th class="thclass" width="20%">
                                                     <div class="tc-user" >

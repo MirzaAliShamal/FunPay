@@ -19,7 +19,6 @@
                            @csrf
                             @if($offer_data)
 
-                            @if($offer_data[0]['name'] == 'Platform' || $offer_data[0]['name'] == 'platform')
 
                             @php 
                                 $temp_variable = null;
@@ -58,88 +57,6 @@
                             </div>
                             @endif
                             @endforeach
-
-
-                            @elseif($offer_data[0]['name'] == 'Server' || $offer_data[0]['name'] == 'server')
-
-                            @php 
-                                $temp_variable = null;
-                            @endphp
-                            @foreach($offer_data[0]['offer_fields'] as $data)
-                            @php
-                                if($temp_variable == null){
-                                    $temp_variable = $data['label'];
-                                }else{
-                                    $temp_variable .= ','.$data['label'] ;
-                                }
-                                
-                            @endphp
-                            <input type="hidden" name="fields[]" value="{{$data['label']}}">
-                            @if($data['type'] == 1)
-                            <div class="form-group">
-                                <div class="form-group lot-field" data-id="{{$data['label']}}"><label
-                                        class="control-label">{{$data['label']}}</label>
-                                    <input required type="text" class="form-control lot-field-input" name="{{$data['label']}}"
-                                        inputmode="decimal">
-                                </div>
-                            </div>
-                            @elseif($data['type'] == 2)
-                            <div class="form-group">
-                                <label class="control-label">{{$data['label']}}</label>
-                                <select required class="form-control" name="{{$data['label']}}">
-                                    <option value="">Select Option</option>
-                                    @php
-                                        $values = explode(",",$data['values']);
-                                    @endphp
-                                    @foreach($values as $value)
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endforeach
-
-                                </select>
-                            </div>
-                            @endif
-                            @endforeach
-
-                            @elseif($offer_data[0]['name'] == 'Game' || $offer_data[0]['name'] == 'game')
-
-                            @php 
-                                $temp_variable = null;
-                            @endphp
-                            @foreach($offer_data[0]['offer_fields'] as $data)
-                            @php
-                                if($temp_variable == null){
-                                    $temp_variable = $data['label'];
-                                }else{
-                                    $temp_variable .= ','.$data['label'] ;
-                                }
-                                
-                            @endphp
-                            <input type="hidden" name="fields[]" value="{{$data['label']}}">
-                            @if($data['type'] == 1)
-                            <div class="form-group">
-                                <div class="form-group lot-field" data-id="{{$data['label']}}"><label
-                                        class="control-label">{{$data['label']}}</label>
-                                    <input required type="text" class="form-control lot-field-input" name="{{$data['label']}}"
-                                        inputmode="decimal">
-                                </div>
-                            </div>
-                            @elseif($data['type'] == 2)
-                            <div class="form-group">
-                                <label class="control-label">{{$data['label']}}</label>
-                                <select required class="form-control" name="{{$data['label']}}">
-                                    <option value="">Select Option</option>
-                                    @php
-                                        $values = explode(",",$data['values']);
-                                    @endphp
-                                    @foreach($values as $value)
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endforeach
-
-                                </select>
-                            </div>
-                            @endif
-                            @endforeach
-                            @endif
                             @endif
 
                             
@@ -160,7 +77,7 @@
                                             data-locale="en" data-id="summary">
                                             <label class="control-label">Short description</label>
                                             <input required type="text" class="form-control lot-field-input"
-                                                name="short_description" value="">
+                                                name="short_description" value="💎【300 DIAMONDS】💎⭐BY ID⭐✅SAFE✅🎶OFFICIALLY🎶🎉100% GUARANTEED🎉">
                                             <p class="help-block">Appears directly on the table</p>
                                         </div>
 

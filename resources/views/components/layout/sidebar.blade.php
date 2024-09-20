@@ -72,12 +72,12 @@
                     </a>
                 </li>
 
-                <li class="nav-item mt-2">
+                <!-- <li class="nav-item mt-2">
                     <a href="{{ route('admin.game') }}" class="nav-link">
                         <i class="fa fa-gamepad"></i>
                         <p class="side-menu__label mx-2">Games</p>
                     </a>
-                </li>
+                </li> -->
 
                 <li class="nav-item mt-2">
                     <a href="{{ route('admin.seller') }}" class="nav-link">

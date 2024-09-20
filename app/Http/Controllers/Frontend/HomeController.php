@@ -78,13 +78,25 @@ class HomeController extends Controller
 
 
     public function subcatpage(string $slug, Request $request) {
-        $subcategory = SubCategory::with(['category', 'filters.options'])->where('slug', $slug)->first();
+        $subcategory = SubCategory::with(['category', 'filters.options'])
+        ->with(['offercategory' => function ($query) {
+            $query->select('id','name');
+            $query->where('status',1);
+        }])->where('slug', $slug)->first();
+        
         if ($subcategory && $subcategory->category) {
             $categoryId = $subcategory->category->id;
-            $category = Category::where('id',$categoryId)->with('subCategories')->first();
+            $category = Category::where('id', $categoryId)
+                    ->with(['subCategories' => function ($query) {
+                        $query->with(['offers' => function ($query) {
+                            $query->select('id', 'stock', 'sub_category_id') // Include foreign key
+                                ->where('status', 1);
+                        }]);
+                    }])
+                    ->first();
         }
 
-
+        
         if (!$subcategory) {
             abort(404);
         }
@@ -96,7 +108,7 @@ class HomeController extends Controller
         ]);
 
         // Fetch items based on selected filters
-        $itemsQuery = Offer::where('sub_category_id', $subcategory->id);
+        $itemsQuery = Offer::where('sub_category_id', $subcategory->id)->whereoffer_category_id($subcategory->offer_category_id)->wherestatus(1);
         // foreach ($selectedFilters as $filterId => $value) {
         //     if (is_array($value)) {
         //         $itemsQuery->whereIn('filter_id', $value);
