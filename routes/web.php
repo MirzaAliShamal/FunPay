@@ -55,9 +55,6 @@ Route::get('/frontend/logout', [LoginController::class, 'logout'])->name('user.s
 
  Route::get('/account/register', [BuyerController::class, 'index'])->name('buyer.register');
  Route::post('/buyer/store', [BuyerController::class, 'store'])->name('buyer.store');
- //  Route::get('/welcome-onboardds', [BuyerController::class, 'dfdfdf'])->name('user.register');
- //  Route::get('/welcome-onboard/register', [BuyerController::class, 'SecondIndex'])->name('step.two');
- //  Route::get('/register/form', [BuyerController::class, 'sellerregisterform'])->name('step.three');
 
 // **************************** Frontend Routes ****************************
 Route::get('/', [FrontController::class, 'index'])->name('homepage');
@@ -135,6 +132,14 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
  Route::delete('/seller/destroy/{id}', [SellersController::class, 'destroy'])->name('seller.destroy');
  Route::post('/seller/update/{id}', [SellersController::class, 'update'])->name('seller.update');
 
+
+
+  // **************************** Buyers ****************************
+
+  Route::get('/buyers', [BuyerController::class, 'buyerindex'])->name('buyer');
+  Route::get('/buyer/show/{id}', [BuyerController::class, 'show'])->name('buyer.show');
+  Route::delete('/buyer/destroy/{id}', [BuyerController::class, 'destroy'])->name('buyer.destroy');
+  Route::post('/buyer/update/{id}', [BuyerController::class, 'update'])->name('buyer.update');
 });
 
 // **************************** User ****************************

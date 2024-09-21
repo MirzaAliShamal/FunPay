@@ -44,5 +44,34 @@ class BuyerController extends Controller
         }
     }
 
+    public function buyerindex(){
+
+        $module_data = Buyer::select('*')->get();
+        return view('buyer.index', compact('module_data'));
+    }
+
+
+    public function show($id)
+    {
+        $buyer_data = Buyer::findOrFail($id); // Eager load filters and their options
+
+        return view('buyer.view', compact('buyer_data'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = array(
+            'status' => $request->status,
+        );
+        Buyer::whereid($id)->update($data);
+        return redirect()->route('admin.buyer')->with('success', 'Data updated successfully.');
+    }
+
+    public function destroy($id)
+    {
+        $subCategory = Buyer::findOrFail($id);
+        $subCategory->delete();
+        return redirect()->route('admin.buyer')->with('success', 'Data deleted successfully.');
+    }
 
 }

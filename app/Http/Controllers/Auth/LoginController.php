@@ -25,7 +25,7 @@ class LoginController extends Controller
     public function userLogin(Request $request)
     {
         if(!$request->user_type){
-            return redirect()->route('user.seller.login')->with('error', 'Please select the type seller or buyer!'); 
+            return redirect()->route('user.seller.login')->with('error', 'Please select the type seller or buyer!');
         }
         // Validate the login credentials
         $credentials = $request->validate([
@@ -33,11 +33,11 @@ class LoginController extends Controller
             'password' => ['required'],
             'user_type' => ['required'],
         ]);
-        
+
         if ($credentials['user_type'] === 'buyer') {
-           
+
             $buyer = Buyer::where('email', $credentials['email'])->first();
-            
+
             if ($buyer && Hash::check($credentials['password'], $buyer->password)) {
                 session([
                     'user_type' => 'buyer',
@@ -70,7 +70,7 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        
+
         Auth::logout(); // Log out the user
         // Invalidate the session
         $request->session()->invalidate();
