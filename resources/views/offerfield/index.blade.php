@@ -40,7 +40,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" id="offer-field-categories">
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
@@ -51,31 +51,6 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach($module_data as $data)
-                                    <tr>
-                                        <td>{{ $data->id }}</td>
-                                        <td>{{ $data->offercategory->name }}</td>
-                                        <td>{{ $data->label }}</td>
-                                        <td>{{ $data->values }}</td>
-                                        <td>
-                                            @if ($data->status == 1)
-                                            <div class="badge bg-success">Active</div>
-                                            @else
-                                            <div class="badge bg-danger">Inactive</div>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('admin.offerfield.edit', $data) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                                            <form action="{{ route('admin.offerfield.destroy', $data) }}" method="POST" style="display: inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i></button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -87,4 +62,41 @@
 @endsection
 
 @section('script')
+@section('script')
+ <script>
+  $(function() {
+   $('#offer-field-categories').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: '{{ route('admin.offerField.data') }}',
+    columns: [{
+      data: 'id',
+      name: 'id'
+     },
+     {
+      data: 'offer category',
+      name: 'offer category'
+     },
+     {
+      data: 'label',
+      name: 'label',
+     },
+     {
+      data: 'values',
+      name: 'values',
+     },
+     {
+      data: 'status',
+      name: 'status',
+     },
+     {
+      data: 'action',
+      name: 'action',
+      orderable: false,
+      searchable: false
+     }
+    ]
+   });
+  });
+ </script>
 @endsection

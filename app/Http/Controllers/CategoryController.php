@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Yajra\DataTables\Facades\DataTables;
 
 class CategoryController extends Controller
 {
@@ -12,8 +13,34 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('category.index', compact('categories'));
+        return view('category.index');
+    }
+
+    public function getCategoryData()
+    {
+        if (request()->ajax()) {
+            $categories = Category::all();
+
+            return DataTables::of($categories)
+                ->addColumn('name', function ($row) {
+                    return $row->name;
+                })
+                ->addColumn('status', function ($row) {
+                    return $row->status == 1 ? '<div class="badge bg-success" style="">Active</div>' : '<div class="badge bg-danger">Inactive</div>';
+                })
+                ->addColumn('action', function ($row) {
+                    return '<a href="' . route('admin.category.edit', $row->id) . '"
+                                                class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                            <form action="' . route('admin.category.destroy', $row->id) . '"
+                                                method="POST" style="display:inline;">
+                                                ' . csrf_field() . '
+                                                ' . method_field("DELETE") . '
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm(\'Are you sure?\')"><i class="fas fa-trash"></i></button>
+                                            </form>';
+                })
+                ->rawColumns(['status', 'action'])
+                ->make(true);
+        }
     }
 
     /**

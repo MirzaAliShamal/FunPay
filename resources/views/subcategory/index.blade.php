@@ -40,7 +40,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" id="subcategory-datatable">
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
@@ -53,7 +53,7 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                {{-- <tbody>
                                     @foreach($subCategories as $subCategory)
                                     <tr>
                                         <td>{{ $subCategory->id }}</td>
@@ -90,7 +90,7 @@
 
                                     </tr>
                                     @endforeach
-                                </tbody>
+                                </tbody> --}}
                             </table>
                         </div>
                     </div>
@@ -102,4 +102,49 @@
 @endsection
 
 @section('script')
+ <script>
+  $(function() {
+   $('#subcategory-datatable').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: '{{ route('admin.subcategory.data') }}',
+    columns: [
+     {
+      data: 'id',
+      name: 'id'
+     },
+     {
+      data: 'name',
+      name: 'name'
+     },
+     {
+      data: 'category',
+      name: 'category'
+     },
+     {
+      data: 'offertype',
+      name: 'offertype'
+     },
+     {
+      data: 'slug',
+      name: 'slug'
+     },
+     {
+      data: 'status',
+      name: 'status'
+     },
+     {
+      data: 'filter',
+      name: 'filter'
+     },
+     {
+      data: 'action',
+      name: 'action',
+      orderable: false,
+      searchable: false
+     }
+    ]
+   });
+  });
+ </script>
 @endsection
