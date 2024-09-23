@@ -6,6 +6,7 @@ use App\Http\Controllers\SellersController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Frontend\BuyerController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Frontend\HomeController as FrontController;
 use App\Http\Controllers\GameController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Frontend\OfferController;
 use App\Http\Controllers\OfferTypeController;
 use App\Http\Controllers\OfferFieldController;
 use App\Http\Controllers\Frontend\SellerController;
+use App\Http\Controllers\Frontend\MessageController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +30,15 @@ Route::get('/clear', function () {
  Artisan::call('optimize:clear');
  return "Cleared!";
 });
+Route::get('/message', [MessageController::class, 'index'])->name('message');
+Route::post('/send-message', [MessageController::class, 'sendMessage'])->name('send.message');
+Route::get('/unread-messages-count', [MessageController::class, 'getUnreadMessageCount'])->name('unread.messages.count');
+Route::post('/mark-messages-read', [MessageController::class, 'markMessagesAsRead'])->name('mark.messages.read');
+Route::post('/chat-listing', [MessageController::class, 'chatListing'])->name('chat.listing');
+
+ // **************************** Checkout ****************************
+ Route::get('/lots/offer/{id}', [CheckoutController::class, 'index'])->name('buyer.checkout');
+
 
  // **************************** Seller Register ****************************
 

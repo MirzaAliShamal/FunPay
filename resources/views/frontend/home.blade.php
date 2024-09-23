@@ -114,5 +114,6 @@
         </div>
     </div>
 </section>
+<div class="wrapper-footer" style="position:relative;bottom:0px;text-align:center;width:100%">
 
 @endsection

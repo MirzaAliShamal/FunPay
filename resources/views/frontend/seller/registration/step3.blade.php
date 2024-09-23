@@ -145,7 +145,7 @@
                 <div class="input-row">
                     <div class="input-group">
                         <label for="full-name">Full Name</label>
-                        <input type="text" id="full-name" name="full_name" placeholder="Enter your full name" required value="{{ old('full_name') }}">
+                        <input type="text" id="full-name" name="name" placeholder="Enter your full name" required value="{{ old('full_name') }}">
                         @error('full_name')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
