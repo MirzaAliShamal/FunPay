@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 20, 2024 at 12:14 PM
+-- Generation Time: Sep 23, 2024 at 01:58 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -134,6 +134,14 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `failed_jobs`
+--
+
+INSERT INTO `failed_jobs` (`id`, `uuid`, `connection`, `queue`, `payload`, `exception`, `failed_at`) VALUES
+(1, '9d689332-45da-4369-bf2f-47f14c10d310', 'database', 'default', '{\"uuid\":\"9d689332-45da-4369-bf2f-47f14c10d310\",\"displayName\":\"App\\\\Events\\\\MessageSent\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"maxExceptions\":null,\"failOnTimeout\":false,\"backoff\":null,\"timeout\":null,\"retryUntil\":null,\"data\":{\"commandName\":\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\",\"command\":\"O:38:\\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\\":14:{s:5:\\\"event\\\";O:22:\\\"App\\\\Events\\\\MessageSent\\\":1:{s:7:\\\"message\\\";O:45:\\\"Illuminate\\\\Contracts\\\\Database\\\\ModelIdentifier\\\":5:{s:5:\\\"class\\\";s:18:\\\"App\\\\Models\\\\Message\\\";s:2:\\\"id\\\";i:6;s:9:\\\"relations\\\";a:0:{}s:10:\\\"connection\\\";s:5:\\\"mysql\\\";s:15:\\\"collectionClass\\\";N;}}s:5:\\\"tries\\\";N;s:7:\\\"timeout\\\";N;s:7:\\\"backoff\\\";N;s:13:\\\"maxExceptions\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:5:\\\"delay\\\";N;s:11:\\\"afterCommit\\\";N;s:10:\\\"middleware\\\";a:0:{}s:7:\\\"chained\\\";a:0:{}s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:19:\\\"chainCatchCallbacks\\\";N;}\"}}', 'Illuminate\\Database\\Eloquent\\ModelNotFoundException: No query results for model [App\\Models\\Message]. in C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php:637\nStack trace:\n#0 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\SerializesAndRestoresModelIdentifiers.php(109): Illuminate\\Database\\Eloquent\\Builder->firstOrFail()\n#1 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\SerializesAndRestoresModelIdentifiers.php(62): App\\Events\\MessageSent->restoreModel(Object(Illuminate\\Contracts\\Database\\ModelIdentifier))\n#2 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\SerializesModels.php(93): App\\Events\\MessageSent->getRestoredPropertyValue(Object(Illuminate\\Contracts\\Database\\ModelIdentifier))\n#3 [internal function]: App\\Events\\MessageSent->__unserialize(Array)\n#4 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(98): unserialize(\'O:38:\"Illuminat...\')\n#5 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(61): Illuminate\\Queue\\CallQueuedHandler->getCommand(Array)\n#6 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Jobs\\Job.php(102): Illuminate\\Queue\\CallQueuedHandler->call(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Array)\n#7 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(439): Illuminate\\Queue\\Jobs\\Job->fire()\n#8 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(389): Illuminate\\Queue\\Worker->process(\'database\', Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Object(Illuminate\\Queue\\WorkerOptions))\n#9 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(176): Illuminate\\Queue\\Worker->runJob(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), \'database\', Object(Illuminate\\Queue\\WorkerOptions))\n#10 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\WorkCommand.php(139): Illuminate\\Queue\\Worker->daemon(\'database\', \'default\', Object(Illuminate\\Queue\\WorkerOptions))\n#11 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\WorkCommand.php(122): Illuminate\\Queue\\Console\\WorkCommand->runWorker(\'database\', \'default\')\n#12 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Queue\\Console\\WorkCommand->handle()\n#13 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()\n#14 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(95): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))\n#15 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))\n#16 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(690): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)\n#17 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(213): Illuminate\\Container\\Container->call(Array)\n#18 C:\\xampp\\htdocs\\funpay\\vendor\\symfony\\console\\Command\\Command.php(279): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))\n#19 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))\n#20 C:\\xampp\\htdocs\\funpay\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#21 C:\\xampp\\htdocs\\funpay\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Queue\\Console\\WorkCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#22 C:\\xampp\\htdocs\\funpay\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#23 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#24 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#25 C:\\xampp\\htdocs\\funpay\\artisan(13): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))\n#26 {main}', '2024-09-23 05:37:44'),
+(2, '63ac4772-014d-4124-9108-10e11d4cb122', 'database', 'default', '{\"uuid\":\"63ac4772-014d-4124-9108-10e11d4cb122\",\"displayName\":\"App\\\\Events\\\\MessageSent\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"maxExceptions\":null,\"failOnTimeout\":false,\"backoff\":null,\"timeout\":null,\"retryUntil\":null,\"data\":{\"commandName\":\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\",\"command\":\"O:38:\\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\\":14:{s:5:\\\"event\\\";O:22:\\\"App\\\\Events\\\\MessageSent\\\":1:{s:7:\\\"message\\\";O:45:\\\"Illuminate\\\\Contracts\\\\Database\\\\ModelIdentifier\\\":5:{s:5:\\\"class\\\";s:18:\\\"App\\\\Models\\\\Message\\\";s:2:\\\"id\\\";i:6;s:9:\\\"relations\\\";a:0:{}s:10:\\\"connection\\\";s:5:\\\"mysql\\\";s:15:\\\"collectionClass\\\";N;}}s:5:\\\"tries\\\";N;s:7:\\\"timeout\\\";N;s:7:\\\"backoff\\\";N;s:13:\\\"maxExceptions\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:5:\\\"delay\\\";N;s:11:\\\"afterCommit\\\";N;s:10:\\\"middleware\\\";a:0:{}s:7:\\\"chained\\\";a:0:{}s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:19:\\\"chainCatchCallbacks\\\";N;}\"}}', 'Illuminate\\Database\\Eloquent\\ModelNotFoundException: No query results for model [App\\Models\\Message]. in C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php:637\nStack trace:\n#0 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\SerializesAndRestoresModelIdentifiers.php(109): Illuminate\\Database\\Eloquent\\Builder->firstOrFail()\n#1 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\SerializesAndRestoresModelIdentifiers.php(62): App\\Events\\MessageSent->restoreModel(Object(Illuminate\\Contracts\\Database\\ModelIdentifier))\n#2 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\SerializesModels.php(93): App\\Events\\MessageSent->getRestoredPropertyValue(Object(Illuminate\\Contracts\\Database\\ModelIdentifier))\n#3 [internal function]: App\\Events\\MessageSent->__unserialize(Array)\n#4 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(98): unserialize(\'O:38:\"Illuminat...\')\n#5 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(61): Illuminate\\Queue\\CallQueuedHandler->getCommand(Array)\n#6 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Jobs\\Job.php(102): Illuminate\\Queue\\CallQueuedHandler->call(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Array)\n#7 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(439): Illuminate\\Queue\\Jobs\\Job->fire()\n#8 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(389): Illuminate\\Queue\\Worker->process(\'database\', Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Object(Illuminate\\Queue\\WorkerOptions))\n#9 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(176): Illuminate\\Queue\\Worker->runJob(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), \'database\', Object(Illuminate\\Queue\\WorkerOptions))\n#10 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\WorkCommand.php(139): Illuminate\\Queue\\Worker->daemon(\'database\', \'default\', Object(Illuminate\\Queue\\WorkerOptions))\n#11 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\WorkCommand.php(122): Illuminate\\Queue\\Console\\WorkCommand->runWorker(\'database\', \'default\')\n#12 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Queue\\Console\\WorkCommand->handle()\n#13 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()\n#14 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(95): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))\n#15 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))\n#16 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(690): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)\n#17 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(213): Illuminate\\Container\\Container->call(Array)\n#18 C:\\xampp\\htdocs\\funpay\\vendor\\symfony\\console\\Command\\Command.php(279): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))\n#19 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))\n#20 C:\\xampp\\htdocs\\funpay\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#21 C:\\xampp\\htdocs\\funpay\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Queue\\Console\\WorkCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#22 C:\\xampp\\htdocs\\funpay\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#23 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#24 C:\\xampp\\htdocs\\funpay\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#25 C:\\xampp\\htdocs\\funpay\\artisan(13): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))\n#26 {main}', '2024-09-23 05:37:45');
 
 -- --------------------------------------------------------
 
@@ -285,6 +293,128 @@ CREATE TABLE `job_batches` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `sender_id` int(11) NOT NULL,
+  `receiver_id` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `is_read` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `sender_id`, `receiver_id`, `message`, `is_read`, `created_at`, `updated_at`, `image`) VALUES
+(1, 231, 230, 'hi, How are you?', 0, '2024-09-22 09:17:01', '2024-09-22 09:17:01', NULL),
+(2, 231, 230, 'are you there?', 0, '2024-09-22 09:17:01', '2024-09-22 09:17:01', NULL),
+(3, 230, 231, 'Hi, i am fine how are you?', 0, '2024-09-22 09:17:01', '2024-09-22 09:17:01', NULL),
+(4, 233, 230, 'Hi, How are you?', 0, '2024-09-22 09:17:01', '2024-09-22 09:17:01', NULL),
+(5, 230, 233, 'Hi, i am good how are you?', 0, '2024-09-22 09:17:01', '2024-09-22 09:17:01', NULL),
+(7, 233, 230, 'what are you doing?', 0, '2024-09-23 01:35:54', '2024-09-23 01:35:54', NULL),
+(8, 231, 230, 'i am good', 0, '2024-09-23 01:37:46', '2024-09-23 01:37:46', NULL),
+(9, 230, 231, 'how can i help you?', 0, '2024-09-23 01:38:59', '2024-09-23 01:38:59', NULL),
+(10, 231, 230, 'could you please send me the setup?', 0, '2024-09-23 01:40:32', '2024-09-23 01:40:32', NULL),
+(11, 231, 230, 'are you there?', 0, '2024-09-23 01:46:41', '2024-09-23 01:46:41', NULL),
+(12, 231, 230, 'are you there?', 0, '2024-09-23 01:47:41', '2024-09-23 01:47:41', NULL),
+(13, 231, 230, 'you there?', 0, '2024-09-23 01:47:51', '2024-09-23 01:47:51', NULL),
+(14, 231, 230, 'are you therE?', 0, '2024-09-23 01:50:19', '2024-09-23 01:50:19', NULL),
+(15, 231, 230, 'are you there?', 0, '2024-09-23 01:55:41', '2024-09-23 01:55:41', NULL),
+(16, 231, 230, 'hi', 0, '2024-09-23 01:55:52', '2024-09-23 01:55:52', NULL),
+(17, 231, 230, 'are you there?', 0, '2024-09-23 01:57:00', '2024-09-23 01:57:00', NULL),
+(18, 231, 230, 'hi', 0, '2024-09-23 01:57:21', '2024-09-23 01:57:21', NULL),
+(19, 231, 230, 'hi shaheryar', 0, '2024-09-23 01:58:07', '2024-09-23 01:58:07', NULL),
+(20, 231, 230, 'shaheryar', 0, '2024-09-23 01:58:20', '2024-09-23 01:58:20', NULL),
+(21, 231, 230, 'hi are you there?', 0, '2024-09-23 02:00:01', '2024-09-23 02:00:01', NULL),
+(22, 231, 230, 'wqdqwd', 0, '2024-09-23 02:02:34', '2024-09-23 02:02:34', NULL),
+(23, 231, 230, 'wdwdw', 0, '2024-09-23 02:02:45', '2024-09-23 02:02:45', NULL),
+(24, 231, 230, 'why no calling', 0, '2024-09-23 02:04:16', '2024-09-23 02:04:16', NULL),
+(25, 231, 230, 'hiasas', 0, '2024-09-23 02:05:06', '2024-09-23 02:05:06', NULL),
+(26, 231, 230, 'qwdqdqdqwd', 0, '2024-09-23 02:06:11', '2024-09-23 02:06:11', NULL),
+(27, 231, 230, 'hi bro', 0, '2024-09-23 02:08:02', '2024-09-23 02:08:02', NULL),
+(28, 231, 230, 'hi bro', 0, '2024-09-23 02:25:55', '2024-09-23 02:25:55', NULL),
+(29, 231, 230, 'qwdwdwq', 0, '2024-09-23 02:26:04', '2024-09-23 02:26:04', NULL),
+(30, 231, 230, 'qwdwqdqwd', 0, '2024-09-23 02:26:42', '2024-09-23 02:26:42', NULL),
+(31, 231, 230, 'you there', 0, '2024-09-23 02:26:48', '2024-09-23 02:26:48', NULL),
+(32, 231, 230, 'wdqwdqd', 0, '2024-09-23 02:27:38', '2024-09-23 02:27:38', NULL),
+(33, 231, 230, 'qwdqwdqwd', 0, '2024-09-23 02:29:33', '2024-09-23 02:29:33', NULL),
+(34, 231, 230, 'how are you?', 0, '2024-09-23 02:29:47', '2024-09-23 02:29:47', NULL),
+(35, 231, 230, 'hi there?', 0, '2024-09-23 02:30:02', '2024-09-23 02:30:02', NULL),
+(36, 231, 230, 'qwdqdwqdqwd', 0, '2024-09-23 02:30:50', '2024-09-23 02:30:50', NULL),
+(37, 231, 230, '23fwdewfwef', 0, '2024-09-23 02:30:53', '2024-09-23 02:30:53', NULL),
+(38, 231, 230, 'hi bro', 0, '2024-09-23 02:34:11', '2024-09-23 02:34:11', NULL),
+(39, 231, 230, 'hi bro', 0, '2024-09-23 02:50:39', '2024-09-23 02:50:39', NULL),
+(40, 231, 230, 'why message not received', 0, '2024-09-23 02:50:58', '2024-09-23 02:50:58', NULL),
+(41, 231, 230, 'qwdqwdqwd', 0, '2024-09-23 02:57:27', '2024-09-23 02:57:27', NULL),
+(42, 231, 230, 'qwdqwwqwqd', 0, '2024-09-23 03:02:34', '2024-09-23 03:02:34', NULL),
+(43, 231, 230, 'qwdqwdqwd', 0, '2024-09-23 03:03:09', '2024-09-23 03:03:09', NULL),
+(44, 231, 230, 'qwdqwwqdqwd', 0, '2024-09-23 03:03:31', '2024-09-23 03:03:31', NULL),
+(45, 231, 230, 'qwdwqdqddqd', 0, '2024-09-23 03:06:06', '2024-09-23 03:06:06', NULL),
+(46, 231, 230, 'qwdwqddqd', 0, '2024-09-23 03:31:52', '2024-09-23 03:31:52', NULL),
+(47, 231, 230, 'hi', 0, '2024-09-23 03:44:25', '2024-09-23 03:44:25', NULL),
+(48, 231, 230, 'qwdqwdwqd', 0, '2024-09-23 03:46:49', '2024-09-23 03:46:49', NULL),
+(49, 231, 230, 'wefweffwe', 0, '2024-09-23 03:49:39', '2024-09-23 03:49:39', NULL),
+(50, 231, 230, 'qwdqdqwdqwd', 0, '2024-09-23 03:53:29', '2024-09-23 03:53:29', NULL),
+(51, 231, 230, 'qwdqwdqwddqd', 0, '2024-09-23 03:54:15', '2024-09-23 03:54:15', NULL),
+(52, 231, 230, 'qwddqwdqd', 0, '2024-09-23 03:54:23', '2024-09-23 03:54:23', NULL),
+(53, 231, 230, 'qwdqwdqdqwd', 0, '2024-09-23 03:55:43', '2024-09-23 03:55:43', NULL),
+(54, 231, 230, 'qdwqdwqd', 0, '2024-09-23 04:03:03', '2024-09-23 04:03:03', NULL),
+(55, 231, 230, 'qwdqwddq', 0, '2024-09-23 04:04:43', '2024-09-23 04:04:43', NULL),
+(56, 231, 230, 'qwdqdqwdd', 0, '2024-09-23 04:05:15', '2024-09-23 04:05:15', NULL),
+(57, 231, 230, 'qwdwdqwdqd', 0, '2024-09-23 04:05:59', '2024-09-23 04:05:59', NULL),
+(58, 231, 230, 'qdqdqwdqwd', 0, '2024-09-23 04:07:00', '2024-09-23 04:07:00', NULL),
+(59, 231, 230, 'qwdqwdqdwd', 0, '2024-09-23 04:08:05', '2024-09-23 04:08:05', NULL),
+(60, 231, 230, 'qwdqwdqwdqwd', 0, '2024-09-23 04:14:24', '2024-09-23 04:14:24', NULL),
+(61, 231, 230, 'qwdqwdwqd', 0, '2024-09-23 04:14:31', '2024-09-23 04:14:31', NULL),
+(62, 231, 230, 'qwdqwdqwddwqd', 0, '2024-09-23 04:15:01', '2024-09-23 04:15:01', NULL),
+(63, 231, 230, 'qwdwqdqwdqwd', 0, '2024-09-23 04:15:07', '2024-09-23 04:15:07', NULL),
+(64, 231, 230, 'qwdqwdqdwqd', 0, '2024-09-23 04:19:13', '2024-09-23 04:19:13', NULL),
+(65, 231, 230, 'qwdqwdqwdqwd', 0, '2024-09-23 04:19:58', '2024-09-23 04:19:58', NULL),
+(66, 231, 230, 'qwdqwdqwdqwd', 0, '2024-09-23 04:23:09', '2024-09-23 04:23:09', NULL),
+(67, 231, 230, 'qdwqwdqdqdqwd', 0, '2024-09-23 04:23:13', '2024-09-23 04:23:13', NULL),
+(68, 231, 230, 'qdwdwww22222', 0, '2024-09-23 04:23:30', '2024-09-23 04:23:30', NULL),
+(69, 231, 230, 'qwdqwdqwddw', 0, '2024-09-23 04:24:14', '2024-09-23 04:24:14', NULL),
+(70, 231, 230, 'qwdqwdqwddqwd', 0, '2024-09-23 04:30:00', '2024-09-23 04:30:00', NULL),
+(71, 231, 230, 'qwdqwdqwdd', 0, '2024-09-23 04:37:04', '2024-09-23 04:37:04', NULL),
+(72, 231, 230, 'qwdwqd22222', 0, '2024-09-23 04:37:09', '2024-09-23 04:37:09', NULL),
+(73, 231, 230, 'hello', 0, '2024-09-23 04:37:31', '2024-09-23 04:37:31', NULL),
+(74, 231, 230, 'qwdqwdqwdqwdd', 0, '2024-09-23 04:38:54', '2024-09-23 04:38:54', NULL),
+(75, 231, 230, 'qdqwdwqdqwd', 0, '2024-09-23 04:39:08', '2024-09-23 04:39:08', NULL),
+(76, 231, 230, 'qwdqwdqwd', 0, '2024-09-23 04:44:55', '2024-09-23 04:44:55', NULL),
+(77, 231, 230, 'qwdqwdqdwdq', 0, '2024-09-23 04:45:34', '2024-09-23 04:45:34', NULL),
+(78, 231, 230, 'qwdqwdqd', 0, '2024-09-23 04:45:48', '2024-09-23 04:45:48', NULL),
+(79, 231, 230, 'qwdqdqdd', 0, '2024-09-23 04:56:56', '2024-09-23 04:56:56', NULL),
+(80, 231, 230, 'qwdqwdqwddqdqw', 0, '2024-09-23 04:57:18', '2024-09-23 04:57:18', NULL),
+(81, 231, 230, 'qdqwqd', 0, '2024-09-23 05:33:32', '2024-09-23 05:33:32', NULL),
+(82, 231, 230, 'hellow brother', 0, '2024-09-23 05:38:46', '2024-09-23 05:38:46', NULL),
+(83, 231, 230, 'how are you?', 0, '2024-09-23 05:39:35', '2024-09-23 05:39:35', NULL),
+(84, 231, 230, 'you there?', 0, '2024-09-23 05:42:32', '2024-09-23 05:42:32', NULL),
+(85, 231, 230, 'hi', 0, '2024-09-23 05:43:22', '2024-09-23 05:43:22', NULL),
+(86, 230, 231, 'hi brother', 0, '2024-09-23 05:44:03', '2024-09-23 05:44:03', NULL),
+(87, 231, 230, 'hi hellow', 0, '2024-09-23 05:44:46', '2024-09-23 05:44:46', NULL),
+(88, 231, 230, 'qwdqwdqd', 0, '2024-09-23 05:47:26', '2024-09-23 05:47:26', NULL),
+(89, 231, 230, 'hellow', 0, '2024-09-23 05:47:45', '2024-09-23 05:47:45', NULL),
+(90, 231, 230, 'hellow', 0, '2024-09-23 05:48:33', '2024-09-23 05:48:33', NULL),
+(91, 231, 230, 'qwdwqd', 0, '2024-09-23 05:49:39', '2024-09-23 05:49:39', NULL),
+(92, 231, 230, 'qwdwqdqwd', 0, '2024-09-23 05:50:12', '2024-09-23 05:50:12', NULL),
+(93, 230, 231, 'hi there', 0, '2024-09-23 05:50:38', '2024-09-23 05:50:38', NULL),
+(94, 231, 230, 'wefewf', 0, '2024-09-23 05:50:53', '2024-09-23 05:50:53', NULL),
+(95, 231, 230, 'qwdwqdwq', 0, '2024-09-23 05:51:37', '2024-09-23 05:51:37', NULL),
+(96, 231, 230, 'qwdwqdwqd', 0, '2024-09-23 05:56:24', '2024-09-23 05:56:24', NULL),
+(97, 231, 230, 'qdwqwdqwdqd', 0, '2024-09-23 06:07:47', '2024-09-23 06:07:47', NULL),
+(98, 231, 230, 'qwddqdqwdqwd', 0, '2024-09-23 06:08:07', '2024-09-23 06:08:07', NULL),
+(99, 231, 230, 'qwdwqdqwdqwd', 0, '2024-09-23 06:09:07', '2024-09-23 06:09:07', NULL),
+(100, 231, 230, 'qwdqwdwqdqwd', 0, '2024-09-23 06:10:18', '2024-09-23 06:10:18', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -321,7 +451,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (80, '2024_09_12_192801_create_sellers_table', 9),
 (82, '2024_09_14_224823_create_buyers_table', 10),
 (83, '2024_09_16_215220_add_password_to_sellers_table', 11),
-(84, '2024_09_19_084659_create_offer_fields_table', 12);
+(84, '2024_09_19_084659_create_offer_fields_table', 12),
+(86, '2024_09_20_170817_create_messages_table', 13);
 
 -- --------------------------------------------------------
 
@@ -351,7 +482,10 @@ CREATE TABLE `offers` (
 --
 
 INSERT INTO `offers` (`id`, `fields`, `description`, `long_description`, `buyer_message`, `price`, `stock`, `image`, `status`, `created_at`, `updated_at`, `seller_id`, `sub_category_id`, `offer_category_id`) VALUES
-(1, '[\"Platform\",\"Level\",\"Stage\",\"Value-XBOX\",\"Value-43\",\"Value-1234\"]', '💎【300 DIAMONDS】💎⭐BY ID⭐✅SAFE✅🎶OFFICIALLY🎶🎉100% GUARANTEED🎉', '💎【300 DIAMONDS】💎⭐BY ID⭐✅SAFE✅🎶OFFICIALLY🎶🎉100% GUARANTEED🎉', '💎【300 DIAMONDS】💎⭐BY ID⭐✅SAFE✅🎶OFFICIALLY🎶🎉100% GUARANTEED🎉', '22', '145', '[\"X9PmXMmkWBlEIlV58TgJYzz2p5BUK5Cqfx1es1Hd.jpg\",\"qtg8kLylGQKcejabBtb2H6cHalNUGRpCyVMeQTu4.jpg\",\"ABpuTCH2k0trFDibgO9aexoc6rjU0IhxI7Diyeub.jpg\"]', 1, '2024-09-20 02:12:18', '2024-09-20 08:38:07', 1, 3, 1);
+(1, '[\"Platform\",\"Level\",\"Stage\",\"Value-XBOX\",\"Value-43\",\"Value-1234\"]', '💎【300 DIAMONDS】💎⭐BY ID⭐✅SAFE✅🎶OFFICIALLY🎶🎉100% GUARANTEED🎉', '💎70100 Diamonds💎\r\n🌺🟥47 level 10-22 chapter.\r\n🌺🟥The Legendary Damon, the Legendary Estrilda.\r\n🌺🟥Ascended Crassio, Wu-Kun, Guinneas.\r\n🌺🟥Skin for Research.\r\n🌺🟥+ Chest of the high-born Dragon (Doe)\r\n🌺🟥281k of total power\r\n🌺🟥11 m gold.\r\n🌺🟥The s1150 server.\r\n284 ordinary scrolls.\r\n🌺🟥18 faction hero scrolls.\r\n11 Stargazer Scrolls.\r\n9 Emblems of time.\r\n🌺🟥mail address.\r\n🌺🟥The account was created by me personally for sale, the native mail goes to the accounts, you can link your phone number to the mail and all the data to yourself, the account will be your personal one without passengers!\r\n🌺🟥Even if I\'m not online, you can buy the product for auto-delivery, after payment the data will come to your personal account and you can safely play and do everything for yourself, and change all the data.', '💎【300 DIAMONDS】💎⭐BY ID⭐✅SAFE✅🎶OFFICIALLY🎶🎉100% GUARANTEED🎉', '22', '145', '[\"X9PmXMmkWBlEIlV58TgJYzz2p5BUK5Cqfx1es1Hd.jpg\",\"qtg8kLylGQKcejabBtb2H6cHalNUGRpCyVMeQTu4.jpg\",\"ABpuTCH2k0trFDibgO9aexoc6rjU0IhxI7Diyeub.jpg\"]', 1, '2024-09-20 02:12:18', '2024-09-21 17:46:16', 230, 3, 1),
+(2, '[\"Platform\",\"Level\",\"Stage\",\"Value-PC\",\"Value-23\",\"Value-432\"]', '💎【300 DIAMONDS】💎⭐BY ID⭐✅SAFE✅🎶OFFICIALLY🎶🎉100% GUARANTEED🎉', '💎【300 DIAMONDS】💎⭐BY ID⭐✅SAFE✅🎶OFFICIALLY🎶🎉100% GUARANTEED🎉', '💎【300 DIAMONDS】💎⭐BY ID⭐✅SAFE✅🎶OFFICIALLY🎶🎉100% GUARANTEED🎉', '23', '22', '[\"S1UYGFdDb8Hb9T1KJ2qJvHt7tiuIDtJaMqgPUkG8.png\"]', 1, '2024-09-22 09:06:35', '2024-09-22 14:08:51', 232, 3, 1),
+(3, '[\"Platform\",\"Level\",\"Stage\",\"Value-IOS\",\"Value-22\",\"Value-21\"]', '💎【300 DIAMONDS】💎⭐BY ID⭐✅SAFE✅🎶OFFICIALLY🎶🎉100% GUARANTEED🎉', NULL, NULL, '22', '1122', '[\"wfZuhkw4AuzrYfLsminTf5oBGkYLu1HJi86Pms1P.jpg\",\"htnjWvfa0gz7q43cKy4EZJkmWZCVsU8fVjqehIPL.jpg\"]', 1, '2024-09-22 09:29:15', '2024-09-22 14:29:30', 232, 3, 1),
+(4, '[\"Platform\",\"Level\",\"Stage\",\"Value-IOS\",\"Value-21\",\"Value-221\"]', '💎【300 DIAMONDS】💎⭐BY ID⭐✅SAFE✅🎶OFFICIALLY🎶🎉100% GUARANTEED🎉', '💎【300 DIAMONDS】💎⭐BY ID⭐✅SAFE✅🎶OFFICIALLY🎶🎉100% GUARANTEED🎉', '💎【300 DIAMONDS】💎⭐BY ID⭐✅SAFE✅🎶OFFICIALLY🎶🎉100% GUARANTEED🎉', '11', '232', '[\"VHECyiJhwIvUickNi9KiQsLpWclqSb3HZi2OL2MX.png\",\"NQ2wnMX3VmfnWe7fZHHXMlR8SSDu2AFmZCoEoE8Y.jpg\"]', 1, '2024-09-22 09:31:01', '2024-09-22 09:31:01', 232, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -598,7 +732,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('dqbS2R3FZ9ixjBcv2DepThjcpQtuloQrBWyNxovt', 201, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IkNFYXlkbVB3Q29PSzhTbjdvQXJwODVWc1pMYU5UMjlmMjM5WUFxbjUiO3M6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQyOiJodHRwOi8vbG9jYWxob3N0L2Z1bnBheS9hZG1pbi9tb250aGx5LWRhdGEiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjk6InVzZXJfdHlwZSI7czo2OiJzZWxsZXIiO3M6NzoidXNlcl9pZCI7aToxO3M6OToidXNlcl9uYW1lIjtzOjExOiJzZWxsZXIgdGVzdCI7czo1OiJlbWFpbCI7czoyMDoic2VsbGVydGVzdEBnbWFpbC5jb20iO3M6MTc6InN1Yl9jYXRlZ29yeV9zbHVnIjtzOjY6InRvcC11cCI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo0MToiaHR0cDovL2xvY2FsaG9zdC9mdW5wYXkvYWRtaW4vc3ViY2F0ZWdvcnkiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMDE7czoxNToic3ViX2NhdGVnb3J5X2lkIjtpOjM7czoxNzoib2ZmZXJfY2F0ZWdvcnlfaWQiO2k6MTt9', 1726827177);
+('k1b9twwGt78ujsfJhUzBYLc6vkkBJd1c9n5CXM58', 201, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YToxNTp7czo2OiJfdG9rZW4iO3M6NDA6IjhqbU9HTWNHWHhaMXVMSTA4SUJRQnNmYkt2MklVNVltV3o4cU00MTMiO3M6NjoiX2ZsYXNoIjthOjI6e3M6MzoibmV3IjthOjA6e31zOjM6Im9sZCI7YTowOnt9fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQ1OiJodHRwOi8vbG9jYWxob3N0L2Z1bnBheS91bnJlYWQtbWVzc2FnZXMtY291bnQiO31zOjk6InVzZXJfdHlwZSI7czo1OiJidXllciI7czo3OiJ1c2VyX2lkIjtpOjIzMTtzOjk6InVzZXJfbmFtZSI7czoxNjoiU2hhaGVyeWFyIEJoYXR0aSI7czo1OiJlbWFpbCI7czoxNToiYnV5ZXJAZ21haWwuY29tIjtzOjU6ImltYWdlIjtOO3M6MTA6ImNyZWF0ZWRfYXQiO086MjU6IklsbHVtaW5hdGVcU3VwcG9ydFxDYXJib24iOjM6e3M6NDoiZGF0ZSI7czoyNjoiMjAyNC0wOS0yMSAxNzo1MzozMi4wMDAwMDAiO3M6MTM6InRpbWV6b25lX3R5cGUiO2k6MztzOjg6InRpbWV6b25lIjtzOjM6IlVUQyI7fXM6ODoiaXNfbG9naW4iO2k6MTtzOjE2OiJsb2dvdXRfZGF0ZV90aW1lIjtzOjE5OiIyMDI0LTA5LTIzIDExOjQ2OjQ0IjtzOjE3OiJzdWJfY2F0ZWdvcnlfc2x1ZyI7czo2OiJ0b3AtdXAiO3M6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTtzOjE1OiJzdWJfY2F0ZWdvcnlfaWQiO2k6MztzOjE3OiJvZmZlcl9jYXRlZ29yeV9pZCI7aToxO30=', 1727092701),
+('nQD5ulrqGpFHNCYZyUxUrQaYwOnpmx8KyBKrYYXF', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YToxMTp7czo2OiJfdG9rZW4iO3M6NDA6IndkbGF4ODZEOFRuOTJMYUJ2cU5wb1lFY2NKaTdET2RJVU1abGJMbTciO3M6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQ1OiJodHRwOi8vbG9jYWxob3N0L2Z1bnBheS91bnJlYWQtbWVzc2FnZXMtY291bnQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjk6InVzZXJfdHlwZSI7czo2OiJzZWxsZXIiO3M6NzoidXNlcl9pZCI7aToyMzA7czo5OiJ1c2VyX25hbWUiO3M6OToiU2hhaGVyeWFyIjtzOjU6ImVtYWlsIjtzOjE2OiJzZWxsZXJAZ21haWwuY29tIjtzOjU6ImltYWdlIjtOO3M6MTA6ImNyZWF0ZWRfYXQiO086MjU6IklsbHVtaW5hdGVcU3VwcG9ydFxDYXJib24iOjM6e3M6NDoiZGF0ZSI7czoyNjoiMjAyNC0wOS0yMSAxNzo0MTo1NC4wMDAwMDAiO3M6MTM6InRpbWV6b25lX3R5cGUiO2k6MztzOjg6InRpbWV6b25lIjtzOjM6IlVUQyI7fXM6ODoiaXNfbG9naW4iO2k6MTtzOjE2OiJsb2dvdXRfZGF0ZV90aW1lIjtzOjE5OiIyMDI0LTA5LTIyIDE3OjMyOjAzIjt9', 1727092700);
 
 -- --------------------------------------------------------
 
@@ -653,23 +788,14 @@ INSERT INTO `sub_categories` (`id`, `category_id`, `offer_category_id`, `name`, 
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `employee_id` int(11) DEFAULT 0,
-  `employee_old_id` int(11) DEFAULT 0,
   `name` varchar(255) DEFAULT NULL,
-  `strategic_unit` varchar(255) DEFAULT NULL,
-  `designation` varchar(255) DEFAULT NULL,
   `phone_number` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `gender` varchar(255) DEFAULT NULL,
   `su_head` varchar(255) DEFAULT NULL,
-  `functionally_reports_to` int(11) DEFAULT 0,
-  `functional_head_name` varchar(255) DEFAULT NULL,
-  `administratively_reports_to` int(11) DEFAULT 0,
-  `admin_head_name` varchar(255) DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `status` int(11) DEFAULT 1,
-  `role_id` int(11) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `unique_id` varchar(255) DEFAULT NULL,
   `org_o` varchar(255) DEFAULT NULL,
@@ -678,15 +804,34 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `authenticated_id` varchar(255) DEFAULT NULL
+  `authenticated_id` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `messenger` varchar(255) DEFAULT NULL,
+  `messenger_link` varchar(255) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `country_code` varchar(255) DEFAULT NULL,
+  `selfie` varchar(255) DEFAULT NULL,
+  `id_card_front` varchar(255) DEFAULT NULL,
+  `id_card_back` varchar(255) DEFAULT NULL,
+  `games_products` text DEFAULT NULL,
+  `other_info` text DEFAULT NULL,
+  `stock_source` varchar(255) DEFAULT NULL,
+  `selling_elsewhere` tinyint(1) DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL COMMENT '1=admin, 2=seller, 3=buyer',
+  `is_login` int(11) DEFAULT 0,
+  `logout_date_time` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `employee_id`, `employee_old_id`, `name`, `strategic_unit`, `designation`, `phone_number`, `email`, `gender`, `su_head`, `functionally_reports_to`, `functional_head_name`, `administratively_reports_to`, `admin_head_name`, `email_verified_at`, `password`, `status`, `role_id`, `address`, `unique_id`, `org_o`, `profile_img`, `created_by`, `remember_token`, `created_at`, `updated_at`, `authenticated_id`) VALUES
-(201, 201, 0, 'Admin', 'RPI', 'joiner developer', '1344421', 'admin@admin.com', 'male', 'Farasat', 323, 'abc', 323, 'xyz', NULL, '$2y$12$hwu/AYdhBQHUH48LSIPLRuZxoajLdKD02UEQq/cuW5EqoGORZpDRy', 1, 1, 'eced', 'ABC@$23836420240805111758', NULL, 'userprofile/1723804263_avatar5.png', NULL, NULL, '2023-10-10 00:13:26', '2024-09-17 09:42:12', '340583');
+INSERT INTO `users` (`id`, `name`, `phone_number`, `email`, `gender`, `su_head`, `email_verified_at`, `password`, `status`, `address`, `unique_id`, `org_o`, `profile_img`, `created_by`, `remember_token`, `created_at`, `updated_at`, `authenticated_id`, `country`, `messenger`, `messenger_link`, `dob`, `country_code`, `selfie`, `id_card_front`, `id_card_back`, `games_products`, `other_info`, `stock_source`, `selling_elsewhere`, `role_id`, `is_login`, `logout_date_time`) VALUES
+(201, 'Admin', '1344421', 'admin@admin.com', 'male', 'Farasat', NULL, '$2y$12$hwu/AYdhBQHUH48LSIPLRuZxoajLdKD02UEQq/cuW5EqoGORZpDRy', 1, 'eced', 'ABC@$23836420240805111758', NULL, 'userprofile/1723804263_avatar5.png', NULL, NULL, '2023-10-10 00:13:26', '2024-09-17 09:42:12', '340583', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL),
+(230, 'Shaheryar', '03315146546', 'seller@gmail.com', NULL, NULL, NULL, '$2y$12$wbVDhTp6y/7YHX/.W3.QrOzr/v9AeHOPrMXUd/gVTACvK3FTqPzv6', 1, NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-21 12:41:54', '2024-09-23 00:45:16', NULL, 'USA', 'Telegram', 'www.google.com', '2024-09-09', '+1', 'uploads/selfie/FczFsVJzZV5JfrpkKz1oOIYSboKZt8FNwkLcGE2Q.jpg', 'uploads/id_card_fronts/lz2PPdWyc93R0mjlYrtVZkgE2ErGGwcRb9L8O9eF.jpg', 'uploads/id_card_backs/yqPezEGdv3YKa3x0SJLJwIVU3pXXBA2J7RuVjmcX.jpg', 'Counter Strike', NULL, 'I farm my own items', 1, 2, 1, '2024-09-22 12:32:03'),
+(231, 'Shaheryar Bhatti', NULL, 'buyer@gmail.com', NULL, NULL, NULL, '$2y$12$KsqywICehWoo9zaKtYW2.eRPshZV8y9S9U.8Uk4pmBZmYnLvgULtu', 1, NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-21 12:53:32', '2024-09-23 06:46:53', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 1, '2024-09-23 06:46:44'),
+(232, 'Muhammad Ahmed', '3315146546', 'ahmed@gmail.com', NULL, NULL, NULL, '$2y$12$USZOWV5/zl.FuyWrd9haTeyOGwFGgYHHLq2d.XT6H3VO6a5wFErwO', 1, NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-22 09:05:25', '2024-09-22 12:01:43', NULL, 'Canada', 'Telegram', 'www.google.com', '2024-09-03', '+1', 'uploads/selfie/HjQWdqGt9c6VNF2ap4gbkQVkJd23lNrssbmJp7ph.jpg', 'uploads/id_card_fronts/gfVq2qKd9M6REchQDC9wCutDIkr10jq14RGhdycx.png', 'uploads/id_card_backs/0dDb4rjtuSg3PbQnEtqeFUq7yiZEJtFC7rfVnPcs.png', 'game', 'game', 'I farm my own items', 0, 2, 0, '2024-09-22 12:01:43'),
+(233, 'Second Buyer', NULL, 'buyer2@gmail.com', NULL, NULL, NULL, '$2y$12$.GCCXLzxJjIrr3DxY1Eeu.lSoiDPr/a.b8EgSZPJbIMx2ErGoOFEO', 1, NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-23 00:43:35', '2024-09-23 01:37:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 0, '2024-09-23 01:37:27');
 
 --
 -- Indexes for dumped tables
@@ -755,6 +900,12 @@ ALTER TABLE `jobs`
 -- Indexes for table `job_batches`
 --
 ALTER TABLE `job_batches`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -865,7 +1016,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `filters`
@@ -889,19 +1040,25 @@ ALTER TABLE `games`
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+
+--
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `offers`
 --
 ALTER TABLE `offers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `offer_categories`
@@ -961,7 +1118,7 @@ ALTER TABLE `sub_categories`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=228;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=234;
 
 --
 -- Constraints for dumped tables
