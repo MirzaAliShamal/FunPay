@@ -39,7 +39,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" id="seller-datatable">
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
@@ -50,7 +50,7 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                {{-- <tbody>
                                     @foreach($module_data as $data)
                                     <tr>
                                         <td>{{ $data->id }}</td>
@@ -75,7 +75,7 @@
                                         </td>
                                     </tr>
                                     @endforeach
-                                </tbody>
+                                </tbody> --}}
                             </table>
                         </div>
                     </div>
@@ -86,5 +86,43 @@
 </div>
 @endsection
 
+
 @section('script')
+ <script>
+  $(function() {
+   $('#seller-datatable').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: '{{ route('admin.seller.data') }}',
+    columns: [
+     {
+      data: 'id',
+      name: 'id'
+     },
+     {
+      data: 'full_name',
+      name: 'full_name'
+     },
+     {
+      data: 'country',
+      name: 'country'
+     },
+     {
+      data: 'email',
+      name: 'email'
+     },
+     {
+      data: 'status',
+      name: 'status'
+     },
+     {
+      data: 'action',
+      name: 'action',
+      orderable: false,
+      searchable: false
+     }
+    ]
+   });
+  });
+ </script>
 @endsection

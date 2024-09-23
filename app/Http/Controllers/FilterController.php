@@ -5,14 +5,54 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Filter;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class FilterController extends Controller
 {
     public function index()
     {
-        $filters = Filter::with('options')->get();
-        // dd($filters);
-        return view('filters.index', compact('filters'));
+        return view('filters.index');
+    }
+
+    public function getFilterData()
+    {
+        if (request()->ajax()) {
+            $filters = Filter::with('options')->get();
+            return DataTables::of($filters)
+                ->addColumn('name', function ($row) {
+                    return $row->name;
+                })
+                ->addColumn('type', function ($row) {
+                    return $row->type;
+                })
+                ->addColumn('option', function ($row) {
+                    if ($row->options->isNotEmpty()) {
+                        // Create the HTML list for options
+                        $html = '<ul>';
+                        foreach ($row->options as $option) {
+                            $html .= '<li>' . $option->name . '</li>';
+                        }
+                        $html .= '</ul>';
+                    } else {
+                        // If no options are available
+                        $html = 'No options available';
+                    }
+                
+                    // Return the generated HTML
+                    return $html;
+                })
+                ->addColumn('action', function ($row) {
+                    return '  <a href="' . route('filters.edit', $row->id) . '" class="btn btn-warning btn-sm">Edit</a>
+           <form action="' . route('filters.destroy', $row->id) . '" method="POST" style="display:inline;">
+            ' . csrf_field() . '
+            ' . method_field("DELETE") . '
+            <button type="submit" class="btn btn-danger btn-sm"
+             onclick="return confirm(\'Are you sure you want to delete this filter?\');">Delete</button>
+           </form>';
+                })
+                ->rawColumns(['option', 'action'])
+                ->make(true);
+        }
     }
 
     public function create()

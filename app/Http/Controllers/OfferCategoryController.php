@@ -4,16 +4,40 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\OfferCategory;
+use Yajra\DataTables\Facades\DataTables;
 
 class OfferCategoryController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $offer_categories = OfferCategory::all();
-        return view('offercategory.index', compact('offer_categories'));
+        return view('offercategory.index');
+    }
+
+    public function getOfferCategoryData()
+    {
+        if (request()->ajax()) {
+            $offer_categories = OfferCategory::select(['id', 'name', 'status']);
+
+            return DataTables::of($offer_categories)
+                ->addColumn('status', function ($row) {
+                    return $row->status == 1 ? '<div class="badge bg-success" style="">Active</div>' : '<div class="badge bg-danger">Inactive</div>';
+                })
+                ->addColumn('action', function ($row) {
+                    return '<a href="' . route('admin.offer.edit', $row->id) . '"
+                                                class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                            <form action="' . route('admin.offer.destroy', $row->id) . '"
+                                                method="POST" style="display:inline;">
+                                                ' . csrf_field() . '
+                                                ' . method_field("DELETE") . '
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm(\'Are you sure?\')"><i class="fas fa-trash"></i></button>
+                                            </form>';
+                })
+                ->rawColumns(['status', 'action'])
+                ->make(true);
+        }
     }
 
     /**
@@ -23,6 +47,8 @@ class OfferCategoryController extends Controller
     {
         return view('offercategory.create');
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -80,7 +106,7 @@ class OfferCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $OfferCategory = OfferCategory::findOrFail($id); 
+        $OfferCategory = OfferCategory::findOrFail($id);
         $OfferCategory->delete();
         return redirect()->route('admin.offer')->with('success', 'Data deleted successfully.');
     }

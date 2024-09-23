@@ -86,6 +86,13 @@
                     </a>
                 </li>
 
+                <li class="nav-item mt-2">
+                    <a href="{{ route('admin.buyer') }}" class="nav-link">
+                         <i class="fa fa-user" aria-hidden="true"></i>
+                        <p class="side-menu__label mx-2">Buyers</p>
+                    </a>
+                </li>
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
