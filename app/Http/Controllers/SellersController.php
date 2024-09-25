@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Seller;
 use Yajra\DataTables\Facades\DataTables;
@@ -16,7 +17,7 @@ class SellersController extends Controller
     public function getSellerData()
     {
         if (request()->ajax()) {
-            $seller = Seller::all();
+            $seller = User::where('role_id', 2)->get();
             return DataTables::of($seller)
                 ->addColumn('status', function ($row) {
                     return $row->status == 1 ? '<div class="badge bg-success" style="">Active</div>' : '<div class="badge bg-danger">Inactive</div>';

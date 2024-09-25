@@ -100,8 +100,8 @@
       name: 'id'
      },
      {
-      data: 'full_name',
-      name: 'full_name'
+      data: 'name',
+      name: 'name'
      },
      {
       data: 'country',

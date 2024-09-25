@@ -24,6 +24,8 @@ class LoginController extends Controller
     public function userLogin(Request $request)
     {
        
+
+
         // Validate the login credentials
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -31,7 +33,9 @@ class LoginController extends Controller
         ]);
 
         $user = User::where('email', $credentials['email'])->first();
-            
+
+
+
         if ($user && Hash::check($credentials['password'], $user->password)) {
             $user_type = 'buyer';
             $image = null;

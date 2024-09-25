@@ -53,7 +53,7 @@ class BuyerController extends Controller
     public function getBuyerData()
     {
         if (request()->ajax()) {
-            $buyer = Buyer::get();
+            $buyer = User::where('role_id', 3)->get();
             return DataTables::of($buyer)
                 ->addColumn('action', function ($row) {
                     return '<a href="' . route('admin.buyer.show', $row->id) . '" class="btn btn-warning"><i class="fas fa-eye"></i></a>
