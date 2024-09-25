@@ -173,12 +173,12 @@ use Carbon\Carbon;
                                     </div>
 
                                     <div class="chat-message-container">
-                                        <div class="chat-message-list">
+                                        <div class="chat-message-list" id="chat-container">
 
                                             @if($messages)
                                             @foreach($messages as $message)
                                             @if($message['sender_id'] == session('user_id'))
-                                            <div class="chat-msg-item chat-msg-with-head" id="message-2517792442">
+                                            <div class="chat-msg-item chat-msg-with-head" >
 
                                                 <div class="chat-message">
 
@@ -195,7 +195,7 @@ use Carbon\Carbon;
                                                 </div>
                                             </div>
                                             @else
-                                            <div class="chat-msg-item chat-msg-with-head" id="message-2517792442">
+                                            <div class="chat-msg-item chat-msg-with-head" >
 
                                                 <div class="chat-message">
 
@@ -236,8 +236,8 @@ use Carbon\Carbon;
                                         @endif
                                     </div>
 
-                                    <div class="chat-form">
-                                        <form action="https://funpay.com/en/chat/message" method="post">
+                                    <div class="chat-form" style="display:flex">
+                                        
                                             <div class="chat-form-input">
                                                 <div class="form-group" id="comments">
                                                     <textarea class="form-control" id="message" name="content" cols="30"
@@ -247,11 +247,14 @@ use Carbon\Carbon;
                                             <div class="chat-form-btn" style="display:flex">
                                                 <input type="hidden" name="receiver_id" value="{{ $offers->seller_id }}"
                                                     id="receiver_id">
-                                                <button type="button" id="image" class="btn btn-default chat-btn-image"
-                                                    data-size-max="7340032" data-size-max-str="7 MB">
-                                                    <i class="fa fa-paperclip"></i></button>
+                                                    <input type="hidden" name="receiver_name" value="{{ $seller_data[0]['name'] }}"
+                                                    id="receiver_name">
+                                                    <input type="file" id="image" style="display: none;" />
+                                                    <button type="button" id="image-btn" class="btn btn-default chat-btn-image"
+                                                        data-size-max="7340032" data-size-max-str="7 MB">
+                                                        <i class="fa fa-paperclip"></i></button>
                                                 @if(session('user_id'))
-                                                <button type="submit" class="btn btn-gray btn-round">
+                                                <button type="button" onclick="sendMessage()" class="btn btn-gray btn-round">
                                                     <i class="fa fa-arrow-right"></i>
                                                 </button>
                                                 @else
@@ -260,7 +263,6 @@ use Carbon\Carbon;
                                                 </a>
                                                 @endif
                                             </div>
-                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -1348,85 +1350,187 @@ use Carbon\Carbon;
 @endsection
 
 @section('script')
-<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script>
-Pusher.logToConsole = true;
+// Initialize Pusher for real-time functionality
+// Pusher.logToConsole = true;
+// var pusher = new Pusher('{{ env("PUSHER_APP_KEY") }}', {
+//     cluster: '{{ env("PUSHER_APP_CLUSTER") }}'
+// });
 
-var pusher = new Pusher('{{ env("PUSHER_APP_KEY") }}', {
-    cluster: '{{ env("PUSHER_APP_CLUSTER") }}',
-    authEndpoint: '/broadcasting/auth',
-    auth: {
-        headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        }
-    }
-});
 
+// Subscribe to a channel for the receiver
 var receiverId = $('#receiver_id').val();
-var channel = pusher.subscribe('chat.' + receiverId);
+var receiverName = $('#receiver_name').val();
+var senderId = {{session('user_id')}};
+var senderName = '{{session('user_name')}}';
 
-channel.bind('App\\Events\\MessageSent', function(data) {
-    if (data.message.image) {
-        $('#messages').append('<p><img src="/images/' + data.message.image + '" alt="Image"></p>');
-    } else {
-        $('#messages').append('<p>' + data.message.message + '</p>');
-    }
-});
+// var channelName = 'chat.' + senderId + '.' + receiverId;
+// var channel = pusher.subscribe(channelName);
 
-$('#send').click(function() {
-    var message = $('#message').val();
-    var image = $('#image')[0].files[0];
-    var formData = new FormData();
-    formData.append('message', message);
-    formData.append('receiver_id', receiverId);
-    formData.append('image', image);
-    formData.append('_token', '{{ csrf_token() }}');
+// Add the subscription error listener
+// channel.bind('pusher:subscription_succeeded', function() {
+//     console.log('Successfully subscribed to the '+channelName);
+// });
 
-    $.ajax({
-        url: '{{ route("send.message") }}',
-        method: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(response) {
-            $('#message').val('');
-            $('#image').val('');
-        }
-    });
-});
+// Listen for the MessageSent event and append the message to the chat container
+// channel.bind('message.sent', function(data) {
+    
+//     if (data && data.message) {
+//         var message = $('#message').val();
+//         console.log("Received message data:", senderName);
+//         appendMessage(message, senderName);
+//     } else {
+//         console.error("Message data is undefined or invalid");
+//     }
+// });
 
-// Message Counter
-function updateMessageCounter() {
-    fetch('{{ route("unread.messages.count") }}')
-        .then(response => response.json())
-        .then(data => {
-            let counter = document.getElementById('messageCounter');
-            if (data.unread_count > 0) {
-                counter.innerText = data.unread_count;
-                counter.style.display = 'inline-block';
-            } else {
-                counter.style.display = 'none';
-            }
-        });
+
+// channel.bind('pusher:subscription_error', function(status) {
+//     console.error('Subscription error:', status);
+// });
+
+// Function to append the new message to the chat container
+function appendMessage(message, senderName) {
+    
+    var chatContainer = $('#chat-container');
+    var newMessageHtml = `
+        <div class="chat-msg-item chat-msg-with-head" id="message-${message.id}">
+            <div class="chat-message">
+                <div class="media-user-name">
+                    <a href="javascript:void(0)" class="chat-msg-author-link">${senderName}</a>
+                    <div class="chat-msg-date" title="${message.created_at}">
+                        ${new Date(message.created_at).toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+}).split('/').reverse().join('-')}
+                    </div>
+                </div>
+                <div class="chat-msg-body">
+                    <div class="chat-msg-text">${message.message}</div>
+                </div>
+            </div>
+        </div>
+    `;
+    chatContainer.append(newMessageHtml);
+    chatContainer.scrollTop(chatContainer[0].scrollHeight);
 }
 
-// Update counter every few seconds
-setInterval(updateMessageCounter, 3000);
+// Sending a message via AJAX and appending the sent message immediately
+$('#message').keypress(function(event) {
+        // Check if the "Enter" key was pressed (key code 13)
+        if (event.which === 13 && !event.shiftKey) {
+            event.preventDefault(); // Prevent the default action of adding a new line
+            
+            // Call the send message function
+            sendMessage();
+        }
+    });
 
-document.addEventListener('DOMContentLoaded', function() {
-    updateMessageCounter();
+    function sendMessage() {
+        $(".chat-empty").hide();
+        var message = $('#message').val();
+        var image = $('#image')[0].files[0]; // This could be undefined if no image is selected
+        var formData = new FormData();
+        formData.append('message', message);
+        formData.append('receiver_id', receiverId);
+        if (image) {
+            formData.append('image', image);
+        }
+
+        // CSRF token
+        formData.append('_token', '{{ csrf_token() }}');
+        
+        $.ajax({
+            url: '{{ route("send.message") }}',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                $('#message').val(''); // Clear message input
+                $('#image').val(''); // Clear file input
+                
+                appendMessage(response.message, '{{ session("user_name") }}');
+            }
+        });
+    }
+////// Get Current User Messages //////////////////////////////////
+
+function getCurrentUserMessage(){
+   
+    jQuery.ajaxSetup({
+        headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url: '{{ route("chat.runner") }}',
+        method: 'POST',
+        // headers: {
+        //     'X-Socket-Id': pusher.connection.socket_id
+        // },
+        data: {
+            send_by: receiverId,
+        },
+        success: function(response) {
+            if(response.data){
+                for (let index = 0; index < response.data.length; index++) {
+                    appendMessage(response.data[index], receiverName);
+                }
+            }
+            
+            
+            // appendMessage(response.message, '{{ session("user_name") }}');
+            
+        }
+    });
+}
+
+
+// Message Counter
+// function updateMessageCounter() {
+//     fetch('{{ route("unread.messages.count") }}')
+//         .then(response => response.json())
+//         .then(data => {
+//             let counter = document.getElementById('messageCounter');
+//             if (data.unread_count > 0) {
+//                 counter.innerText = data.unread_count;
+//                 counter.style.display = 'inline-block';
+//             } else {
+//                 // counter.style.display = 'none';
+//             }
+//         });
+// }
+
+// Update counter every few seconds
+setInterval(getCurrentUserMessage, 3000);
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     updateMessageCounter();
+// });
+
+// document.querySelector('.message-icon').addEventListener('click', function() {
+//     fetch('{{ route("mark.messages.read") }}', {
+//         method: 'POST',
+//         headers: {
+//             'X-CSRF-TOKEN': '{{ csrf_token() }}',
+//             'Content-Type': 'application/json',
+//         }
+//     }).then(() => {
+//         document.getElementById('messageCounter').style.display = 'none';
+//     });
+// });
+
+// When the button is clicked, trigger the file input
+$('#image-btn').click(function() {
+    $('#image').click();
 });
 
-document.querySelector('.message-icon').addEventListener('click', function() {
-    fetch('{{ route("mark.messages.read") }}', {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            'Content-Type': 'application/json',
-        }
-    }).then(() => {
-        document.getElementById('messageCounter').style.display = 'none';
-    });
+// Optionally, handle the file selection event
+$('#image').change(function() {
+    var selectedFile = this.files[0];
+    console.log(selectedFile); // Do something with the selected file
 });
 </script>
 @endsection

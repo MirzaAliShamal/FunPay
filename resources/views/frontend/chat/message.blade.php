@@ -9,56 +9,71 @@ use Carbon\Carbon;
     <div id="content" class="content-chat content-chat-index">
         <div class="chat-full-container">
             <div class="container">
-                <div class="chat-full chat-bookmarks-nonempty moved" style="height: 260px;">
-                    <div class="chat-contacts">
-                        <div class="chat-full-header">
-                            <h1>Messages <span class="badge badge-primary">1</span></h1>
-                        </div>
-                        @if($chattedUsers)
-                        @foreach($chattedUsers as $user)
-                        <!-- <div class="contact-list custom-scroll"> -->
-                        <div class="custom-scroll">
-                            <a href="https://funpay.com/en/chat/?node=130219810" class="contact-item active"
-                                data-id="130219810" data-node-msg="2525428153" data-user-msg="2525428153">
-                                <div class="contact-item-photo">
-                                    <div class="avatar-photo"
-                                        style="background-image: url({{asset('public/assets/frontend/img/avatar.png')}});">
+                <div class="chat-full chat-bookmarks-nonempty moved" style="height: 260px;" >
+                        <div class="chat-contacts" id="chat_listing" style="width:281px">
+                            <div class="chat-full-header">
+                                <h1>Messages <span class="badge badge-primary" id="counter"></span></h1>
+                            </div>
+                            @if($chattedUsers)
+                            @php
+                                $counter = 0;
+                            @endphp
+                            @foreach($chattedUsers as $user)
+                            <!-- <div class="contact-list custom-scroll"> -->
+                            <div class="custom-scroll" >
+                                <a href="{{route('chat.usermessages',$user->id)}}" @if($user->is_read == 0 && $user->id != $firstChattedUser->receiver_id) style="background:#ffb100 !important" @endif class="contact-item active"
+                                    data-id="130219810" data-node-msg="2525428153" data-user-msg="2525428153">
+                                    <div class="contact-item-photo">
+                                        <div class="avatar-photo"
+                                            style="background-image: url({{asset('public/assets/frontend/img/avatar.png')}});">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="media-user-name">{{$user->name}}</div>
-                                <div class="contact-item-message">{{$user->message}}</div>
-                                <div class="contact-item-time">{{Carbon::parse($user->created_at)->format('d M')}}
-                                </div>
-                            </a>
+                                    <div class="media-user-name"> {{$user->name}} </div>
+                                    <div class="contact-item-message">{{$user->message}}</div>
+                                    <div class="contact-item-time">{{Carbon::parse($user->created_at)->format('d M')}}
+                                    </div>
+                                </a>
+                            </div>
+                            @if($user->is_read == 0)
+                                @php
+                                $counter++;
+                                @endphp
+                            
+                            @endif
+                            @endforeach
+                            @endif
                         </div>
-                        @endforeach
-                        @endif
-                    </div>
 
                     <div class="js-chat-top"></div>
-                    @php
-                    function getTimePassed($date)
-                    {
-                    $createdAt = Carbon::parse($date);
-                    return $createdAt->diffForHumans();
-                    }
-                    $time_difference = getTimePassed(session('logout_date_time'));
-                    @endphp
+                    
                     <div class="chat chat-float" data-id="130219810" data-name="users-12206051-12338995"
                         data-user="12338995" data-tag="yr1kuvz2" data-bookmarks-tag="ci8qoj0t">
                         <div class="chat-header">
+                        @php
+                        function getTimePassed($date)
+                        {
+                        $createdAt = Carbon::parse($date);
+                        return $createdAt->diffForHumans();
+                        }
+                        
+                        @endphp
+                        @if($user_data)
+                        @php
+                        $time_difference = getTimePassed($user_data->logout_date_time);
+                        @endphp
+                        
                             <div class="media media-user offline">
                                 <div class="media-left">
-                                    <a href="https://funpay.com/en/users/12206051/"><img
+                                    <a href="javascript:void(0)"><img
                                             src="{{asset('public/assets/frontend/img/avatar.png')}}" alt="" width="50"
                                             class="img-circle"></a>
                                 </div>
                                 <div class="media-body">
                                     <div class="media-user-name"><a
-                                            href="https://funpay.com/en/users/12206051/">{{session('user_name')}}</a>
+                                            href="javascript:void(0)">{{$user_data->name}}</a>
                                     </div>
                                     <div class="media-user-status">
-                                        @if(session('is_login') == 1)
+                                        @if($user_data->is_login == 1)
                                         <span style="color: #7ed320;">Online</span>
                                         @else
                                         {{$time_difference}}
@@ -66,6 +81,7 @@ use Carbon\Carbon;
                                     </div>
                                 </div>
                             </div>
+                            @endif
                             <div class="chat-header-controls">
                                 <!-- <span class="notice-button-container chat-control" data-color="gray">
                                     <button type="button" class="btn btn-info-icon btn-info-sm btn-gray">
@@ -194,13 +210,15 @@ use Carbon\Carbon;
                                 </div>
                             </div>
                             <div class="chat-form-btn" style="display:flex">
-                                <input type="hidden" name="receiver_id" value="{{ $firstChattedUser->id }}"
+                                <input type="hidden" name="receiver_id" @if($firstChattedUser) @if($firstChattedUser->sender_id != session('user_id')) value="{{ $firstChattedUser->sender_id }}" @else value="{{ $firstChattedUser->receiver_id }}" @endif  @endif
                                     id="receiver_id">
+                                    <input type="hidden" name="receiver_name" @if($firstChattedUser) value="{{ $firstChattedUser->name }}" @endif
+                                    id="receiver_name">
                                 <input type="file" id="image" style="display: none;" />
                                 <button type="button" id="image-btn" class="btn btn-default chat-btn-image"
                                     data-size-max="7340032" data-size-max-str="7 MB">
                                     <i class="fa fa-paperclip"></i></button>
-                                <button type="button" id="send" class="btn btn-gray btn-round"><i
+                                <button type="button" onclick="sendMessage()" class="btn btn-gray btn-round"><i
                                         class="fa fa-arrow-right"></i></button>
                             </div>
                             <!-- </form> -->
@@ -232,45 +250,49 @@ use Carbon\Carbon;
 
 
 @section('script')
-<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<!-- <script src="https://js.pusher.com/7.0/pusher.min.js"></script> -->
 <script>
 // Initialize Pusher for real-time functionality
-Pusher.logToConsole = true;
-var pusher = new Pusher('{{ env("PUSHER_APP_KEY") }}', {
-    cluster: '{{ env("PUSHER_APP_CLUSTER") }}'
-});
+// Pusher.logToConsole = true;
+// var pusher = new Pusher('{{ env("PUSHER_APP_KEY") }}', {
+//     cluster: '{{ env("PUSHER_APP_CLUSTER") }}'
+// });
 
 
 // Subscribe to a channel for the receiver
 var receiverId = $('#receiver_id').val();
+var receiverName = $('#receiver_name').val();
 var senderId = {{session('user_id')}};
+var senderName = '{{session('user_name')}}';
 
-var channelName = 'chat.' + senderId + '.' + receiverId;
-var channel = pusher.subscribe(channelName);
+// $("#counter").html(counter);
+// var channelName = 'chat.' + senderId + '.' + receiverId;
+// var channel = pusher.subscribe(channelName);
 
 // Add the subscription error listener
-channel.bind('pusher:subscription_succeeded', function() {
-    console.log('Successfully subscribed to the '+channelName);
-});
+// channel.bind('pusher:subscription_succeeded', function() {
+//     console.log('Successfully subscribed to the '+channelName);
+// });
 
 // Listen for the MessageSent event and append the message to the chat container
-channel.bind('message.sent', function(data) {
-    console.log("Received message data:", data);
-    // if (data && data.message) {
-    //     appendMessage(data.message, data.sender_name);
-    // } else {
-    //     console.error("Message data is undefined or invalid");
-    // }
-});
+// channel.bind('message.sent', function(data) {
+    
+//     if (data && data.message) {
+//         var message = $('#message').val();
+//         console.log("Received message data:", senderName);
+//         appendMessage(message, senderName);
+//     } else {
+//         console.error("Message data is undefined or invalid");
+//     }
+// });
 
 
-channel.bind('pusher:subscription_error', function(status) {
-    console.error('Subscription error:', status);
-});
+// channel.bind('pusher:subscription_error', function(status) {
+//     console.error('Subscription error:', status);
+// });
 
 // Function to append the new message to the chat container
 function appendMessage(message, senderName) {
-    console.log("please run this function");
     
     var chatContainer = $('#chat-container');
     var newMessageHtml = `
@@ -294,64 +316,104 @@ function appendMessage(message, senderName) {
     `;
     chatContainer.append(newMessageHtml);
     chatContainer.scrollTop(chatContainer[0].scrollHeight);
+    
 }
 
 // Sending a message via AJAX and appending the sent message immediately
-$('#send').click(function() {
-    var message = $('#message').val();
-    var image = $('#image')[0].files[0]; // This could be undefined if no image is selected
-    var formData = new FormData();
-    formData.append('message', message);
-    formData.append('receiver_id', receiverId);
-    if (image) {
-        formData.append('image', image);
+$('#message').keypress(function(event) {
+        // Check if the "Enter" key was pressed (key code 13)
+        if (event.which === 13 && !event.shiftKey) {
+            event.preventDefault(); // Prevent the default action of adding a new line
+            
+            // Call the send message function
+            sendMessage();
+        }
+    });
+
+    function sendMessage() {
+        var message = $('#message').val();
+        var image = $('#image')[0].files[0]; // This could be undefined if no image is selected
+        var formData = new FormData();
+        formData.append('message', message);
+        formData.append('receiver_id', receiverId);
+        if (image) {
+            formData.append('image', image);
+        }
+
+        // CSRF token
+        formData.append('_token', '{{ csrf_token() }}');
+        
+        $.ajax({
+            url: '{{ route("send.message") }}',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log(response);
+                
+                $('#message').val(''); // Clear message input
+                $('#image').val(''); // Clear file input
+                
+                appendMessage(response.message, '{{ session("user_name") }}');
+            }
+        });
     }
 
-    // CSRF token
-    formData.append('_token', '{{ csrf_token() }}');
-    
+////// Get Current User Messages //////////////////////////////////
 
-    $.ajax({
-        url: '{{ route("send.message") }}',
-        method: 'POST',
+function getCurrentUserMessage(){
+    jQuery.ajaxSetup({
         headers: {
-            'X-Socket-Id': pusher.connection.socket_id
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url: '{{ route("chat.runner") }}',
+        method: 'POST',
+        // headers: {
+        //     'X-Socket-Id': pusher.connection.socket_id
+        // },
+        data: {
+            send_by: receiverId,
         },
-        data: formData,
-        processData: false,
-        contentType: false,
         success: function(response) {
-            $('#message').val('');
-            $('#image').val(''); 
 
-            appendMessage(response.message, '{{ session("user_name") }}');
+                    
+                    for (let index = 0; index < response.data.length; index++) {
+                        appendMessage(response.data[index], receiverName);
+                    }
+                    $("#chat_listing").load(location.href + " #chat_listing");
+                
+                
+            // appendMessage(response.message, '{{ session("user_name") }}');
             
         }
     });
-});
+}
 
 
 // Message Counter
-function updateMessageCounter() {
-    fetch('{{ route("unread.messages.count") }}')
-        .then(response => response.json())
-        .then(data => {
-            let counter = document.getElementById('messageCounter');
-            if (data.unread_count > 0) {
-                counter.innerText = data.unread_count;
-                counter.style.display = 'inline-block';
-            } else {
-                // counter.style.display = 'none';
-            }
-        });
-}
+// function updateMessageCounter() {
+//     fetch('{{ route("unread.messages.count") }}')
+//         .then(response => response.json())
+//         .then(data => {
+//             let counter = document.getElementById('messageCounter');
+//             if (data.unread_count > 0) {
+//                 counter.innerText = data.unread_count;
+//                 counter.style.display = 'inline-block';
+//             } else {
+//                 // counter.style.display = 'none';
+//             }
+//         });
+// }
 
 // Update counter every few seconds
-setInterval(updateMessageCounter, 3000);
+setInterval(getCurrentUserMessage, 3000);
 
-document.addEventListener('DOMContentLoaded', function() {
-    updateMessageCounter();
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//     updateMessageCounter();
+// });
 
 // document.querySelector('.message-icon').addEventListener('click', function() {
 //     fetch('{{ route("mark.messages.read") }}', {

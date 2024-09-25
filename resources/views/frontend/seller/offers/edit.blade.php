@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-md-10 col-sm-9">
                     <div class="page-content">
-                        <h1 class="page-header page-header-no-hr">New offer</h1>
+                        <h1 class="page-header page-header-no-hr">Edit offer</h1>
                         <form action="{{route('update.frontend.offer',$offer['id'])}}" method="post" enctype="multipart/form-data"
                             class="form-offer-editor">
                             @csrf

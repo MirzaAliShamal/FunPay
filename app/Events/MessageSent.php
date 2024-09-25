@@ -14,12 +14,14 @@ class MessageSent implements ShouldBroadcast
 
     public $message;
     public $senderId;
+    public $senderName;
     public $receiverId;
 
-    public function __construct($message, $senderId, $receiverId)
+    public function __construct($message, $senderId,$senderName, $receiverId)
     {
         $this->message = $message;
         $this->senderId = $senderId;
+        $this->senderName = $senderName;
         $this->receiverId = $receiverId;
     }
 
@@ -37,7 +39,7 @@ class MessageSent implements ShouldBroadcast
     {
         return [
             'message' => $this->message,
-            'sender_name' => session('user_name'), 
+            'sender_name' => $this->senderName, 
             'created_at' => now(),
         ];
     }

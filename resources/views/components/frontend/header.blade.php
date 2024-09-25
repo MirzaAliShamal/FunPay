@@ -99,7 +99,7 @@
                       <li><a href="{{route('seller.register')}}" class="menu-item-register">Sign Up as Seller</a></li>
                       @else
                       <li class="active"><a href="{{route('message')}}" class="menu-item-chat">{{ucfirst(session('user_type'))}}</a></li>
-                      <li class="active"><a href="{{route('message')}}" class="menu-item-chat">Messages <span class="badge badge-chat hidden">0</span></a></li>
+                      <li class="active"><a href="{{route('message')}}" class="menu-item-chat">Messages <span class="badge badge-chat hidden">1</span></a></li>
                       <li><a href="{{route('user.seller.logout')}}" method="POST" class="menu-item-register">Logout</a></li>
                       @endif
                       <!-- <li class="dropdown">

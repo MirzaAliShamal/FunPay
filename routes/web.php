@@ -35,6 +35,8 @@ Route::post('/send-message', [MessageController::class, 'sendMessage'])->name('s
 Route::get('/unread-messages-count', [MessageController::class, 'getUnreadMessageCount'])->name('unread.messages.count');
 Route::post('/mark-messages-read', [MessageController::class, 'markMessagesAsRead'])->name('mark.messages.read');
 Route::post('/chat-listing', [MessageController::class, 'chatListing'])->name('chat.listing');
+Route::post('/runner', [MessageController::class, 'getCurrentUserMessage'])->name('chat.runner');
+Route::get('/chatnode/{id}', [MessageController::class, 'getSelectedUserMessage'])->name('chat.usermessages');
 
  // **************************** Checkout ****************************
  Route::get('/lots/offer/{id}', [CheckoutController::class, 'index'])->name('buyer.checkout');
