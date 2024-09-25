@@ -42,6 +42,18 @@ class User extends Authenticatable
         'profile_img',
         'authenticated_id',
         'created_by',
+        'country',
+        'messenger',
+        'messenger_link',
+        'dob',
+        'country_code',
+        'selfie',
+        'id_card_front',
+        'id_card_back',
+        'games_products',
+        'other_info',
+        'stock_source',
+        'selling_elsewhere',
     ];
 
     /**

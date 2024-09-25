@@ -65,21 +65,8 @@
 
                         <form method="POST" class="form" action="{{ route('buyer.store') }}">
                             @csrf
+                           
                             <div class="form-group">
-                                <div class="text-light mb10">Via social network:</div>
-                                <div class="social-login">
-                                    <a href="login7baf.html?gate=vk" class="social-login-item social-vk"><i class="fab fa-vk"></i></a>
-                                </div>
-                            </div>
-                            <ul class="form-messages text-danger">
-                                @if ($errors->any())
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                @endif
-                            </ul>
-                            <div class="form-group">
-                                <div class="text-light mb10">Or using a username, an email and a password:</div>
                                 <input type="text" class="form-control" name="name" autofocus placeholder="Name or username" value="{{ old('name') }}">
                                 @error('name')
                                     <p class="help-block text-danger">{{ $message }}</p>

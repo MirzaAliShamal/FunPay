@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Offer;
-use App\Models\Seller;
+use App\Models\User;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
@@ -118,7 +118,7 @@ class HomeController extends Controller
         // }
         $items = $itemsQuery->paginate(20); // Pagination added
 
-        $seller_obj = new Seller();
+        $seller_obj = new User();
         return view('frontend.subcategory', compact('subcategory', 'items','category','seller_obj'));
     }
 

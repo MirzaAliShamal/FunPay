@@ -5,6 +5,7 @@
 <head>
  <meta charset="utf-8" />
  <title>FunPay — Marketplace for Gamers</title>
+ <meta name="csrf-token" content="{{ csrf_token() }}">
  <link href="{{ asset('public/assets/frontend/assets/css/main.css') }}" rel="stylesheet" media="all" />
  <script src="{{ asset('public/assets/frontend/assets/js/bundle.js') }}"></script>
  <meta name="description"

@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Buyer;
-use App\Models\Seller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
@@ -24,44 +23,45 @@ class LoginController extends Controller
 
     public function userLogin(Request $request)
     {
-        if(!$request->user_type){
-            return redirect()->route('user.seller.login')->with('error', 'Please select the type seller or buyer!');
-        }
+       
+
+
         // Validate the login credentials
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
-            'user_type' => ['required'],
         ]);
 
-        if ($credentials['user_type'] === 'buyer') {
+        $user = User::where('email', $credentials['email'])->first();
 
-            $buyer = Buyer::where('email', $credentials['email'])->first();
 
-            if ($buyer && Hash::check($credentials['password'], $buyer->password)) {
-                session([
-                    'user_type' => 'buyer',
-                    'user_id' => $buyer->id,
-                    'user_name' => $buyer->name,
-                    'email' => $buyer->email,
-                ]);
-                return redirect()->route('homepage')->with('success', 'Welcome, ' . $buyer->name . '! You have logged in successfully!');
+
+        if ($user && Hash::check($credentials['password'], $user->password)) {
+            $user_type = 'buyer';
+            $image = null;
+            if($user->role_id == 2){
+                $user_type = 'seller';
+                $image = $user->selfie;
             }
-        } elseif ($credentials['user_type'] === 'seller') {
-            // Attempt to log in as a seller
-            $seller = Seller::where('email', $credentials['email'])->first();
+            $array = [
+                'is_login' => 1,
+            ];
+            User::whereid($user->id)->update($array);
+            session([
+                'user_type' =>$user_type,
+                'user_id' => $user->id,
+                'user_name' => $user->name,
+                'email' => $user->email,
+                'image' => $user->image,
+                'created_at' => $user->created_at,
+                'is_login' => 1,
+                'logout_date_time' => $user->logout_date_time,
 
-
-            if ($seller && Hash::check($credentials['password'], $seller->password)) {
-                session([
-                    'user_type' => 'seller',
-                    'user_id' => $seller->id,
-                    'user_name' => $seller->full_name,
-                    'email' => $seller->email,
-                ]);
-                return redirect()->route('homepage')->with('success', 'Welcome, ' . $seller->name . '! You have logged in successfully!');
-            }
+            ]);
+            return redirect()->route('homepage')->with('success', 'Welcome, ' . $user->name . '! You have logged in successfully!');
         }
+        
+       
 
         // Redirect back with errors and old input values if login failed
         return redirect()->route('user.seller.login')->with(['error' => 'The provided credentials do not match our records.']);
@@ -70,13 +70,22 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-
+        if(session('user_id')){
+            $user = User::where('id', session('user_id'))->first();
+            $array = [
+                'is_login' => 0,
+                'logout_date_time' => date('Y-m-d H:i:s'),
+            ];
+            User::whereid($user->id)->update($array);
+        }
+       
         Auth::logout(); // Log out the user
         // Invalidate the session
         $request->session()->invalidate();
         session()->flush();
         // Regenerate the session token
         $request->session()->regenerateToken();
+       
         // Redirect to the login page or home page with a success message
         return redirect()->route('user.seller.login')->with('success', 'You have been logged out successfully.');
     }

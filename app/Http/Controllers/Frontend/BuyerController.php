@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Buyer;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 class BuyerController extends Controller
@@ -32,15 +32,16 @@ class BuyerController extends Controller
         }
 
         // Create the buyer
-        $buyer = new Buyer();
+        $buyer = new User();
         $buyer->name = $request->name;
+        $buyer->role_id = 3;
         $buyer->email = $request->email;
         $buyer->password = Hash::make($request->password); // Hash the password
         $buyer->save();
 
         // Redirect or return a response
         if ($buyer) {
-            return redirect()->route('buyer.register')->with('success', 'Registration successful! Please log in.');
+            return redirect()->route('user.seller.login')->with('success', 'Registration successful! Please log in.');
         }
     }
 
@@ -52,7 +53,7 @@ class BuyerController extends Controller
     public function getBuyerData()
     {
         if (request()->ajax()) {
-            $buyer = Buyer::get();
+            $buyer = User::where('role_id', 3)->get();
             return DataTables::of($buyer)
                 ->addColumn('action', function ($row) {
                     return '<a href="' . route('admin.buyer.show', $row->id) . '" class="btn btn-warning"><i class="fas fa-eye"></i></a>

@@ -875,6 +875,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'pusher/pusher-php-server' => array(
+            'pretty_version' => '7.2.4',
+            'version' => '7.2.4.0',
+            'reference' => 'de2f72296808f9cafa6a4462b15a768ff130cddb',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../pusher/pusher-php-server',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'ralouphie/getallheaders' => array(
             'pretty_version' => '3.0.3',
             'version' => '3.0.3.0',

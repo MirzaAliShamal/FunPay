@@ -45,8 +45,9 @@ table {
 .thclass {
     border: #eaeaea 1px solid;
     padding: 10px;
-    font-size:14px;
+    font-size: 14px;
 }
+
 /* Container for pagination */
 .pagination {
     margin: 20px 0;
@@ -69,7 +70,7 @@ table {
 }
 
 /* Pagination link container on small screens */
-.pagination .flex > div {
+.pagination .flex>div {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -138,6 +139,7 @@ table {
 
 /* Dark mode styles */
 @media (prefers-color-scheme: dark) {
+
     .pagination a,
     .pagination span {
         background-color: #2d3748;
@@ -157,7 +159,6 @@ table {
         border-color: #4a5568;
     }
 }
-
 </style>
 
 @section('content')
@@ -221,7 +222,8 @@ table {
                             style="width: 110px; height: 110px;">
                             <div class="inside">
                                 <div class="counter-param">{{ $subcat->name }}</div>
-                                <div class="counter-value">@if($subcat->offers){{count($subcat->offers)}}@else 0 @endif</div>
+                                <div class="counter-value">@if($subcat->offers){{count($subcat->offers)}}@else 0 @endif
+                                </div>
                             </div>
                         </a>
                         @endforeach
@@ -249,7 +251,7 @@ table {
                                     <div class="row">
                                         <div class="col-md-9 col-sm-8">
                                             <div class="showcase-filters">
-                                                <form method="GET"
+                                                <!-- <form method="GET"
                                                     action="{{ route('subcatpage', $subcategory->slug) }}"
                                                     class="form-inline form-inline-long form-inline-margins">
                                                     <div class="lot-fields">
@@ -310,8 +312,7 @@ table {
                                                         @elseif ($filter->type === 'textarea')
                                                         <div class="form-group">
                                                             <textarea class="form-control showcase-filter-input"
-                                                                name="filters[{{ $filter->id }}]"
-                                                                style="height:40px"
+                                                                name="filters[{{ $filter->id }}]" style="height:40px"
                                                                 placeholder="Enter {{ $filter->name }}">{{ request('filters.' . $filter->id) }}</textarea>
                                                         </div>
                                                         @elseif ($filter->type === 'date')
@@ -334,10 +335,10 @@ table {
                                                         <button type="submit" class="btn btn-primary">Apply
                                                             Filters</button>
                                                     </div>
-                                                </form>
+                                                </form> -->
                                             </div>
                                         </div>
-                                        <div class="col-md-3 col-sm-4 hidden-xs">
+                                        <div class="col-md-3 col-sm-4 hidden-xs mb-3">
 
                                             <div class="pull-right">
                                                 @if(!session('user_id'))
@@ -365,26 +366,58 @@ table {
                                                 <th class="thclass">Price</th>
                                             </tr>
                                         <tbody>
-                                            @php 
-                                                function getTimePassed($date)
-                                                {
-                                                    $createdAt = Carbon::parse($date);
-                                                    return $createdAt->diffForHumans();
-                                                }
+                                            @php
+                                            function getTimePassed($date)
+                                            {
+                                            $createdAt = Carbon::parse($date);
+                                            return $createdAt->diffForHumans();
+                                            }
+
+                                            function getRelatedValue($searchKey, $keysArray, $valuesArray)
+                                            {
+
+                                            $index = array_search($searchKey, $keysArray);
+                                            if ($index !== false && isset($valuesArray[$index])) {
+                                            return $valuesArray[$index];
+
+                                            }
+                                            }
                                             @endphp
                                             @foreach ($items as $item)
                                             @php
-                                                $seller_data = $seller_obj->whereid($item->seller_id)->get()->toArray();
-                                                $time_difference = getTimePassed($item->created_at);
-                                                
+                                            $seller_data = $seller_obj->whereid($item->seller_id)->get()->toArray();
+                                            $time_difference = getTimePassed($item->created_at);
+
+                                            $array = json_decode($item->fields);
+                                            $labels = [];
+                                            $values = [];
+
+                                            foreach($array as $key => $arr){
+                                            $temp_variable = explode('-',$arr);
+                                            if(count($temp_variable)>1){
+                                            $values[] = $arr;
+                                            }else{
+                                            $labels[] = $arr;
+                                            }
+                                            }
+
+                                            $searchKey = $subcategory->offercategory->name;
+                                            $result = getRelatedValue($searchKey, $labels, $values);
+                                            $platform = explode("-", $result);
+
                                             @endphp
+                                            @if(session('user_type') == 'buyer' || !session('user_type'))
                                             <tr>
-                                                
-                                                
-                                                <th class="thclass" width="20%"></th>
-                                                <th class="thclass" width="40%">{{ $item->description }}</th>
-                                                <th class="thclass" width="20%">
-                                                    <div class="tc-user" >
+                                                <td class="thclass" width="20%"><a
+                                                        style="text-decoration: none; color: inherit;"
+                                                        href="{{ route('buyer.checkout', $item->id) }}">{{$platform[1]}}</a>
+                                                </td>
+                                                <td class="thclass" width="40%"><a
+                                                        style="text-decoration: none; color: inherit;"
+                                                        href="{{ route('buyer.checkout', $item->id) }}">{{ $item->description }}</a>
+                                                </td>
+                                                <td class="thclass" width="20%">
+                                                    <div class="tc-user">
                                                         <div class="media media-user online style-circle">
                                                             <div class="media-left">
                                                                 <div class="avatar-photo pseudo-a" tabindex="0"
@@ -392,25 +425,64 @@ table {
                                                                     style="background-image: url(https://sfunpay.com/s/avatar/d3/6o/d36o0azpw4v9azf1vqec.jpg);">
                                                                 </div>
                                                             </div>
-                                                            <div class="media-body" >
+                                                            <div class="media-body">
                                                                 <div class="media-user-name">
-                                                                    <span class="pseudo-a" tabindex="0"
-                                                                        data-href="https://funpay.com/en/users/8674443/">{{$seller_data[0]['full_name']}}</span>
+                                                                    <span class="pseudo-a"
+                                                                        tabindex="0">{{ $seller_data[0]['name'] }}</span>
                                                                 </div>
                                                                 <div class="media-user-reviews">
                                                                     <div class="rating-stars rating-5"><i
                                                                             class="fas"></i><i class="fas"></i><i
                                                                             class="fas"></i><i class="fas"></i><i
-                                                                            class="fas"></i></div><span
-                                                                        class="rating-mini-count">847</span>
+                                                                            class="fas"></i></div>
+                                                                    <span class="rating-mini-count">847</span>
                                                                 </div>
-                                                                <div class="media-user-info">{{$time_difference}}</div>
+                                                                <div class="media-user-info">{{ $time_difference }}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </th>
-                                                <th class="thclass" width="20%">${{ number_format($item->price, 2) }}</th>
+                                                </td>
+                                                <td class="thclass" width="20%">
+                                                    <a style="text-decoration: none; color: inherit;"
+                                                        href="{{ route('buyer.checkout', $item->id) }}">${{ number_format($item->price, 2) }}</a>
+                                                </td>
                                             </tr>
+                                            @else
+                                            <tr>
+                                                <td class="thclass" width="20%">{{$platform[1]}}</td>
+                                                <td class="thclass" width="40%">{{ $item->description }}</td>
+                                                <td class="thclass" width="20%">
+                                                    <div class="tc-user">
+                                                        <div class="media media-user online style-circle">
+                                                            <div class="media-left">
+                                                                <div class="avatar-photo pseudo-a" tabindex="0"
+                                                                    data-href="https://funpay.com/en/users/8674443/"
+                                                                    style="background-image: url(https://sfunpay.com/s/avatar/d3/6o/d36o0azpw4v9azf1vqec.jpg);">
+                                                                </div>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <div class="media-user-name">
+                                                                    <span class="pseudo-a"
+                                                                        tabindex="0">{{ $seller_data[0]['name'] }}</span>
+                                                                </div>
+                                                                <div class="media-user-reviews">
+                                                                    <div class="rating-stars rating-5"><i
+                                                                            class="fas"></i><i class="fas"></i><i
+                                                                            class="fas"></i><i class="fas"></i><i
+                                                                            class="fas"></i></div>
+                                                                    <span class="rating-mini-count">847</span>
+                                                                </div>
+                                                                <div class="media-user-info">{{ $time_difference }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="thclass" width="20%">
+                                                    ${{ number_format($item->price, 2) }}</td>
+                                            </tr>
+                                            @endif
                                             @endforeach
                                         </tbody>
                                         </thead>

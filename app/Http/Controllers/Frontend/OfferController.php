@@ -91,6 +91,7 @@ class OfferController extends Controller
             'image' => json_encode($imagePaths),
             'status' => $status,
             'offer_category_id' => $offer_category_id,
+            'sub_category_id' => $sub_category_id,
         ]);
 
         return redirect()->route('offer.index')->with('success', 'Offer saved successfully!');

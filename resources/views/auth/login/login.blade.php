@@ -25,21 +25,11 @@
                                     @endif
                                    
 
-                                    <div class="form-group">
-                                        <label class="control-label">Login as:</label>
-                                        <div class="switch">
-                                            <input type="radio" id="seller" name="user_type" value="seller"
-                                                onchange="toggleUserType()">
-                                            <label for="seller">Seller</label>
-                                            <input type="radio" id="buyer" name="user_type" value="buyer"
-                                                onchange="toggleUserType()">
-                                            <label for="buyer">Buyer</label>
-                                        </div>
-                                    </div>
+                                  
 
                                     <div class="form-group">
                                         <div class="text-light mb10">
-                                            Or using a username, an email and a password:
+                                            Enter your valid email and password!
                                         </div>
                                         <input type="text" class="form-control" name="email" value="{{ old('login') }}"
                                             required autofocus placeholder="Email address" />
@@ -56,7 +46,7 @@
                                         <a href="recover.html">Forgot your password?</a>
                                     </div>
 
-                                    <a class="btn btn-block btn-social btn-foursquare text-white"
+                                    <!-- <a class="btn btn-block btn-social btn-foursquare text-white"
                                         style="background-color: #6441A5; color:white;">
                                         <span class="fa fa-twitch"></span> Sign in with Twitch
                                     </a>
@@ -77,7 +67,7 @@
                                     <a class="btn btn-block btn-social btn-google text-white"
                                         style="background-color: #dd4b39; color:white;">
                                         <span class="fa fa-google"></span> Sign in with Google
-                                    </a>
+                                    </a> -->
 
                                     <button type="submit" class="btn btn-primary btn-block">
                                         Log In

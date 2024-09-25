@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Seller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SellerController extends Controller
@@ -28,9 +28,9 @@ class SellerController extends Controller
     public function store(Request $request)
     {
 
-
+       
         $validatedData = $request->validate([
-            'full_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'country' => 'required|string|max:255',
             'email' => 'required|email',
             'password' => 'required|string|min:6',
@@ -46,6 +46,7 @@ class SellerController extends Controller
             'other_info' => 'nullable|string',
             'stock_source' => 'required|string',
             'selling_elsewhere' => 'nullable|integer',
+            
         ]);
 
 
@@ -55,16 +56,17 @@ class SellerController extends Controller
         $idCardFrontPath = $request->file('id_card_front')->store('uploads/id_card_fronts');
         $idCardBackPath = $request->file('id_card_back')->store('uploads/id_card_backs');
 
-        Seller::create(array_merge($validatedData, [
+        User::create(array_merge($validatedData, [
             'selfie' => $selfie,
             'id_card_front' => $idCardFrontPath,
             'id_card_back' => $idCardBackPath,
             'password' => bcrypt($request->password), // Hash the password
+            'role_id' =>  2
         ]));
 
 
         // Redirect to success page
-        return redirect()->route('frontend.seller.register')->with('success', 'Seller Registered Successfully!');
+        return redirect()->route('user.seller.login')->with('success', 'Seller Registered Successfully!');
     }
 
 
