@@ -1,26 +1,21 @@
 <header id="header">
-          <div class="container">
-            <div id="global-origin"></div>
-            <nav class="navbar navbar-default">
-              <div class="hide-navbar"></div>
-              <div class="container-fluid">
+    <div class="container">
+        <div id="global-origin"></div>
+        <nav class="navbar navbar-default">
+            <div class="hide-navbar"></div>
+            <div class="container-fluid">
                 <div class="navbar-header">
-                  <button
-                    type="button"
-                    class="collapsed navbar-toggle navbar-toggle-guest"
-                    data-toggle="collapse"
-                    data-target="#navbar"
-                    aria-expanded="false"
-                  >
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  <a href="{{route('homepage')}}" class="navbar-brand">
-                    <img src="https://funpay.com/img/layout/logo-funpay.svg" alt="FunPay" class="logo-color" />
-                </a>
-                  <!-- <form
+                    <button type="button" class="collapsed navbar-toggle navbar-toggle-guest" data-toggle="collapse"
+                        data-target="#navbar" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="{{route('homepage')}}" class="navbar-brand">
+                        <img src="https://funpay.com/img/layout/logo-funpay.svg" alt="FunPay" class="logo-color" />
+                    </a>
+                    <!-- <form
                     action=""
                     method="post"
                     class="navbar-form navbar-left dropdown promo-games-filter"
@@ -45,11 +40,8 @@
                   </form> -->
                 </div>
                 <div class="nav-container">
-                  <div
-                    class="collapse navbar-collapse no-transition"
-                    id="navbar"
-                  >
-                    <!-- <ul class="nav navbar-nav">
+                    <div class="collapse navbar-collapse no-transition" id="navbar">
+                        <!-- <ul class="nav navbar-nav">
                       <li class="dropdown">
                         <a
                           href="index.html"
@@ -88,21 +80,63 @@
                       </li>
                       
                     </ul> -->
-                    <ul class="nav navbar-nav navbar-right">
-                      @if(!session('user_id'))
-                      <li>
-                        <a href="{{route('user.seller.login')}}" class="menu-item-login"
-                          >Log In</a
-                        >
-                      </li>
-                      <li><a href="{{route('buyer.register')}}" class="menu-item-register">Sign Up</a></li>
-                      <li><a href="{{route('seller.register')}}" class="menu-item-register">Sign Up as Seller</a></li>
-                      @else
-                      <li class="active"><a href="{{route('message')}}" class="menu-item-chat">{{ucfirst(session('user_type'))}}</a></li>
-                      <li class="active"><a href="{{route('message')}}" class="menu-item-chat">Messages <span class="badge badge-chat hidden">1</span></a></li>
-                      <li><a href="{{route('user.seller.logout')}}" method="POST" class="menu-item-register">Logout</a></li>
-                      @endif
-                      <!-- <li class="dropdown">
+                        <ul class="nav navbar-nav navbar-right">
+                            @if(!session('user_id'))
+                            <li>
+                                <a href="{{route('user.seller.login')}}" class="menu-item-login">Log In</a>
+                            </li>
+                            <li><a href="{{route('buyer.register')}}" class="menu-item-register">Sign Up</a></li>
+                            <li><a href="{{route('seller.register')}}" class="menu-item-register">Sign Up as Seller</a>
+                            </li>
+                            @else
+                            <li class="active"><a href="{{route('message')}}"
+                                    class="menu-item-chat">{{ucfirst(session('user_type'))}}</a></li>
+                            <li class="active"><a href="{{route('message')}}" class="menu-item-chat">Messages <span
+                                        class="badge badge-chat hidden">1</span></a></li>
+                            <li><a href="{{route('user.seller.logout')}}" method="POST"
+                                    class="menu-item-register">Logout</a></li>
+                            <li class="dropdown hidden-sm hidden-xs">
+                                <a href="javascript:void(0)" class="dropdown-toggle user-link" data-toggle="dropdown"
+                                    role="button" aria-haspopup="true" aria-expanded="false">
+                                    <div class="user-link-photo"><img src="{{asset('public/assets/frontend/img/avatar.png')}}" alt=""></div>
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{route('account.profile')}}" class="user-link-dropdown">
+                                            <div class="user-link-name">shaheryar</div>
+                                            <div class="user-link-desc">Profile</div>
+                                        </a>
+                                    </li>
+                                    <li><a href="javascript:void(0)"
+                                            class="menu-item-settings">Settings</a></li>
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0)" class="dropdown-toggle menu-item-langs"
+                                            data-toggle="dropdown">
+                                            English <i class="menu-icon menu-icon-lang-en"></i> <span
+                                                class="caret"></span>
+                                        </a>
+                                        
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0)" class="dropdown-toggle menu-item-currencies"
+                                            data-toggle="dropdown">
+                                            USD <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="javascript:void(0)" data-cy="eur"
+                                                    class="user-cy-switcher menu-item-currency">
+                                                    EUR </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="https://funpay.com/en/account/logout?token=7a42a8b5ddd2312c"
+                                            class="menu-item-logout">Log Out</a></li>
+                                </ul>
+                            </li>
+                            @endif
+                            <!-- <li class="dropdown">
                         <a
                           href="javascript:void(0)"
                           class="dropdown-toggle menu-item-langs"
@@ -132,7 +166,7 @@
                           </li>
                         </ul>
                       </li> -->
-                      <!-- <li class="dropdown">
+                            <!-- <li class="dropdown">
                         <a
                           href="javascript:void(0)"
                           class="dropdown-toggle menu-item-currencies"
@@ -152,10 +186,10 @@
                           </li>
                         </ul>
                       </li> -->
-                    </ul>
-                  </div>
+                        </ul>
+                    </div>
                 </div>
-              </div>
-            </nav>
-          </div>
-        </header>
+            </div>
+        </nav>
+    </div>
+</header>

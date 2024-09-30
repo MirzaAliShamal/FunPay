@@ -266,10 +266,10 @@ use Carbon\Carbon;
                                     </div>
                                 </div>
                             </div>
-
-                            <form action="https://funpay.com/en/orders/new" method="post" class="mb40">
-
-
+                            @if(session('user_type') == 'buyer')
+                            <form action="{{route('order.payment')}}" method="post" class="mb40">
+                            @csrf
+                            <input type="hidden" id="offer_id" name="offer_id" value="{{$offers->id}}">
                                 <!-- Chrome Autofill Bug Fix -->
                                 <div class="form-group hidden">
                                     <input type="text" class="form-control" name="username" autocomplete="username"
@@ -277,8 +277,8 @@ use Carbon\Carbon;
                                 </div>
 
 
-                                <!-- <div class="row form-group-swap offer-calc-box">
-                                        <div class="col-xs-6">
+                                <div class="row form-group-swap offer-calc-box">
+                                        <!-- <div class="col-xs-6">
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">To be received</label>
                                                 <input type="text" class="form-control" name="amount"
@@ -303,11 +303,13 @@ use Carbon\Carbon;
                                                 <span class="form-control-feedback"></span>
                                             </div>
                                         </div>
-                                    </div> -->
-                                <!-- <div class="form-group">
-                                        <label class="control-label">Character name</label>
-                                        <input type="text" class="form-control" name="player" />
-                                    </div> -->
+                                    </div>  -->
+                                    <div class="form-group">
+                                        <label class="control-label">Payment Methods</label>
+                                        <select name="payment_gatways" id="payment_gatways" class="form-control">
+                                            <option value="stripe">Stripe</option>
+                                        </select>
+                                    </div>
 
                                 <div class="js-order-prices row row-20 row-inline flex-nowrap hidden">
                                     <div class="js-price-row col-sm-4 col-xs-6">
@@ -358,6 +360,9 @@ use Carbon\Carbon;
                                     </p>
                                 </div>
                             </form>
+                            @else
+                            <a href="{{route('user.seller.login')}}" class="btn btn-primary btn-block">Buy</a>
+                            @endif
                         </div>
 
                         <hr class="hidden-xs" />

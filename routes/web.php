@@ -21,6 +21,8 @@ use App\Http\Controllers\Frontend\SellerController;
 use App\Http\Controllers\Frontend\MessageController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Frontend\OrderController;
+use App\Http\Controllers\Frontend\ProfileController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -69,6 +71,18 @@ Route::get('/frontend/logout', [LoginController::class, 'logout'])->name('user.s
 Route::get('/account/register', [BuyerController::class, 'index'])->name('buyer.register');
 Route::post('/buyer/store', [BuyerController::class, 'store'])->name('buyer.store');
 
+
+// **************************** Order Routes ****************************
+Route::get('/make-payment-session', [OrderController::class, 'makePaymentSession'])->name('makepaymentsession');
+Route::post('/order/payment/details', [OrderController::class, 'index'])->name('order.payment');
+Route::get('/make-payment-session', [OrderController::class, 'index'])->name('paymenturl');
+Route::get('/initiate-stripe-payment', [OrderController::class, 'initiateStripePayment'])->name('initiatestripepayment');
+Route::get('/stripe-payment-process', [OrderController::class, 'index']);
+
+// **************************** Account Routes ****************************
+Route::get('/account-profile', [ProfileController::class, 'index'])->name('account.profile');
+Route::get('/stripe/account/connection', [ProfileController::class, 'createConnectedAccount'])->name('stripe.account.connection');
+
 // **************************** Frontend Routes ****************************
 Route::get('/', [FrontController::class, 'index'])->name('homepage');
 Route::get('/game-details/{slug}', [FrontController::class, 'showdetails'])->name('game.details');
@@ -79,6 +93,8 @@ Route::get('/admin', [HomeController::class, 'index'])->name('indexlogin');
 Route::get('/login', [HomeController::class, 'index'])->name('login');
 Route::post('/user-login', [HomeController::class, 'userLogin'])->name('userlogin');
 Route::get('/logout', [HomeController::class, 'logoutUser'])->name('logoutuser');
+
+
 
 
 // **************************** Filters ****************************

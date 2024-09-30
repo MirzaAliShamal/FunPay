@@ -13,9 +13,15 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('game_id');
-            $table->string('short description');
-            $table->string('detailed description');
+            $table->integer('customer_id');
+            $table->integer('offer_id');
+            $table->integer('seller_id');
+            $table->string('order_id');
+            $table->string('stripe_payment_id')->nullable();
+            $table->string('stripe_customer_id')->nullable();
+            $table->string('card_number')->nullable();
+            $table->text('order_notes')->nullable();
+            $table->tinyInteger('status')->default(2);
             $table->timestamps();
         });
     }
