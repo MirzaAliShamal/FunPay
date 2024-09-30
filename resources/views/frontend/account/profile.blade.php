@@ -41,10 +41,10 @@
                             14 April, 18:57<br />
                             5 months ago
                         </div>
-                        <a width="100px" href="{{route('stripe.account.connection')}}"
+                        <!-- <a width="100px" href="{{route('stripe.account.connection')}}"
                             class="mt-5 btn btn-primary btn-block">
                             Connect Stripe
-                        </a>
+                        </a> -->
                     </div>
 
                     <div class="param-item profile-header-col-rating">
