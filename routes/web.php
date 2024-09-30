@@ -19,6 +19,7 @@ use App\Http\Controllers\OfferTypeController;
 use App\Http\Controllers\OfferFieldController;
 use App\Http\Controllers\Frontend\SellerController;
 use App\Http\Controllers\Frontend\MessageController;
+use App\Http\Controllers\Frontend\ReviewController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\OrderController;
@@ -148,7 +149,6 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::put('/offertype/update/{game}', [OfferTypeController::class, 'update'])->name('offertype.update');
     Route::delete('/offertype/destroy/{game}', [OfferTypeController::class, 'destroy'])->name('offertype.destroy');
 
-
     // **************************** Offer Field ****************************
     Route::get('/offerfield', [OfferFieldController::class, 'index'])->name('offerfield');
     Route::get('offerfield/get-data', [OfferFieldController::class, 'getOfferFieldData'])->name('offerField.data');
@@ -181,3 +181,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 // **************************** User ****************************
 Route::get('/user-profile', [UserController::class, 'profile'])->name('userprofile')->middleware('auth');
 Route::post('/update-profile', [UserController::class, 'updateProfile'])->name('updateprofile')->middleware('auth');
+
+// **************************** Reviews ****************************
+Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+

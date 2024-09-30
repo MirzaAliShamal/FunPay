@@ -17,6 +17,43 @@
  <link rel="preload" href="{{ asset('public/assets/frontend/681/fonts/Graphik-Semibold-Web.woff2') }}" as="font"
   type="font/woff2" crossorigin />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    .rating-container {
+    display: flex;
+    align-items: center;
+}
+
+.star {
+    font-size: 20px; /* Adjust as needed */
+    color: gold; /* Change to your preferred color */
+}
+.rating i {
+    color: gold; /* Star color */
+}
+
+.review-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.submit-review-btn {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-review-btn:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+  </style>
 </head>
 
 <body>
