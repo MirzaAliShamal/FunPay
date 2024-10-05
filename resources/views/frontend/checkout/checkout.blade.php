@@ -353,6 +353,7 @@ use Carbon\Carbon;
                                     <button type="submit" class="btn btn-primary btn-block">
                                         Buy
                                     </button>
+                                    
                                     <p class="help-block">
                                         The seller will not be able to receive the payment
                                         until you confirm that he has fulfilled his
